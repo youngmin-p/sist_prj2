@@ -32,7 +32,7 @@ public class SCAMovieManageView extends JDialog {
 		
 		// bg
 		JLabel jlblBackground = new JLabel(new ImageIcon(
-				"C:/dev/workspace/cinema_prj/src/kr/co/sist/cinema/admin/images/admin_movie_management_bg(600x700).png"));
+				"C:/dev/workspace/sist_prj2/src/kr/co/sist/sc/admin/images/admin_movie_management_bg(600x700).png"));
 		jlblBackground.setLayout(null);
 		jlblBackground.setBounds(0, 0, 600, 700);
 		

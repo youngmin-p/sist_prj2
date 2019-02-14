@@ -38,7 +38,7 @@ public class SCALoginView extends JFrame {
 		jpfPasswd.setBounds(85, 200, 125, 40);
 		
 		jbtLogin = new JButton(new ImageIcon(
-				"C:/dev/workspace/cinema_prj/src/kr/co/sist/cinema/admin/images/jbt_login(125x40).png"));
+				"C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_login(125x40).png"));
 		jbtLogin.setFont(new Font("³ª´®°íµñ", Font.BOLD, 16));
 		jbtLogin.setFocusable(false);
 		jbtLogin.setContentAreaFilled(false);
@@ -46,7 +46,7 @@ public class SCALoginView extends JFrame {
 		jbtLogin.setBounds(85, 350, 125, 40);
 		
 		JLabel jlblBackground = new JLabel(new ImageIcon(
-				"C:/dev/workspace/cinema_prj/src/kr/co/sist/cinema/admin/images/admin_login_bg(300x500).png"));
+				"C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/admin_login_bg(300x500).png"));
 		jlblBackground.setLayout(null);
 		jlblBackground.setBounds(0, 0, 300, 500);
 		
