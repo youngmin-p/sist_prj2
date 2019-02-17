@@ -14,7 +14,8 @@ public class SCASnackMenuAddView extends JDialog {
 		
 		this.jbtSnackImg = jbtSnackImg;
 		
-		setSize(1000, 800);
+		// size 620X555
+		setSize(620, 575);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setVisible(true);

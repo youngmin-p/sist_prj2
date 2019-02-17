@@ -12,8 +12,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import kr.co.sist.sc.admin.controller.SCABookManageController;
@@ -41,9 +43,12 @@ public class SCABookManageView extends JDialog {
 			} // isCellEditable
 		};
 		
+		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
+		dtcr.setHorizontalAlignment(SwingConstants.CENTER);
+		
 		jtabOnScreenList = new JTable(dtmOnScreenList);
 		jtabOnScreenList.getTableHeader().setFont(new Font("³ª´®°íµñ", Font.BOLD, 14));
-		jtabOnScreenList.getTableHeader().setForeground(Color.WHITE);
+//		jtabOnScreenList.getTableHeader().setForeground(Color.WHITE);
 		jtabOnScreenList.getTableHeader().setReorderingAllowed(false);
 		jtabOnScreenList.getTableHeader().setResizingAllowed(false);
 		jtabOnScreenList.getTableHeader().setPreferredSize(new Dimension(100, 30));
@@ -52,23 +57,34 @@ public class SCABookManageView extends JDialog {
 
 		jtabOnScreenList.setRowHeight(30);
 		
-		jtabOnScreenList.getColumnModel().getColumn(0).setPreferredWidth(60);
-		jtabOnScreenList.getColumnModel().getColumn(1).setPreferredWidth(80);
-		jtabOnScreenList.getColumnModel().getColumn(2).setPreferredWidth(80);
-		jtabOnScreenList.getColumnModel().getColumn(3).setPreferredWidth(80);
-		jtabOnScreenList.getColumnModel().getColumn(4).setPreferredWidth(80);
-		jtabOnScreenList.getColumnModel().getColumn(5).setPreferredWidth(80);
-		jtabOnScreenList.getColumnModel().getColumn(6).setPreferredWidth(80);
-		jtabOnScreenList.getColumnModel().getColumn(7).setPreferredWidth(80);
-		jtabOnScreenList.getColumnModel().getColumn(8).setPreferredWidth(80);
+		// 800X200
+		jtabOnScreenList.getColumnModel().getColumn(0).setPreferredWidth(50);	// num
+		jtabOnScreenList.getColumnModel().getColumn(0).setCellRenderer(dtcr);
+		jtabOnScreenList.getColumnModel().getColumn(1).setPreferredWidth(70);	// movie_code
+		jtabOnScreenList.getColumnModel().getColumn(1).setCellRenderer(dtcr);
+		jtabOnScreenList.getColumnModel().getColumn(2).setPreferredWidth(140);	// movie_title
+		jtabOnScreenList.getColumnModel().getColumn(3).setPreferredWidth(100);	// screen_num
+		jtabOnScreenList.getColumnModel().getColumn(3).setCellRenderer(dtcr);
+		jtabOnScreenList.getColumnModel().getColumn(4).setPreferredWidth(60);	// screen_name
+		jtabOnScreenList.getColumnModel().getColumn(4).setCellRenderer(dtcr);
+		jtabOnScreenList.getColumnModel().getColumn(5).setPreferredWidth(100);	// start_time
+		jtabOnScreenList.getColumnModel().getColumn(5).setCellRenderer(dtcr);
+		jtabOnScreenList.getColumnModel().getColumn(6).setPreferredWidth(100);	// end_time
+		jtabOnScreenList.getColumnModel().getColumn(6).setCellRenderer(dtcr);
+		jtabOnScreenList.getColumnModel().getColumn(7).setPreferredWidth(90);	// seat_remain
+		jtabOnScreenList.getColumnModel().getColumn(7).setCellRenderer(dtcr);
+		jtabOnScreenList.getColumnModel().getColumn(8).setPreferredWidth(90);	// seat_count
+		jtabOnScreenList.getColumnModel().getColumn(8).setCellRenderer(dtcr);
 		
 		JScrollPane jspOnScreenList = new JScrollPane(jtabOnScreenList);
-		jspOnScreenList.setBounds(15, 60, 845, 235);
+		jspOnScreenList.setBounds(15, 60, 815, 265);
 //		jspOnScreenList.setOpaque(false);
 //		jspOnScreenList.getViewport().setOpaque(false);
 		
+		jtabOnScreenList.getColumnModel().getColumn(8).setCellRenderer(dtcr);
+		
 		String[] bookColumnNames = {
-				"¾ÆÀÌµð", "¿¹¸Å ¹øÈ£", "¿¹¸Å ¼ö", "ÁÂ¼® ¹øÈ£", "°áÁ¦ÀÏ½Ã"
+				"¹øÈ£", "¾ÆÀÌµð", "¿¹¸Å ¹øÈ£", "¿¹¸Å ¼ö", "ÁÂ¼® ¹øÈ£", "°áÁ¦ÀÏ½Ã"
 			};
 		
 		dtmBookList = new DefaultTableModel(bookColumnNames, 15) {
@@ -80,72 +96,77 @@ public class SCABookManageView extends JDialog {
 		
 		jtabBookList = new JTable(dtmBookList);
 		jtabBookList.getTableHeader().setFont(new Font("³ª´®°íµñ", Font.BOLD, 14));
-		jtabBookList.getTableHeader().setForeground(Color.WHITE);
+//		jtabBookList.getTableHeader().setForeground(Color.WHITE);
 		jtabBookList.getTableHeader().setReorderingAllowed(false);
 		jtabBookList.getTableHeader().setResizingAllowed(false);
 		jtabBookList.getTableHeader().setPreferredSize(new Dimension(100, 30));
 		
 		jtabBookList.setRowHeight(30);
 		
-		jtabBookList.getColumnModel().getColumn(0).setPreferredWidth(140);
-		jtabBookList.getColumnModel().getColumn(1).setPreferredWidth(140);
-		jtabBookList.getColumnModel().getColumn(2).setPreferredWidth(140);
-		jtabBookList.getColumnModel().getColumn(3).setPreferredWidth(140);
-		jtabBookList.getColumnModel().getColumn(4).setPreferredWidth(140);
+		// 800X215
+		jtabBookList.getColumnModel().getColumn(0).setPreferredWidth(50);	// num
+		jtabBookList.getColumnModel().getColumn(0).setCellRenderer(dtcr);
+		jtabBookList.getColumnModel().getColumn(1).setPreferredWidth(100);	// member_id
+		jtabBookList.getColumnModel().getColumn(1).setCellRenderer(dtcr);
+		jtabBookList.getColumnModel().getColumn(2).setPreferredWidth(150);	// book_number
+		jtabBookList.getColumnModel().getColumn(2).setCellRenderer(dtcr);
+		jtabBookList.getColumnModel().getColumn(3).setPreferredWidth(150);	// personnel
+		jtabBookList.getColumnModel().getColumn(3).setCellRenderer(dtcr);
+		jtabBookList.getColumnModel().getColumn(4).setPreferredWidth(150);	// seat_num
+		jtabBookList.getColumnModel().getColumn(4).setCellRenderer(dtcr);
+		jtabBookList.getColumnModel().getColumn(5).setPreferredWidth(200);	// payment_date
+		jtabBookList.getColumnModel().getColumn(5).setCellRenderer(dtcr);
 		
 		JScrollPane jspBookList = new JScrollPane(jtabBookList);
-		jspBookList.setBounds(15, 25, 845, 220);
+		jspBookList.setBounds(15, 25, 815, 240);
 		
 		// jcb
-		// temp data
 		JLabel jlblMovieTitle = new JLabel("¿µÈ­¸í");
 		jlblMovieTitle.setFont(new Font("³ª´®°íµñ", Font.BOLD, 16));
 		jlblMovieTitle.setForeground(Color.WHITE);
-		jlblMovieTitle.setBounds(110, 20, 80, 30);
+		jlblMovieTitle.setBounds(105, 20, 80, 30);
 		
-		String[] tempName = {"ÅÂ±Ø±â ÈÖ³¯¸®¸ç", "¼Ò¸²Ãà±¸"};
-		
-		jcbMovieTitle = new JComboBox<String>(tempName);
-		jcbMovieTitle.setBounds(160, 20, 150, 30);
+		jcbMovieTitle = new JComboBox<String>();
+		jcbMovieTitle.setBounds(155, 20, 150, 30);
 		
 		JLabel jlblPersonnel = new JLabel("ÀÎ¿ø¼ö");
 		jlblPersonnel.setFont(new Font("³ª´®°íµñ", Font.BOLD, 16));
 		jlblPersonnel.setForeground(Color.WHITE);
-		jlblPersonnel.setBounds(515, 20, 80, 30);
+		jlblPersonnel.setBounds(495, 20, 80, 30);
 		
 		Integer[] arrPersonnel = {1, 2, 3, 4, 5};
 		
 		jcbPersonnel = new JComboBox<Integer>(arrPersonnel);
-		jcbPersonnel.setBounds(565, 20, 100, 30);
+		jcbPersonnel.setBounds(545, 20, 100, 30);
 		
 		// jbt
-		jbtSearch = new JButton("Á¶È¸");
-		jbtSearch.setFont(new Font("³ª´®°íµñ", Font.BOLD, 16));
+		jbtSearch = new JButton(new ImageIcon(
+				"C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_search(100x30).png"));
 		jbtSearch.setFocusable(false);
 		jbtSearch.setBorderPainted(false);
-//		jbtSearch.setContentAreaFilled(false);
-		jbtSearch.setBounds(315, 20, 80, 30);
+		jbtSearch.setContentAreaFilled(false);
+		jbtSearch.setBounds(310, 20, 100, 30);
 		
-		jbtBook = new JButton("¿¹¸Å");
-		jbtBook.setFont(new Font("³ª´®°íµñ", Font.BOLD, 16));
+		jbtBook = new JButton(new ImageIcon(
+				"C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_book(100x30).png"));
 		jbtBook.setFocusable(false);
 		jbtBook.setBorderPainted(false);
-//		jbtBook.setContentAreaFilled(false);
-		jbtBook.setBounds(670, 20, 80, 30);
+		jbtBook.setContentAreaFilled(false);
+		jbtBook.setBounds(650, 20, 100, 30);
 		
-		jbtClose = new JButton("´Ý±â");
-		jbtClose.setFont(new Font("³ª´®°íµñ", Font.BOLD, 16));
+		jbtClose = new JButton(new ImageIcon(
+				"C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_close(125x40).png"));
 		jbtClose.setFocusable(false);
 		jbtClose.setBorderPainted(false);
-//		jbtClose.setContentAreaFilled(false);
-		jbtClose.setBounds(375, 630, 125, 40);
+		jbtClose.setContentAreaFilled(false);
+		jbtClose.setBounds(375, 685, 125, 40);
 		
 		
 		// bg
 		JLabel jlblBackground = new JLabel(new ImageIcon(
-				"C:/dev/workspace/cinema_prj/src/kr/co/sist/cinema/admin/images/admin_bg(1000x800).png"));
+				"C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/book_management_3-1_main_bg(870x760).png"));
 		jlblBackground.setLayout(null);
-		jlblBackground.setBounds(0, 0, 900, 700);
+		jlblBackground.setBounds(0, 0, 870, 760);
 		
 		// jp
 		TitledBorder tbSiteBook = new TitledBorder(new LineBorder(Color.WHITE), "ÇöÀå ¿¹¸Å");
@@ -155,7 +176,7 @@ public class SCABookManageView extends JDialog {
 		jpSiteBook.setLayout(null);
 		jpSiteBook.setBorder(tbSiteBook);
 		jpSiteBook.setOpaque(false);
-		jpSiteBook.setBounds(10, 10, 875, 310);
+		jpSiteBook.setBounds(10, 10, 845, 340);
 		
 		jpSiteBook.add(jlblMovieTitle);
 		jpSiteBook.add(jcbMovieTitle);
@@ -172,14 +193,14 @@ public class SCABookManageView extends JDialog {
 		jpBookList.setLayout(null);
 		jpBookList.setBorder(tbBookList);
 		jpBookList.setOpaque(false);
-		jpBookList.setBounds(10, 350, 875, 260);
+		jpBookList.setBounds(10, 380, 845, 280);
 		
 		jpBookList.add(jspBookList);
 		
 		JPanel jp = new JPanel();
 		jp.setLayout(null);
 		jp.setBackground(Color.LIGHT_GRAY);
-		jp.setBounds(0, 0, 900, 700);
+		jp.setBounds(0, 0, 870, 760);
 		
 		jp.add(jpSiteBook);
 		jp.add(jpBookList);
@@ -197,8 +218,8 @@ public class SCABookManageView extends JDialog {
 		jbtBook.addActionListener(scabmc);
 		jbtClose.addActionListener(scabmc);
 		
-		// size 900X700
-		setSize(900, 720);
+		// size 870X760
+		setSize(870, 780);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setVisible(true);

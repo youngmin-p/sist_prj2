@@ -54,6 +54,7 @@ public class SCALoginDAO {
 				} // end if
 			} // end while
 		} finally {
+			if (rs != null) { rs.close(); } // end if
 			if (pstmt != null) { pstmt.close(); } // end if
 			if (con != null) { con.close(); } // end if
 		} // end finally

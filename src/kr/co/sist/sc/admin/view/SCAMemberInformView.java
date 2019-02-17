@@ -20,7 +20,8 @@ public class SCAMemberInformView extends JDialog {
 		
 		addWindowListener(scamic);
 		
-		setSize(1000, 800);
+		// size 320X500
+		setSize(320, 520);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setVisible(true);

@@ -1,7 +1,8 @@
 package kr.co.sist.sc.admin.vo;
 
 /**
- * 예매 관리 - 현장 예매 영화명 조회
+ * 예매 관리
+ * 현장 예매 영화명 조회
  * @author owner
  */
 public class SCABookMovieListVO {

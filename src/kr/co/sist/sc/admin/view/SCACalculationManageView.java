@@ -16,8 +16,8 @@ public class SCACalculationManageView extends JDialog {
 		
 		addWindowListener(scacmc);
 		
-		// size 900X700
-		setSize(900, 720);
+		// size 1000X800
+		setSize(1000, 820);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setVisible(true);

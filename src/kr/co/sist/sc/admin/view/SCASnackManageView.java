@@ -27,8 +27,8 @@ public class SCASnackManageView extends JDialog {
 		
 		addWindowListener(scasmc);
 		
-		// size 800X720
-		setSize(800, 720);
+		// size 900X800
+		setSize(900, 820);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setVisible(true);

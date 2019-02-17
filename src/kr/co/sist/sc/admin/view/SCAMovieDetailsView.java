@@ -17,8 +17,8 @@ public class SCAMovieDetailsView extends JDialog {
 		
 		
 		
-		// size 800X700
-		setSize(800, 720);
+		// size 830X820
+		setSize(830, 840);
 		setLocationRelativeTo(scammv);
 		setResizable(false);
 		setVisible(true);

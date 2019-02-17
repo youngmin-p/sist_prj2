@@ -14,8 +14,8 @@ public class SCAMemberManageView extends JDialog {
 		
 		addWindowListener(scammc);
 		
-		// size 600X700
-		setSize(600, 720);
+		// size 600X800
+		setSize(600, 820);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setVisible(true);

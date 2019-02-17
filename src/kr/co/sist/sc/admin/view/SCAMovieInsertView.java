@@ -17,8 +17,8 @@ public class SCAMovieInsertView extends JDialog {
 		
 		
 		
-		// size 800X700
-		setSize(800, 720);
+		// size 830X915
+		setSize(830, 935);
 		setLocationRelativeTo(scammv);
 		setResizable(false);
 		setVisible(true);

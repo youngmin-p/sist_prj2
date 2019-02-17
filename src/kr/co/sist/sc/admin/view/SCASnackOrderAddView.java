@@ -25,7 +25,8 @@ public class SCASnackOrderAddView extends JDialog {
 		
 		addWindowFocusListener(scasoac);
 		
-		setSize(1000, 800);
+		// size 620X470
+		setSize(620, 490);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setVisible(true);
