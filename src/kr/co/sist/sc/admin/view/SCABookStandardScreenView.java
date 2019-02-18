@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import kr.co.sist.sc.admin.controller.SCABookStandardScreenController;
-import kr.co.sist.sc.admin.vo.SCABookOnScreenVO;
+import kr.co.sist.sc.admin.vo.SCABookScreenVO;
 
 /**
  * 예매 관리
@@ -21,12 +21,9 @@ import kr.co.sist.sc.admin.vo.SCABookOnScreenVO;
 public class SCABookStandardScreenView extends JDialog {
 	private JButton[][] jbtSeat;
 	private JButton jbtSelect, jbtClose;
-	private SCABookOnScreenVO scabos_vo;
 	
-	public SCABookStandardScreenView(SCABookManageView scabmv, SCABookOnScreenVO scabos_vo) {
+	public SCABookStandardScreenView(SCABookManageView scabmv, SCABookScreenVO scabs_vo) {
 		super(scabmv, "예매 관리 - 스탠다드 좌석 선택", true);
-		
-		this.scabos_vo = scabos_vo;
 		
 		// seat 67X61
 		jbtSeat = new JButton[4][5];
@@ -92,7 +89,7 @@ public class SCABookStandardScreenView extends JDialog {
 		add(jp);
 		
 		// action
-		SCABookStandardScreenController scabssc = new SCABookStandardScreenController(this);
+		SCABookStandardScreenController scabssc = new SCABookStandardScreenController(this, scabs_vo);
 		
 		addWindowListener(scabssc);
 		
@@ -107,7 +104,7 @@ public class SCABookStandardScreenView extends JDialog {
 		
 		// size 520X600
 		setSize(520, 620);
-		setLocationRelativeTo(null);
+		setLocationRelativeTo(scabmv);
 		setResizable(false);
 		setVisible(true);
 		
@@ -125,8 +122,4 @@ public class SCABookStandardScreenView extends JDialog {
 		return jbtClose;
 	}
 
-	public SCABookOnScreenVO getScabos_vo() {
-		return scabos_vo;
-	}
-	
 } // class

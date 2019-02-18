@@ -5,9 +5,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import kr.co.sist.sc.admin.model.SCABookManageDAO;
@@ -17,6 +20,8 @@ import kr.co.sist.sc.admin.view.SCABookStandardScreenView;
 import kr.co.sist.sc.admin.vo.SCABookListVO;
 import kr.co.sist.sc.admin.vo.SCABookMovieListVO;
 import kr.co.sist.sc.admin.vo.SCABookOnScreenVO;
+import kr.co.sist.sc.admin.vo.SCABookScreenVO;
+import kr.co.sist.sc.admin.vo.SCABookSeatVO;
 
 public class SCABookManageController extends WindowAdapter implements ActionListener {
 	private SCABookManageView scabmv;
@@ -29,7 +34,6 @@ public class SCABookManageController extends WindowAdapter implements ActionList
 		
 		// 1) 영화명이 선택되지 않았을 경우 (최초 1회 전체 조회 수행)
 		searchBookOnScreen("");
-		searchBookList("");
 		
 	} // SCABookManageController
 	
@@ -52,11 +56,50 @@ public class SCABookManageController extends WindowAdapter implements ActionList
 			
 			// 2) 영화명이 선택됐을 경우 (특정 영화명 조회 시마다 수행)
 			searchBookOnScreen(movieCode);
-			searchBookList(movieCode);
 		} // end if
 		
 		if (ae.getSource() == scabmv.getJbtBook()) {
-			showBookScreen();
+			try {
+				JTable jtabOnScreenList = scabmv.getJtabOnScreenList();
+				
+				int row = jtabOnScreenList.getSelectedRow();
+				
+				String[] value = new String[5];
+				
+				value[0] = String.valueOf(jtabOnScreenList.getValueAt(row, 2));
+				value[1] = String.valueOf(jtabOnScreenList.getValueAt(row, 3));
+				value[2] = String.valueOf(jtabOnScreenList.getValueAt(row, 4));
+				value[3] = String.valueOf(jtabOnScreenList.getValueAt(row, 5));
+				value[4] = String.valueOf(jtabOnScreenList.getValueAt(row, 6));
+				
+				Calendar cal = Calendar.getInstance();
+				
+				int year = cal.get(Calendar.YEAR);
+				int month = cal.get(Calendar.MONTH) + 1;
+				int day = cal.get(Calendar.DAY_OF_MONTH);
+				
+				String screenDate = String.valueOf(
+						year + "-" + month + "-" + day + "/" + value[3] + "/" + value[4]);
+				
+				String personnel = String.valueOf(scabmv.getJcbPersonnel().getSelectedItem());
+				
+				SCABookScreenVO scabs_vo = new SCABookScreenVO(
+						screenDate, 
+						value[1], 
+						Integer.parseInt(personnel));
+				
+				if (JOptionPane.showConfirmDialog(scabmv, 
+						"[영화명 : " + value[0] + "]\n" + 
+						"[예매수 : " + personnel + "]\n" + 
+						"[상영관 : " + value[2] + "]\n" + 
+						"[상영일시 : " + screenDate + "]\n" + 
+						"선택하신 정보로 예매를 진행하시겠습니까?") == JOptionPane.OK_OPTION) {
+					showBookScreen(scabs_vo);
+				} // end if
+			} catch (ArrayIndexOutOfBoundsException aioobe) {
+				JOptionPane.showMessageDialog(scabmv, "예매하실 영화를 선택해주세요!");
+				aioobe.printStackTrace();
+			} // end catch
 		} // end if
 		
 		if (ae.getSource() == scabmv.getJbtClose()) {
@@ -123,13 +166,15 @@ public class SCABookManageController extends WindowAdapter implements ActionList
 				rowData[2] = scabos_vo.getMovie_title();
 				rowData[3] = scabos_vo.getScreen_num();
 				rowData[4] = scabos_vo.getScreen_name();
-				rowData[5] = scabos_vo.getStart_time();
-				rowData[6] = scabos_vo.getEnd_time();
+				rowData[5] = scabos_vo.getStart_time().substring(0, 2) + ":" + scabos_vo.getStart_time().substring(2);
+				rowData[6] = scabos_vo.getEnd_time().substring(0, 2) + ":" + scabos_vo.getEnd_time().substring(2);
 				rowData[7] = new Integer(1);
 				rowData[8] = scabos_vo.getSeat_count();
 				
 				dtmOnScreenList.addRow(rowData);
 			} // end for
+			
+			searchBookList(movieCode);
 		} catch (SQLException sqle) {
 			JOptionPane.showMessageDialog(scabmv, "상영 중인 영화 조회 중 문제가 발생했습니다.");
 			sqle.printStackTrace();
@@ -149,33 +194,40 @@ public class SCABookManageController extends WindowAdapter implements ActionList
 		try {
 			List<SCABookListVO> list = SCABookManageDAO.getInstance().selectBookList(movieCode);
 			
-//			Set<SCABookListVO> set = new HashSet<SCABookListVO>();
-//			
-//			for (int i = 0; i < list.size(); i++) {
-//				set.add(list.get(i).getMovie_title());
-//			} // end for
-//			
-//			Iterator<String> ita = set.iterator();
-//			
-//			while (ita.hasNext()) {
-//				scabmv.getJcbMovieTitle().addItem(ita.next());	
-//			} // end while
-			
 			SCABookListVO scabl_vo = null;
-			
 			Object[] rowData = null;
+			
+			List<Integer> seatNum = null;
+			int num = 0;
 			
 			for (int i = 0; i < list.size(); i++) {
 				scabl_vo = list.get(i);
 				
 				rowData = new Object[6];
 				
-				rowData[0] = new Integer(i + 1);
+				rowData[0] = new Integer(num++ + 1);
 				rowData[1] = scabl_vo.getMember_id();
 				rowData[2] = scabl_vo.getBook_number();
 				rowData[3] = scabl_vo.getPersonnel();
-				rowData[4] = scabl_vo.getSeat_num();
 				rowData[5] = scabl_vo.getPayment_date();
+				
+				// 인원수
+				int personnel = scabl_vo.getPersonnel();
+				int cnt = 0;
+				
+				seatNum = new ArrayList<Integer>();
+				
+				for (int j = i; j < i + personnel; j++) {
+					if (cnt < personnel) {
+						seatNum.add(list.get(j).getSeat_num());
+						
+						cnt++;
+					} // end if
+				} // end for
+				
+				i += cnt - 1;
+				
+				rowData[4] = seatNum.toString();
 				
 				dtmBookList.addRow(rowData);
 			} // end for
@@ -188,18 +240,17 @@ public class SCABookManageController extends WindowAdapter implements ActionList
 	/**
 	 * 예매 버튼 클릭 시 상영관에 따라 다른 스크린을 보여주는 메서드
 	 */
-	public void showBookScreen() {
+	public void showBookScreen(SCABookScreenVO scabs_vo) {
 		// 선택한 테이블의 해당 row의 상영관 정보를 가져와서 다른 
-		SCABookOnScreenVO scabos_vo = null;
 		
-		String move = JOptionPane.showInputDialog(scabmv, "스탠다드 : 1, 프리미엄 : 2");
+		String screenName = scabs_vo.getScreen_num().substring(0, 1);
 		
-		if (move.equals("1")) {
-			new SCABookStandardScreenView(scabmv, scabos_vo);
+		if (screenName.equals("N")) {
+			new SCABookStandardScreenView(scabmv, scabs_vo);
 		} // end if
 		
-		if (move.equals("2")) {
-			new SCABookPremiumScreenView(scabmv);
+		if (screenName.equals("P")) {
+			new SCABookPremiumScreenView(scabmv, scabs_vo);
 		} // end if
 	} // showBookScreen
 	

@@ -220,7 +220,7 @@ public class SCABookManageView extends JDialog {
 		
 		// size 870X760
 		setSize(870, 780);
-		setLocationRelativeTo(null);
+		setLocationRelativeTo(scamv);
 		setResizable(false);
 		setVisible(true);
 		

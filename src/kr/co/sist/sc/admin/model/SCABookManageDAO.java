@@ -199,18 +199,72 @@ public class SCABookManageDAO {
 			
 			StringBuilder selectQuery = new StringBuilder(); 
 			
+			System.out.println(movie_code);
+			
 			selectQuery
-			.append(" select m.member_id, b.book_number, b.personnel, ss.seat_num, b.payment_date ")
-			.append(" from member m, book b, standard_seat ss ")
-			.append(" where (b.member_id = m.member_id) ")
-			.append("   and (ss.book_number = b.book_number) ")
-			.append(" union ")
-			.append(" select m.member_id, b.book_number, b.personnel, ps.seat_num, b.payment_date ")
-			.append(" from member m, book b, premium_seat ps ")
-			.append(" where (b.member_id = m.member_id) ")
-			.append(" and (ps.book_number = b.book_number) ");
+			.append(" select * from ( ")
+			.append(" 	select * from ( ")
+			.append(" 		select m.member_id, b.book_number, b.personnel, ss.seat_num, b.payment_date ")
+			.append(" 		from member m, book b, standard_seat ss, on_screen os ")
+			.append(" 		where (b.member_id = m.member_id) ")
+			.append(" 		  and (ss.book_number = b.book_number) ")
+			.append(" 		  and (os.screen_num = b.screen_num) ")
+			.append(" 		  and os.screen_date = '2019-01-29' ");
+			
+			if (!movie_code.equals("")) {
+				selectQuery.append(" 		  and os.movie_code = ? ");
+			} // end if
+			
+			selectQuery
+			.append(" 		union ")
+			.append(" 		select m.member_id, b.book_number, b.personnel, ps.seat_num, b.payment_date ")
+			.append(" 		from member m, book b, premium_seat ps, on_screen os ")
+			.append(" 		where (b.member_id = m.member_id) ")
+			.append(" 		  and (ps.book_number = b.book_number) ")
+			.append(" 		  and (os.screen_num = b.screen_num) ");
+			
+			if (!movie_code.equals("")) {
+				selectQuery.append(" 		  and os.movie_code = ? ");
+			} // end if
+			
+			selectQuery
+			.append(" 		  and os.screen_date = '2019-01-29') ")
+			.append(" 		union ")
+			.append(" 		select * from ( ")
+			.append(" 		select b.member_id, b.book_number, b.personnel, ss.seat_num, b.payment_date ")
+			.append(" 		from book b, standard_seat ss, on_screen os ")
+			.append(" 		where (ss.book_number = b.book_number) ")
+			.append(" 		  and (os.screen_num = b.screen_num) ")
+			.append(" 		  and os.screen_date = '2019-01-29' ");
+			
+			if (!movie_code.equals("")) {
+				selectQuery.append(" 		  and os.movie_code = ? ");
+			} // end if
+			
+			selectQuery
+			.append(" 		  and member_id is null ")
+			.append(" 		union ")
+			.append(" 		select b.member_id, b.book_number, b.personnel, ps.seat_num, b.payment_date ")
+			.append(" 		from book b, premium_seat ps, on_screen os ")
+			.append(" 		where (ps.book_number = b.book_number) ")
+			.append(" 		  and (os.screen_num = b.screen_num) ");
+			
+			if (!movie_code.equals("")) {
+				selectQuery.append(" 		  and os.movie_code = ? ");
+			} // end if
+			
+			selectQuery
+			.append(" 		  and os.screen_date = '2019-01-29' ")
+			.append(" 		  and member_id is null)) ")
+			.append(" order by payment_date, seat_num ");
 			
 			pstmt = con.prepareStatement(selectQuery.toString());
+			
+			if (!movie_code.equals("")) {
+				for (int i = 1; i < 5; i++) {
+					pstmt.setString(i, movie_code);
+				} // end for
+			} // end if
 			
 			rs = pstmt.executeQuery();
 			

@@ -1,6 +1,7 @@
 package kr.co.sist.sc.admin.view;
 
 import java.awt.Color;
+import java.awt.Font;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -9,18 +10,50 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import kr.co.sist.sc.admin.controller.SCABookPremiumScreenController;
-import kr.co.sist.sc.admin.vo.SCABookOnScreenVO;
+import kr.co.sist.sc.admin.vo.SCABookScreenVO;
 
 @SuppressWarnings("serial")
 public class SCABookPremiumScreenView extends JDialog {
 	private JButton[][] jbtSeat;
 	private JButton jbtSelect, jbtClose;
-	private SCABookOnScreenVO scabos_vo;
 	
-	public SCABookPremiumScreenView(SCABookManageView scabmv) {
+	public SCABookPremiumScreenView(SCABookManageView scabmv, SCABookScreenVO scabs_vo) {
 		super(scabmv, "예매 관리 - 프리미엄 좌석 선택", true);
 		
-		this.scabos_vo = scabos_vo;
+		// seat 77X49
+		// need editable
+		jbtSeat = new JButton[2][5];
+		
+		int x = 33, y = 240, seat_num = 0;
+		
+		for (int i = 0; i < jbtSeat.length; i++) {
+			for (int j = 0; j < jbtSeat[0].length; j++) {
+				jbtSeat[i][j] = new JButton((seat_num++ + 1) + "", new ImageIcon(
+						"C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_p_seat_selectable(77x49).png"));
+				jbtSeat[i][j].setFont(new Font("나눔고딕", Font.BOLD, 20));
+				jbtSeat[i][j].setForeground(new Color(0, 134, 255));
+				jbtSeat[i][j].setHorizontalTextPosition(JButton.CENTER);
+				jbtSeat[i][j].setVerticalTextPosition(JButton.CENTER);
+				jbtSeat[i][j].setBorderPainted(false);
+				jbtSeat[i][j].setContentAreaFilled(false);
+				jbtSeat[i][j].setBounds(x, y, 77, 49);
+				
+				if (j < 2) {
+					x += 92;
+					y += 25;
+				} // end if
+				
+				if (j > 1) {
+					x += 92;
+					y -= 25;
+				} // end if
+				
+				add(jbtSeat[i][j]);
+			} // end for
+			
+			x = 33;
+			y += 99;
+		} // end for
 		
 		jbtSelect = new JButton(new ImageIcon(
 				"C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_book(125x40).png"));
@@ -86,10 +119,6 @@ public class SCABookPremiumScreenView extends JDialog {
 
 	public JButton getJbtClose() {
 		return jbtClose;
-	}
-
-	public SCABookOnScreenVO getScabos_vo() {
-		return scabos_vo;
 	}
 	
 } // class
