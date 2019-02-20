@@ -20,6 +20,10 @@ public class SCABookPremiumScreenView extends JDialog {
 	public SCABookPremiumScreenView(SCABookManageView scabmv, SCABookScreenVO scabs_vo) {
 		super(scabmv, "예매 관리 - 프리미엄 좌석 선택", true);
 		
+		this.setTitle(this.getTitle().concat(
+				" [ " + scabmv.getJtabOnScreenList().getValueAt(scabmv.getJtabOnScreenList().getSelectedRow(), 2) + 
+				" / " + scabmv.getJcbPersonnel().getSelectedItem() + "명 ]"));
+		
 		// seat 77X49
 		// need editable
 		jbtSeat = new JButton[2][5];
@@ -94,16 +98,22 @@ public class SCABookPremiumScreenView extends JDialog {
 		add(jp);
 		
 		// action
-		SCABookPremiumScreenController scabpsc = new SCABookPremiumScreenController(this);
+		SCABookPremiumScreenController scabpsc = new SCABookPremiumScreenController(this, scabs_vo);
 		
 		addWindowListener(scabpsc);
 		
 		jbtSelect.addActionListener(scabpsc);
 		jbtClose.addActionListener(scabpsc);
 		
+		for (int i = 0; i < jbtSeat.length; i++) {
+			for (int j = 0; j < jbtSeat[0].length; j++) {
+				jbtSeat[i][j].addActionListener(scabpsc);
+			} // end for
+		} // end for
+		
 		// size 520X600
 		setSize(520, 620);
-		setLocationRelativeTo(null);
+		setLocationRelativeTo(scabmv);
 		setResizable(false);
 		setVisible(true);
 		

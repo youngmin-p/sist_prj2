@@ -25,6 +25,10 @@ public class SCABookStandardScreenView extends JDialog {
 	public SCABookStandardScreenView(SCABookManageView scabmv, SCABookScreenVO scabs_vo) {
 		super(scabmv, "예매 관리 - 스탠다드 좌석 선택", true);
 		
+		this.setTitle(this.getTitle().concat(
+				" [ " + scabmv.getJtabOnScreenList().getValueAt(scabmv.getJtabOnScreenList().getSelectedRow(), 2) + 
+				" / " + scabmv.getJcbPersonnel().getSelectedItem() + "명 ]"));
+		
 		// seat 67X61
 		jbtSeat = new JButton[4][5];
 		

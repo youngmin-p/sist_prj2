@@ -21,7 +21,6 @@ import kr.co.sist.sc.admin.vo.SCABookListVO;
 import kr.co.sist.sc.admin.vo.SCABookMovieListVO;
 import kr.co.sist.sc.admin.vo.SCABookOnScreenVO;
 import kr.co.sist.sc.admin.vo.SCABookScreenVO;
-import kr.co.sist.sc.admin.vo.SCABookSeatVO;
 
 public class SCABookManageController extends WindowAdapter implements ActionListener {
 	private SCABookManageView scabmv;
@@ -64,13 +63,19 @@ public class SCABookManageController extends WindowAdapter implements ActionList
 				
 				int row = jtabOnScreenList.getSelectedRow();
 				
-				String[] value = new String[5];
+				String[] colValue = new String[7];
 				
-				value[0] = String.valueOf(jtabOnScreenList.getValueAt(row, 2));
-				value[1] = String.valueOf(jtabOnScreenList.getValueAt(row, 3));
-				value[2] = String.valueOf(jtabOnScreenList.getValueAt(row, 4));
-				value[3] = String.valueOf(jtabOnScreenList.getValueAt(row, 5));
-				value[4] = String.valueOf(jtabOnScreenList.getValueAt(row, 6));
+				for (int i = 0; i < colValue.length; i++) {
+					colValue[i] = String.valueOf(jtabOnScreenList.getValueAt(row, (i + 1)));
+				} // end for
+				
+				String movieCode = colValue[0];
+				String movieTitle = colValue[1];
+				String screenNum = colValue[2];
+				String screenName = colValue[3];
+				String startTime = colValue[4];
+				String endTime = colValue[5];
+				String seat_remain = colValue[6];
 				
 				Calendar cal = Calendar.getInstance();
 				
@@ -79,21 +84,29 @@ public class SCABookManageController extends WindowAdapter implements ActionList
 				int day = cal.get(Calendar.DAY_OF_MONTH);
 				
 				String screenDate = String.valueOf(
-						year + "-" + month + "-" + day + "/" + value[3] + "/" + value[4]);
+						year + "-" + month + "-" + day + "/" + startTime + "/" + endTime);
 				
 				String personnel = String.valueOf(scabmv.getJcbPersonnel().getSelectedItem());
 				
 				SCABookScreenVO scabs_vo = new SCABookScreenVO(
+						movieCode, 
 						screenDate, 
-						value[1], 
+						screenName, 
+						screenNum, 
 						Integer.parseInt(personnel));
 				
 				if (JOptionPane.showConfirmDialog(scabmv, 
-						"[영화명 : " + value[0] + "]\n" + 
+						"[영화명 : " + movieTitle + "]\n" + 
 						"[예매수 : " + personnel + "]\n" + 
-						"[상영관 : " + value[2] + "]\n" + 
+						"[상영관 : " + screenName + "]\n" + 
 						"[상영일시 : " + screenDate + "]\n" + 
-						"선택하신 정보로 예매를 진행하시겠습니까?") == JOptionPane.OK_OPTION) {
+						"선택하신 정보로 예매를 진행하시겠습니까?", "영화 예매", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+					if (Integer.parseInt(seat_remain) < Integer.parseInt(personnel)) {
+						JOptionPane.showMessageDialog(scabmv, "잔여 좌석이 부족합니다!");
+						resetBookScreen();
+						return;
+					} // end if
+					
 					showBookScreen(scabs_vo);
 				} // end if
 			} catch (ArrayIndexOutOfBoundsException aioobe) {
@@ -116,23 +129,8 @@ public class SCABookManageController extends WindowAdapter implements ActionList
 		try {
 			movieList = SCABookManageDAO.getInstance().selectMovieList();
 			
-//			Set<String> set = new HashSet<String>();
-//			
-//			for (int i = 0; i < list.size(); i++) {
-//				set.add(list.get(i).getMovie_title());
-//			} // end for
-//			
-//			Iterator<String> ita = set.iterator();
-//			
-//			while (ita.hasNext()) {
-//				scabmv.getJcbMovieTitle().addItem(ita.next());	
-//			} // end while
-			
 			for (int i = 0; i < movieList.size(); i++) {
 				scabmv.getJcbMovieTitle().addItem(movieList.get(i).getMovie_title());
-				
-				// value check
-				System.out.println((i + 1) + " / " + movieList.get(i).getMovie_code() + " / " + movieList.get(i).getMovie_title());
 			} // end for
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
@@ -168,7 +166,7 @@ public class SCABookManageController extends WindowAdapter implements ActionList
 				rowData[4] = scabos_vo.getScreen_name();
 				rowData[5] = scabos_vo.getStart_time().substring(0, 2) + ":" + scabos_vo.getStart_time().substring(2);
 				rowData[6] = scabos_vo.getEnd_time().substring(0, 2) + ":" + scabos_vo.getEnd_time().substring(2);
-				rowData[7] = new Integer(1);
+				rowData[7] = scabos_vo.getSeat_remain();
 				rowData[8] = scabos_vo.getSeat_count();
 				
 				dtmOnScreenList.addRow(rowData);
@@ -236,6 +234,16 @@ public class SCABookManageController extends WindowAdapter implements ActionList
 			sqle.printStackTrace();
 		} // end catch
 	} // searchBookList
+	
+	/**
+	 * 예매 관리 초기화
+	 */
+	private void resetBookScreen() {
+		scabmv.getJcbMovieTitle().setSelectedIndex(0);
+		scabmv.getJcbPersonnel().setSelectedIndex(0);
+		
+		searchBookOnScreen("");
+	} // resetBookScreen
 	
 	/**
 	 * 예매 버튼 클릭 시 상영관에 따라 다른 스크린을 보여주는 메서드

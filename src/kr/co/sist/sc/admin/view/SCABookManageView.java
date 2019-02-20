@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
@@ -33,7 +34,7 @@ public class SCABookManageView extends JDialog {
 		
 		// jtab
 		String[] onScreenColumnNames = {
-			"번호", "영화 코드", "영화 제목", "상영 번호", "상영관", "상영 시작 시간", "상영 종료 시간", "잔여 좌석 수", "총 좌석 수"	
+			"번호", "영화 코드", "영화 제목", "상영 번호", "상영관", "상영 시작 시간", "상영 종료 시간", "잔여 좌석수", "총 좌석수"	
 		};
 		
 		dtmOnScreenList = new DefaultTableModel(onScreenColumnNames, 15) {
@@ -48,13 +49,24 @@ public class SCABookManageView extends JDialog {
 		
 		jtabOnScreenList = new JTable(dtmOnScreenList);
 		jtabOnScreenList.getTableHeader().setFont(new Font("나눔고딕", Font.BOLD, 14));
-//		jtabOnScreenList.getTableHeader().setForeground(Color.WHITE);
+		jtabOnScreenList.getTableHeader().setBorder(new LineBorder(Color.WHITE));
+		jtabOnScreenList.getTableHeader().setForeground(Color.WHITE);
+		jtabOnScreenList.getTableHeader().setBackground(new Color(20, 35, 65));
 		jtabOnScreenList.getTableHeader().setReorderingAllowed(false);
 		jtabOnScreenList.getTableHeader().setResizingAllowed(false);
 		jtabOnScreenList.getTableHeader().setPreferredSize(new Dimension(100, 30));
-//		jtabOnScreenList.getTableHeader().setOpaque(false);
-//		jtabOnScreenList.setOpaque(false);
-
+		jtabOnScreenList.getTableHeader().setOpaque(false);
+		
+		jtabOnScreenList.setBorder(new LineBorder(Color.WHITE));
+		jtabOnScreenList.setGridColor(new Color(20, 35, 65));
+		jtabOnScreenList.setShowVerticalLines(false);
+		jtabOnScreenList.setOpaque(false);
+		
+		jtabOnScreenList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		jtabOnScreenList.setSelectionForeground(Color.WHITE);
+		jtabOnScreenList.setSelectionBackground(new Color(20, 35, 65));
+		jtabOnScreenList.setFocusable(false);
+		
 		jtabOnScreenList.setRowHeight(30);
 		
 		// 800X200
@@ -78,10 +90,11 @@ public class SCABookManageView extends JDialog {
 		
 		JScrollPane jspOnScreenList = new JScrollPane(jtabOnScreenList);
 		jspOnScreenList.setBounds(15, 60, 815, 265);
-//		jspOnScreenList.setOpaque(false);
-//		jspOnScreenList.getViewport().setOpaque(false);
 		
-		jtabOnScreenList.getColumnModel().getColumn(8).setCellRenderer(dtcr);
+		jspOnScreenList.setBorder(new LineBorder(new Color(20, 45, 87)));
+		jspOnScreenList.setBackground(new Color(20, 45, 87));
+		jspOnScreenList.getViewport().setBackground(Color.WHITE);
+		jspOnScreenList.getVerticalScrollBar().setBackground(new Color(20, 46, 87));
 		
 		String[] bookColumnNames = {
 				"번호", "아이디", "예매 번호", "예매 수", "좌석 번호", "결제일시"
@@ -96,10 +109,23 @@ public class SCABookManageView extends JDialog {
 		
 		jtabBookList = new JTable(dtmBookList);
 		jtabBookList.getTableHeader().setFont(new Font("나눔고딕", Font.BOLD, 14));
-//		jtabBookList.getTableHeader().setForeground(Color.WHITE);
+		jtabBookList.getTableHeader().setBorder(new LineBorder(Color.WHITE));
+		jtabBookList.getTableHeader().setForeground(Color.WHITE);
+		jtabBookList.getTableHeader().setBackground(new Color(20, 35, 65));
 		jtabBookList.getTableHeader().setReorderingAllowed(false);
 		jtabBookList.getTableHeader().setResizingAllowed(false);
 		jtabBookList.getTableHeader().setPreferredSize(new Dimension(100, 30));
+		jtabBookList.getTableHeader().setOpaque(false);
+		
+		jtabBookList.setBorder(new LineBorder(Color.WHITE));
+		jtabBookList.setGridColor(new Color(20, 35, 65));
+//		jtabBookList.setShowVerticalLines(false);
+		jtabBookList.setOpaque(false);
+		
+		jtabBookList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		jtabBookList.setSelectionForeground(Color.WHITE);
+		jtabBookList.setSelectionBackground(new Color(20, 35, 65));
+		jtabBookList.setFocusable(false);
 		
 		jtabBookList.setRowHeight(30);
 		
@@ -119,6 +145,11 @@ public class SCABookManageView extends JDialog {
 		
 		JScrollPane jspBookList = new JScrollPane(jtabBookList);
 		jspBookList.setBounds(15, 25, 815, 240);
+		
+		jspBookList.setBorder(new LineBorder(new Color(20, 47, 90)));
+		jspBookList.setBackground(new Color(20, 47, 90));
+		jspBookList.getViewport().setBackground(Color.WHITE);
+		jspBookList.getVerticalScrollBar().setBackground(new Color(20, 46, 87));
 		
 		// jcb
 		JLabel jlblMovieTitle = new JLabel("영화명");
@@ -160,7 +191,6 @@ public class SCABookManageView extends JDialog {
 		jbtClose.setBorderPainted(false);
 		jbtClose.setContentAreaFilled(false);
 		jbtClose.setBounds(375, 685, 125, 40);
-		
 		
 		// bg
 		JLabel jlblBackground = new JLabel(new ImageIcon(
