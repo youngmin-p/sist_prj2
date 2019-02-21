@@ -16,6 +16,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.plaf.ScrollBarUI;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -95,6 +97,12 @@ public class SCABookManageView extends JDialog {
 		jspOnScreenList.setBackground(new Color(20, 45, 87));
 		jspOnScreenList.getViewport().setBackground(Color.WHITE);
 		jspOnScreenList.getVerticalScrollBar().setBackground(new Color(20, 46, 87));
+		jspOnScreenList.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+			@Override
+			protected void configureScrollBarColors() {
+				this.thumbColor = new Color(163, 184, 204);
+			} // configureScrollBarColors
+		});
 		
 		String[] bookColumnNames = {
 				"번호", "아이디", "예매 번호", "예매 수", "좌석 번호", "결제일시"
@@ -119,7 +127,7 @@ public class SCABookManageView extends JDialog {
 		
 		jtabBookList.setBorder(new LineBorder(Color.WHITE));
 		jtabBookList.setGridColor(new Color(20, 35, 65));
-//		jtabBookList.setShowVerticalLines(false);
+		jtabBookList.setShowVerticalLines(false);
 		jtabBookList.setOpaque(false);
 		
 		jtabBookList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -150,6 +158,12 @@ public class SCABookManageView extends JDialog {
 		jspBookList.setBackground(new Color(20, 47, 90));
 		jspBookList.getViewport().setBackground(Color.WHITE);
 		jspBookList.getVerticalScrollBar().setBackground(new Color(20, 46, 87));
+		jspBookList.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+			@Override
+			protected void configureScrollBarColors() {
+				this.thumbColor = new Color(163, 184, 204);
+			} // configureScrollBarColors
+		});
 		
 		// jcb
 		JLabel jlblMovieTitle = new JLabel("영화명");

@@ -239,10 +239,19 @@ public class SCABookManageController extends WindowAdapter implements ActionList
 	 * 예매 관리 초기화
 	 */
 	private void resetBookScreen() {
-		scabmv.getJcbMovieTitle().setSelectedIndex(0);
+		String item = (String) scabmv.getJcbMovieTitle().getSelectedItem();
+		String code = "";
+		
+		for (int i = 0; i < movieList.size(); i++) {
+			if (item.equals(movieList.get(i).getMovie_title())) {
+				code = movieList.get(i).getMovie_code();
+			} // end if
+		} // end for
+		
+		scabmv.getJcbMovieTitle().setSelectedIndex(scabmv.getJcbMovieTitle().getSelectedIndex());
 		scabmv.getJcbPersonnel().setSelectedIndex(0);
 		
-		searchBookOnScreen("");
+		searchBookOnScreen(code);
 	} // resetBookScreen
 	
 	/**

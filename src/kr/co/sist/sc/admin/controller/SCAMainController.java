@@ -54,7 +54,7 @@ public class SCAMainController extends WindowAdapter implements ActionListener {
 	} // actionPerformed
 	
 	private void showMovieManage() {
-		String admin_id = scamv.getJlblAdminId().getText();
+		String admin_id = scamv.getTitle().substring(scamv.getTitle().indexOf("[") + 1, scamv.getTitle().indexOf("/")).trim();
 		
 		new SCAMovieManageView(scamv, admin_id);
 	} // showMovieManage

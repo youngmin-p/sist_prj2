@@ -15,5 +15,5 @@ public class SCALoginCheckVO {
 	public String getPassword() {
 		return password;
 	}
-
+	
 } // class

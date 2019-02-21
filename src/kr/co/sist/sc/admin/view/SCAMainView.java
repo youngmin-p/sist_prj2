@@ -18,24 +18,26 @@ public class SCAMainView extends JFrame {
 	
 	private JButton jbtMovieManagement, jbtOnScreenManagement, jbtBookManagement, 
 	                jbtMemberManagement, jbtCalculationManagement, jbtSnackManagement;
-	private JLabel jlblAdminId, jlblName;
+//	private JLabel jlblAdminId, jlblName;
 	
 	public SCAMainView(SCALoginVO scal_vo) {
 		super("쌍용관 - 메인 화면");
 		
-		setTitle(getTitle() + "-" + version);
+		// 라벨이 필요한가?
+//		setTitle(getTitle() + "-" + version);
+		setTitle(getTitle() + " [ " + scal_vo.getAdmin_id() + " / " + scal_vo.getName() + " ]");
 		
-		jlblAdminId = new JLabel("관리자 아이디 - " + scal_vo.getAdmin_id());
-		jlblAdminId.setFont(new Font("나눔고딕", Font.BOLD, 20));
-		jlblAdminId.setForeground(Color.WHITE);
-		jlblAdminId.setBounds(750, 40, 250, 40);
+//		jlblAdminId = new JLabel("관리자 아이디 - " + scal_vo.getAdmin_id());
+//		jlblAdminId.setFont(new Font("나눔고딕", Font.BOLD, 20));
+//		jlblAdminId.setForeground(Color.WHITE);
+//		jlblAdminId.setBounds(750, 40, 250, 40);
 		
-		jlblName = new JLabel("관리자 이름    - " + scal_vo.getName());
-		jlblName.setFont(new Font("나눔고딕", Font.BOLD, 20));
-		jlblName.setForeground(Color.WHITE);
-		jlblName.setBounds(750, 80, 250, 40);
+//		jlblName = new JLabel("관리자 이름    - " + scal_vo.getName());
+//		jlblName.setFont(new Font("나눔고딕", Font.BOLD, 20));
+//		jlblName.setForeground(Color.WHITE);
+//		jlblName.setBounds(750, 80, 250, 40);
 		
-		// function
+		// 버튼 배치
 		jbtMovieManagement = new JButton(new ImageIcon(
 				"C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/admin_movie_management(145x220).png"));
 		jbtMovieManagement.setContentAreaFilled(false);
@@ -83,8 +85,8 @@ public class SCAMainView extends JFrame {
 		jlblBackground.setLayout(null);
 		jlblBackground.setBounds(0, 0, 1000, 800);
 		
-		jlblBackground.add(jlblAdminId);
-		jlblBackground.add(jlblName);
+//		jlblBackground.add(jlblAdminId);
+//		jlblBackground.add(jlblName);
 		jlblBackground.add(jbtMovieManagement);
 		jlblBackground.add(jbtOnScreenManagement);
 		jlblBackground.add(jbtBookManagement);
@@ -100,7 +102,7 @@ public class SCAMainView extends JFrame {
 		
 		add(jp);
 		
-		// action
+		// 액션
 		SCAMainController scamc = new SCAMainController(this);
 		
 		jbtMovieManagement.addActionListener(scamc);
@@ -112,6 +114,7 @@ public class SCAMainView extends JFrame {
 		
 		addWindowListener(scamc);
 		
+		// 사이즈 1000X800
 		setSize(1000, 820);
 		setLocationRelativeTo(null);
 		setResizable(false);
@@ -143,12 +146,12 @@ public class SCAMainView extends JFrame {
 		return jbtSnackManagement;
 	}
 
-	public JLabel getJlblAdminId() {
-		return jlblAdminId;
-	}
+//	public JLabel getJlblAdminId() {
+//		return jlblAdminId;
+//	}
 
-	public JLabel getJlblName() {
-		return jlblName;
-	}
+//	public JLabel getJlblName() {
+//		return jlblName;
+//	}
 	
 } // class

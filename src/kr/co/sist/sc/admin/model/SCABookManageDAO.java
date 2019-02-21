@@ -30,7 +30,6 @@ public class SCABookManageDAO {
 	
 	/**
 	 * 영화명 조회
-	 * @param today
 	 * @return
 	 * @throws SQLException
 	 */
@@ -181,13 +180,7 @@ public class SCABookManageDAO {
 			
 			pstmt = con.prepareStatement(selectQuery.toString());
 			
-			if (screen_num.substring(0, 1).equals("N")) {
-				pstmt.setString(1, screen_num);
-			} // end if
-			
-			if (screen_num.substring(0, 1).equals("P")) {
-				pstmt.setString(1, screen_num);
-			} // end if
+			pstmt.setString(1, screen_num);
 			
 			rs = pstmt.executeQuery();
 			
@@ -209,8 +202,6 @@ public class SCABookManageDAO {
 	
 	/**
 	 * 해당 예매 번호가 존재하는 좌석 테이블에서 좌석 번호를 가져와야 한다.
-	 * 예매 번호가 S에 존재하는지, P에 존재하는지 동적 쿼리를 작성?
-	 * 
 	 * @param movie_code
 	 * @return
 	 * @throws SQLException
@@ -340,7 +331,6 @@ public class SCABookManageDAO {
 					flag = true;
 				} else {
 					con.rollback();
-					System.out.println("transaction is rollback.");
 				} // end else
 			} catch (SQLException sqle) {
 				sqle.printStackTrace();
@@ -382,7 +372,7 @@ public class SCABookManageDAO {
 			pstmt.executeUpdate();
 			pstmt.close();
 			
-			// 
+			// select book_number
 			String selectQuery = 
 					" select book_number " + 
 					" from (select book_number " + 
