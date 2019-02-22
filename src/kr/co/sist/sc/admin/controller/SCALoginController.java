@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
@@ -12,6 +13,7 @@ import javax.swing.JTextField;
 
 import kr.co.sist.sc.admin.model.SCALoginDAO;
 import kr.co.sist.sc.admin.nio.SCAFileHelper;
+import kr.co.sist.sc.admin.nio.SCAFileServer;
 import kr.co.sist.sc.admin.view.SCALoginView;
 import kr.co.sist.sc.admin.view.SCAMainView;
 import kr.co.sist.sc.admin.vo.SCALoginCheckVO;
@@ -75,12 +77,16 @@ public class SCALoginController extends WindowAdapter implements ActionListener 
 				String name = scal_vo.getName();
 				
 				if (!name.equals("")) {
-					JOptionPane.showMessageDialog(scalv, name + "님, 접속에 성공했습니다.");
-					
-					new SCAMainView(scal_vo);
+					// 서버 소켓 오픈 및 중복 실행 유무 판단
+					SCAFileServer.getInstance().openServer();
 					
 					// Thread start
 					SCAFileHelper.getInstance().start();
+					
+					JOptionPane.showMessageDialog(scalv, name + "님, 접속에 성공했습니다.");
+					
+					// MainView
+					new SCAMainView(scal_vo);
 					
 					scalv.dispose();
 				} // end if
@@ -93,7 +99,11 @@ public class SCALoginController extends WindowAdapter implements ActionListener 
 			} catch (SQLException sqle) {
 				JOptionPane.showMessageDialog(scalv, "로그인 중 문제가 발생했습니다.");
 				sqle.printStackTrace();
-			} // end catch			
+			} catch (IOException ioe) {
+				JOptionPane.showMessageDialog(scalv, "비정상적인 접근이 감지되어 프로그램을 종료합니다.");
+				ioe.printStackTrace();
+				scalv.dispose();
+			} // end catch
 		} // end if
 	} // loginCheck
 	

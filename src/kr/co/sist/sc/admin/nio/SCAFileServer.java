@@ -7,21 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 1) 영화가 추가된 경우
- * 2) 스낵이 추가된 경우
- * 클라이언트 측에서 접속이 발생하면 ? 이미 접속한 클라이언트의 경우에는?
- * s_ : thumbnail image
- * l_ : original image
+ * 파일 서버
  * @author owner
  */
 public class SCAFileServer {
 	private static SCAFileServer sca_fs;
-	protected ServerSocket scServer;
+	public ServerSocket scServer;
 	
-	private SCAFileServer() {
-		openServer();
-		
-	} // SCAFileServer
+	private SCAFileServer() { }
 	
 	public static SCAFileServer getInstance() {
 		if (sca_fs == null) {
@@ -32,29 +25,41 @@ public class SCAFileServer {
 	} // getInstance
 	
 	/**
-	 * 서버 소켓 오픈 (3333번 PORT)
+	 * 서버 소켓의 오픈 상태를 확인하는 일 (현재 필요 X)
+	 * @return
 	 */
-	private void openServer() {
+//	public boolean checkPortState() {
+//		boolean flag = false;
+//		
+//		// 3333번 포트가 open 상태일 때
+//		if (!scServer.isClosed()) {
+//			// 서버 소켓이 닫혀있지 않다면
+//			flag = true;
+//		} // end if
+//		
+//		return flag;
+//	} // checkPortState
+	
+	/**
+	 * 서버 소켓 오픈 (3333번 포트)
+	 */
+	public void openServer() throws IOException {
 		if (scServer == null) {
-			try {
-				int port = 3333;
-				
-				scServer = new ServerSocket(port);
-			} catch (IOException ioe) {
-				ioe.printStackTrace();
-			} // end catch
+			int port = 3333;
+			
+			scServer = new ServerSocket(port);
 		} // end if
 	} // openServer
 	
 	/**
-	 * images 패키지에 있는 이미지를 Helper Class로 전송하는 일
+	 * admin.images 패키지에 있는 이미지를 Helper Class로 전송하는 일
 	 * @param revMsg "movie" or "snack"
 	 * @return
 	 */
 	public String[] sendImageList(String revMsg) {
 		String[] fileList = null;
 		
-		String imgPath = "C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/";
+		String imgPath = "C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/" + revMsg + "/";
 		
 		File file = new File(imgPath);
 		
@@ -72,13 +77,6 @@ public class SCAFileServer {
 		
 		return fileList;
 	} // sendImageList
-	
-	/**
-	 * 
-	 */
-	public void receiveMessage() {
-		
-	} // receiveMessage
 
 //	public static void main(String[] args) {
 //		SCAFileServer fs = new SCAFileServer();
