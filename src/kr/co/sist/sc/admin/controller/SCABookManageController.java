@@ -14,6 +14,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import kr.co.sist.sc.admin.model.SCABookManageDAO;
+import kr.co.sist.sc.admin.nio.SCAFileHelper;
 import kr.co.sist.sc.admin.view.SCABookManageView;
 import kr.co.sist.sc.admin.view.SCABookPremiumScreenView;
 import kr.co.sist.sc.admin.view.SCABookStandardScreenView;
@@ -132,6 +133,9 @@ public class SCABookManageController extends WindowAdapter implements ActionList
 			for (int i = 0; i < movieList.size(); i++) {
 				scabmv.getJcbMovieTitle().addItem(movieList.get(i).getMovie_title());
 			} // end for
+			
+			// test source
+			SCAFileHelper.getInstance().addEvent("movie");
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 		} // end catch

@@ -78,7 +78,7 @@ public class SCALoginController extends WindowAdapter implements ActionListener 
 				
 				if (!name.equals("")) {
 					// 서버 소켓 오픈 및 중복 실행 유무 판단
-					SCAFileServer.getInstance().openServer();
+					SCAFileHelper.getInstance().openServer();
 					
 					// Thread start
 					SCAFileHelper.getInstance().start();

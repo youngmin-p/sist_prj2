@@ -4,7 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 
+import kr.co.sist.sc.admin.nio.SCAFileHelper;
 import kr.co.sist.sc.admin.view.SCABookManageView;
 import kr.co.sist.sc.admin.view.SCACalculationManageView;
 import kr.co.sist.sc.admin.view.SCAMainView;
@@ -23,7 +25,12 @@ public class SCAMainController extends WindowAdapter implements ActionListener {
 	
 	@Override
 	public void windowClosing(WindowEvent we) {
-		scamv.dispose();
+		try {
+			SCAFileHelper.getInstance().closeServer();
+			scamv.dispose();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		} // end catch
 	} // windowClosing
 	
 	@Override
