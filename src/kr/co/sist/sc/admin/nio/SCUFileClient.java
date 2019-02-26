@@ -55,14 +55,14 @@ public class SCUFileClient {
 		return fileList;
 	} // sendImageList
 	
-//	public void requestImageList() { }
-	
 	/**
 	 * Helper Class로부터 이미지 목록 전송 요청을 받으면, 
 	 * 이미지 목록을 Helper로 전송하고 존재하지 않는 이미지를 다운로드한다.
+	 * 1) 클라이언트 로그인에 성공했을 때 (최초 수행)
+	 * 2) 영화/스낵이 추가되었을 때 (실행 중)
 	 * @throws IOException
 	 */
-	public void connectToServer() throws IOException {
+	public void connectToServer(int init) throws IOException {
 		Socket scClient = null;
 		
 		DataInputStream dis = null;
@@ -85,6 +85,15 @@ public class SCUFileClient {
 			int port = 3333;
 			
 			scClient = new Socket(address, port);
+			
+			// 클라이언트에서 이미지 요청 시
+			// 0 : not found, 1 : movie, 2 : snack
+			if (init != 0) {
+				dos = new DataOutputStream(scClient.getOutputStream());
+				
+				dos.writeInt(init);
+				dos.flush();
+			} // end if
 			
 			// Helper로부터 서버에서 영화/스낵이 추가되었다는 메시지를 받고, 
 			dis = new DataInputStream(scClient.getInputStream());
@@ -149,7 +158,7 @@ public class SCUFileClient {
 //	 */
 //	public static void main(String[] args) {
 //		try {
-//			SCUFileClient.getInstance().connectToServer();
+//			SCUFileClient.getInstance().connectToServer(1);
 //		} catch (IOException ioe) {
 //			ioe.printStackTrace();
 //		} // end catch

@@ -36,6 +36,7 @@ public class SCAFileHelper extends Thread {
 			DataOutputStream dos = null;
 			DataInputStream dis = null;
 			
+			int code = 0;
 			int cnt = 0;
 			
 			String revMsg = "";
@@ -53,7 +54,19 @@ public class SCAFileHelper extends Thread {
 				if (scClient != null) {
 					revMsg = this.revMsg;
 					
+					// 클라이언트 접속이 존재하지만, 영화/스낵 추가가 발생하지 않은 경우
+					// 클라이언트 측에서 이미지 전송을 요청할 때
 					if (revMsg.equals("")) {
+						dis = new DataInputStream(scClient.getInputStream());
+						
+						code = dis.readInt();
+						
+						revMsg = SCAFileHelper.getInstance().translateCode(code);
+					} // end if
+					
+					// trouble prevention
+					if (revMsg.equals("")) {
+						// Connection reset
 						return;
 					} // end if
 					
@@ -106,21 +119,6 @@ public class SCAFileHelper extends Thread {
 						
 						revMsg = "";
 					} // end if
-					
-					// 1) 영화가 추가된 경우
-					// scamic에서 Helper의 addEvent method 호출
-					
-					// 1-1)
-					// 서버에서 영화 등록, 스낵 추가 이벤트가 발생하면 
-					// FileServer에서 클라이언트 측으로 sendMsg를 전송
-					// sendMsg를 받은 클라이언트 측은 서버 측으로 파일 목록을 전송
-					
-					// 2) 스낵이 추가된 경우
-					// scasic에서 Helper의 addEvent method 호출
-					
-					// 2-1)
-					// 1-1 상동
-					
 				} // end if
 			} // end while
 		} catch (InterruptedException ie) {
@@ -139,6 +137,26 @@ public class SCAFileHelper extends Thread {
 	} // addEvent
 	
 	/**
+	 * 코드 변환
+	 * @return
+	 */
+	private String translateCode(int code) {
+		String title = "";
+		
+		// revMsg = "movie"
+		if (code == 1) {
+			title = "movie";
+		} // end if
+		
+		// revMsg = "snack"
+		if (code == 2) {
+			title = "snack";
+		} // end if
+		
+		return title;
+	} // translateCode
+	
+	/**
 	 * 파일 서버 오픈
 	 * @throws IOException
 	 */
@@ -153,5 +171,16 @@ public class SCAFileHelper extends Thread {
 	public void closeServer() throws IOException {
 		SCAFileServer.getInstance().close();
 	} // closeServer
+	
+//	public static void main(String[] args) {
+//		try {
+//			SCAFileHelper.getInstance().openServer();
+//			System.out.println("3333 Port open");
+//			SCAFileHelper.getInstance().start();
+//			System.out.println("Thread start");
+//		} catch (IOException ioe) {
+//			ioe.printStackTrace();
+//		} // end catch
+//	} // main
 	
 } // class
