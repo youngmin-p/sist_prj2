@@ -1,9 +1,9 @@
 package kr.co.sist.sc.admin.vo;
 
 /**
- * @author owner
  * 정산 관리 - 영화 상영 수익 테이블
  * 영화 코드, 영화 제목, 인원 수, 총 가격
+ * @author owner
  */
 public class SCACalculationMovieSalesVO {
 	private String movie_code, movie_title;
@@ -31,5 +31,11 @@ public class SCACalculationMovieSalesVO {
 	public int getTotal_price() {
 		return total_price;
 	}
+
+	@Override
+	public String toString() {
+		return "SCACalculationMovieSalesVO [movie_code=" + movie_code + ", movie_title=" + movie_title + ", personnel="
+				+ personnel + ", total_price=" + total_price + "]";
+	} // toString
 	
 } // class

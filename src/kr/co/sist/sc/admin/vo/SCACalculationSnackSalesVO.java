@@ -1,9 +1,9 @@
 package kr.co.sist.sc.admin.vo;
 
 /**
- * @author owner
  * 정산 관리 - 스낵 판매 수익 테이블
  * 스낵명, 수량, 총 가격
+ * @author owner
  */
 public class SCACalculationSnackSalesVO {
 	private String snack_name;
@@ -26,5 +26,11 @@ public class SCACalculationSnackSalesVO {
 	public int getTotal_price() {
 		return total_price;
 	}
+
+	@Override
+	public String toString() {
+		return "SCACalculationSnackSalesVO [snack_name=" + snack_name + ", quan=" + quan + ", total_price="
+				+ total_price + "]";
+	} // toString
 	
 } // class
