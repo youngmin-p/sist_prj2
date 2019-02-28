@@ -6,14 +6,14 @@ package kr.co.sist.sc.admin.vo;
  * @author owner
  */
 public class SCACalculationMovieSalesVO {
-	private String movie_code, movie_title;
-	private int personnel, total_price;
+	private String movie_code, movie_title, total_price;
+	private int personnel;
 	
-	public SCACalculationMovieSalesVO(String movie_code, String movie_title, int personnel, int total_price) {
+	public SCACalculationMovieSalesVO(String movie_code, String movie_title, String total_price, int personnel) {
 		this.movie_code = movie_code;
 		this.movie_title = movie_title;
-		this.personnel = personnel;
 		this.total_price = total_price;
+		this.personnel = personnel;
 	} // SCACalculationMovieSalesVO
 
 	public String getMovie_code() {
@@ -24,18 +24,18 @@ public class SCACalculationMovieSalesVO {
 		return movie_title;
 	}
 
+	public String getTotal_price() {
+		return total_price;
+	}
+
 	public int getPersonnel() {
 		return personnel;
 	}
 
-	public int getTotal_price() {
-		return total_price;
-	}
-
 	@Override
 	public String toString() {
-		return "SCACalculationMovieSalesVO [movie_code=" + movie_code + ", movie_title=" + movie_title + ", personnel="
-				+ personnel + ", total_price=" + total_price + "]";
+		return "SCACalculationMovieSalesVO [movie_code=" + movie_code + ", movie_title=" + movie_title
+				+ ", total_price=" + total_price + ", personnel=" + personnel + "]";
 	} // toString
 	
 } // class

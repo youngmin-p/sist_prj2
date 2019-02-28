@@ -148,13 +148,8 @@ public class SCACalculationManageView extends JDialog {
 			} // configureScrollBarColors
 		});
 		
-		// temp value
-		String[] yearArr = {"2019", "2018"};
-		String[] monthArr = {"01", "02"};
-		String[] dayArr = {"21", "29"};
-		
 		// jcb
-		jcbYear = new JComboBox<String>(yearArr);
+		jcbYear = new JComboBox<String>();
 		jcbYear.setBounds(230, 40, 100, 30);
 		
 		JLabel jlblYear = new JLabel("³â");
@@ -162,7 +157,7 @@ public class SCACalculationManageView extends JDialog {
 		jlblYear.setForeground(Color.WHITE);
 		jlblYear.setBounds(340, 40, 30, 30);
 		
-		jcbMonth = new JComboBox<String>(monthArr);
+		jcbMonth = new JComboBox<String>();
 		jcbMonth.setBounds(370, 40, 100, 30);
 		
 		JLabel jlblMonth = new JLabel("¿ù");
@@ -170,7 +165,7 @@ public class SCACalculationManageView extends JDialog {
 		jlblMonth.setForeground(Color.WHITE);
 		jlblMonth.setBounds(480, 40, 80, 30);
 		
-		jcbDay = new JComboBox<String>(dayArr);
+		jcbDay = new JComboBox<String>();
 		jcbDay.setBounds(510, 40, 100, 30);
 		
 		JLabel jlblDay = new JLabel("ÀÏ");
@@ -200,30 +195,30 @@ public class SCACalculationManageView extends JDialog {
 		jlblMovieSalesTitle.setForeground(Color.WHITE);
 		jlblMovieSalesTitle.setBounds(10, 10, 80, 30);
 		
-		jlblMovieSales = new JLabel("99,999,999¿ø");
+		jlblMovieSales = new JLabel("¿ø", SwingConstants.RIGHT);
 		jlblMovieSales.setFont(new Font("³ª´®°íµñ", Font.BOLD, 16));
 		jlblMovieSales.setForeground(Color.WHITE);
-		jlblMovieSales.setBounds(90, 10, 120, 30);
+		jlblMovieSales.setBounds(90, 10, 100, 30);
 		
 		JLabel jlblSnackSalesTitle = new JLabel("½º³¼ ¸ÅÃâ");
 		jlblSnackSalesTitle.setFont(new Font("³ª´®°íµñ", Font.BOLD, 16));
 		jlblSnackSalesTitle.setForeground(Color.WHITE);
 		jlblSnackSalesTitle.setBounds(10, 40, 80, 30);
 		
-		jlblSnackSales = new JLabel("99,999,999¿ø");
+		jlblSnackSales = new JLabel("¿ø", SwingConstants.RIGHT);
 		jlblSnackSales.setFont(new Font("³ª´®°íµñ", Font.BOLD, 16));
 		jlblSnackSales.setForeground(Color.WHITE);
-		jlblSnackSales.setBounds(90, 40, 120, 30);
+		jlblSnackSales.setBounds(90, 40, 100, 30);
 		
 		JLabel jlblTotalSalesTitle = new JLabel("    ÃÑ ¸ÅÃâ");
 		jlblTotalSalesTitle.setFont(new Font("³ª´®°íµñ", Font.BOLD, 16));
 		jlblTotalSalesTitle.setForeground(Color.WHITE);
 		jlblTotalSalesTitle.setBounds(10, 70, 80, 30);
 		
-		jlblTotalSales = new JLabel("99,999,999¿ø");
+		jlblTotalSales = new JLabel("¿ø", SwingConstants.RIGHT);
 		jlblTotalSales.setFont(new Font("³ª´®°íµñ", Font.BOLD, 16));
 		jlblTotalSales.setForeground(Color.WHITE);
-		jlblTotalSales.setBounds(90, 70, 120, 30);
+		jlblTotalSales.setBounds(90, 70, 100, 30);
 		
 		// bg
 		JLabel jlblBackground = new JLabel(new ImageIcon(
@@ -304,6 +299,9 @@ public class SCACalculationManageView extends JDialog {
 		SCACalculationManageController scacmc = new SCACalculationManageController(this);
 		
 		addWindowListener(scacmc);
+		
+		jcbYear.addActionListener(scacmc);
+		jcbMonth.addActionListener(scacmc);
 		
 		jbtCalculation.addActionListener(scacmc);
 		jbtClose.addActionListener(scacmc);
