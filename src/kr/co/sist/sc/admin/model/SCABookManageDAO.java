@@ -46,11 +46,12 @@ public class SCABookManageDAO {
 			// 당일 상영 중인 영화 조회
 			// "and screen_date = to_char(sysdate, 'YYYY-MM-DD') " + 
 			String selectQuery = 
-					"select distinct m.movie_code, m.movie_title " + 
-					"from movie m, on_screen os " + 
-					"where (m.movie_code = os.movie_code) " + 
-					"and screen_date = '2019-01-29' " + 
-					"order by m.movie_code";
+					"SELECT DISTINCT M.MOVIE_CODE, M.MOVIE_TITLE " + 
+					"FROM MOVIE M, ON_SCREEN OS " + 
+					"WHERE (M.MOVIE_CODE = OS.MOVIE_CODE) " + 
+					"AND SCREEN_DATE = '2019-01-29' " + 
+//					"AND SCREEN_DATE = TO_CHAR(SYSDATE, 'YYYY-MM-DD') " + 
+					"ORDER BY M.MOVIE_CODE";
 			
 			pstmt = con.prepareStatement(selectQuery);
 			
@@ -94,22 +95,23 @@ public class SCABookManageDAO {
 			StringBuilder selectQuery = new StringBuilder();
 			
 			selectQuery
-			.append(" select m.movie_code, m.movie_title, os.screen_num, t.screen_name, os.start_time, os.end_time, ")
-			.append("        (t.seat_count - (select nvl(max((select sum(personnel) from book where screen_num = os.screen_num)), 0) seat_remain from book)) seat_remain, ")
-			.append("        t.seat_count ")
-			.append(" from movie m, on_screen os, theater t ")
-			.append(" where (os.movie_code = m.movie_code) ")
-			.append("   and (os.screen_name = t.screen_name) ")
-			.append("   and os.screen_date = '2019-01-29' ");
+			.append(" SELECT M.MOVIE_CODE, M.MOVIE_TITLE, OS.SCREEN_NUM, T.SCREEN_NAME, OS.START_TIME, OS.END_TIME, ")
+			.append("        (T.SEAT_COUNT - (SELECT NVL(MAX((SELECT SUM(PERSONNEL) FROM BOOK WHERE SCREEN_NUM = OS.SCREEN_NUM)), 0) SEAT_REMAIN FROM BOOK)) SEAT_REMAIN, ")
+			.append("        T.SEAT_COUNT ")
+			.append(" FROM MOVIE M, ON_SCREEN OS, THEATER T ")
+			.append(" WHERE (OS.MOVIE_CODE = M.MOVIE_CODE) ")
+			.append("   AND (OS.SCREEN_NAME = T.SCREEN_NAME) ")
+//			.append("   AND OS.SCREEN_DATE = TO_CHAR(SYSDATE, 'YYYY-MM-DD') ")
+			.append("   AND OS.SCREEN_DATE = '2019-01-29' ");
 			
 			if (!movie_code.equals("")) {
 				// movie_code가 empty가 아니라면, movie_code로 해당 영화를 조회
 				selectQuery
-				.append("   and os.movie_code = ? ");
+				.append("   AND OS.MOVIE_CODE = ? ");
 			} // end if
 			
 			selectQuery
-			.append(" order by os.start_time ");
+			.append(" ORDER BY OS.START_TIME ");
 			
 			pstmt = con.prepareStatement(selectQuery.toString());
 			
@@ -159,24 +161,24 @@ public class SCABookManageDAO {
 			StringBuilder selectQuery = new StringBuilder();
 			
 			selectQuery
-			.append(" select seat_num ");
+			.append(" SELECT SEAT_NUM ");
 			
 			if (screen_num.substring(0, 1).equals("N")) {
 				selectQuery
-				.append(" from book b, standard_seat ss ")
-				.append(" where (ss.book_number = b.book_number) ")
-				.append("   and b.screen_num = ? ");
+				.append(" FROM BOOK B, STANDARD_SEAT SS ")
+				.append(" WHERE (SS.BOOK_NUMBER = B.BOOK_NUMBER) ")
+				.append("   AND B.SCREEN_NUM = ? ");
 			} // end if
 			
 			if (screen_num.substring(0, 1).equals("P")) {
 				selectQuery
-				.append(" from book b, premium_seat ps ")
-				.append(" where (ps.book_number = b.book_number) ")
-				.append("   and b.screen_num = ? ");
+				.append(" FROM BOOK B, PREMIUM_SEAT PS ")
+				.append(" WHERE (PS.BOOK_NUMBER = B.BOOK_NUMBER) ")
+				.append("   AND B.SCREEN_NUM = ? ");
 			} // end if
 			
 			selectQuery
-			.append(" order by seat_num ");
+			.append(" ORDER BY SEAT_NUM ");
 			
 			pstmt = con.prepareStatement(selectQuery.toString());
 			
@@ -201,7 +203,8 @@ public class SCABookManageDAO {
 	} //selectBookSeat
 	
 	/**
-	 * 해당 예매 번호가 존재하는 좌석 테이블에서 좌석 번호를 가져와야 한다.
+	 * 당일 예매 조회
+	 * 해당 예매 번호가 존재하는 좌석 테이블에서 좌석 번호를 가져오는 일
 	 * @param movie_code
 	 * @return
 	 * @throws SQLException
@@ -219,61 +222,65 @@ public class SCABookManageDAO {
 			StringBuilder selectQuery = new StringBuilder(); 
 			
 			selectQuery
-			.append(" select * from ( ")
-			.append(" 	select * from ( ")
-			.append(" 		select m.member_id, b.book_number, b.personnel, ss.seat_num, b.payment_date ")
-			.append(" 		from member m, book b, standard_seat ss, on_screen os ")
-			.append(" 		where (b.member_id = m.member_id) ")
-			.append(" 		  and (ss.book_number = b.book_number) ")
-			.append(" 		  and (os.screen_num = b.screen_num) ")
-			.append(" 		  and os.screen_date = '2019-01-29' ");
+			.append(" SELECT * FROM ( ")
+			.append(" 	SELECT * FROM ( ")
+			.append(" 		SELECT M.MEMBER_ID, B.BOOK_NUMBER, B.PERSONNEL, SS.SEAT_NUM, B.PAYMENT_DATE ")
+			.append(" 		FROM MEMBER M, BOOK B, STANDARD_SEAT SS, ON_SCREEN OS ")
+			.append(" 		WHERE (B.MEMBER_ID = M.MEMBER_ID) ")
+			.append(" 		  AND (SS.BOOK_NUMBER = B.BOOK_NUMBER) ")
+			.append(" 		  AND (OS.SCREEN_NUM = B.SCREEN_NUM) ")
+//			.append(" 		  AND OS.SCREEN_DATE = TO_CHAR(SYSDATE, 'YYYY-MM-DD') ")
+			.append(" 		  AND OS.SCREEN_DATE = '2019-01-29' ");
 			
 			if (!movie_code.equals("")) {
-				selectQuery.append(" 		  and os.movie_code = ? ");
+				selectQuery.append(" 		  AND OS.MOVIE_CODE = ? ");
 			} // end if
 			
 			selectQuery
-			.append(" 		union ")
-			.append(" 		select m.member_id, b.book_number, b.personnel, ps.seat_num, b.payment_date ")
-			.append(" 		from member m, book b, premium_seat ps, on_screen os ")
-			.append(" 		where (b.member_id = m.member_id) ")
-			.append(" 		  and (ps.book_number = b.book_number) ")
-			.append(" 		  and (os.screen_num = b.screen_num) ");
+			.append(" 		UNION ")
+			.append(" 		SELECT M.MEMBER_ID, B.BOOK_NUMBER, B.PERSONNEL, PS.SEAT_NUM, B.PAYMENT_DATE ")
+			.append(" 		FROM MEMBER M, BOOK B, PREMIUM_SEAT PS, ON_SCREEN OS ")
+			.append(" 		WHERE (B.MEMBER_ID = M.MEMBER_ID) ")
+			.append(" 		  AND (PS.BOOK_NUMBER = B.BOOK_NUMBER) ")
+			.append(" 		  AND (OS.SCREEN_NUM = B.SCREEN_NUM) ");
 			
 			if (!movie_code.equals("")) {
-				selectQuery.append(" 		  and os.movie_code = ? ");
+				selectQuery.append(" 		  AND OS.MOVIE_CODE = ? ");
 			} // end if
 			
 			selectQuery
-			.append(" 		  and os.screen_date = '2019-01-29') ")
-			.append(" 		union ")
-			.append(" 		select * from ( ")
-			.append(" 		select b.member_id, b.book_number, b.personnel, ss.seat_num, b.payment_date ")
-			.append(" 		from book b, standard_seat ss, on_screen os ")
-			.append(" 		where (ss.book_number = b.book_number) ")
-			.append(" 		  and (os.screen_num = b.screen_num) ")
-			.append(" 		  and os.screen_date = '2019-01-29' ");
+//			.append(" 		  AND OS.SCREEN_DATE = TO_CHAR(SYSDATE, 'YYYY-MM-DD')) ")
+			.append(" 		  AND OS.SCREEN_DATE = '2019-01-29') ")
+			.append(" 		UNION ")
+			.append(" 		SELECT * FROM ( ")
+			.append(" 		SELECT B.MEMBER_ID, B.BOOK_NUMBER, B.PERSONNEL, SS.SEAT_NUM, B.PAYMENT_DATE ")
+			.append(" 		FROM BOOK B, STANDARD_SEAT SS, ON_SCREEN OS ")
+			.append(" 		WHERE (SS.BOOK_NUMBER = B.BOOK_NUMBER) ")
+			.append(" 		  AND (OS.SCREEN_NUM = B.SCREEN_NUM) ")
+//			.append(" 		  AND OS.SCREEN_DATE = TO_CHAR(SYSDATE, 'YYYY-MM-DD') ")
+			.append(" 		  AND OS.SCREEN_DATE = '2019-01-29' ");
 			
 			if (!movie_code.equals("")) {
-				selectQuery.append(" 		  and os.movie_code = ? ");
+				selectQuery.append(" 		  AND OS.MOVIE_CODE = ? ");
 			} // end if
 			
 			selectQuery
-			.append(" 		  and member_id is null ")
-			.append(" 		union ")
-			.append(" 		select b.member_id, b.book_number, b.personnel, ps.seat_num, b.payment_date ")
-			.append(" 		from book b, premium_seat ps, on_screen os ")
-			.append(" 		where (ps.book_number = b.book_number) ")
-			.append(" 		  and (os.screen_num = b.screen_num) ");
+			.append(" 		  AND MEMBER_ID IS NULL ")
+			.append(" 		UNION ")
+			.append(" 		SELECT B.MEMBER_ID, B.BOOK_NUMBER, B.PERSONNEL, PS.SEAT_NUM, B.PAYMENT_DATE ")
+			.append(" 		FROM BOOK B, PREMIUM_SEAT PS, ON_SCREEN OS ")
+			.append(" 		WHERE (PS.BOOK_NUMBER = B.BOOK_NUMBER) ")
+			.append(" 		  AND (OS.SCREEN_NUM = B.SCREEN_NUM) ");
 			
 			if (!movie_code.equals("")) {
-				selectQuery.append(" 		  and os.movie_code = ? ");
+				selectQuery.append(" 		  AND OS.MOVIE_CODE = ? ");
 			} // end if
 			
 			selectQuery
-			.append(" 		  and os.screen_date = '2019-01-29' ")
-			.append(" 		  and member_id is null)) ")
-			.append(" order by payment_date, seat_num ");
+//			.append(" 		  AND OS.SCREEN_DATE = TO_CHAR(SYSDATE, 'YYYY-MM-DD') ")
+			.append(" 		  AND OS.SCREEN_DATE = '2019-01-29' ")
+			.append(" 		  AND MEMBER_ID IS NULL)) ")
+			.append(" ORDER BY PAYMENT_DATE, SEAT_NUM ");
 			
 			pstmt = con.prepareStatement(selectQuery.toString());
 			
@@ -342,6 +349,13 @@ public class SCABookManageDAO {
 		return flag;
 	} // insertBookTransfer
 	
+	/**
+	 * 예매 테이블 삽입
+	 * @param con
+	 * @param scabs_vo
+	 * @return
+	 * @throws SQLException
+	 */
 	public String insertBookScreen(Connection con, SCABookScreenVO scabs_vo) throws SQLException {
 		String book_number = "";
 		
@@ -350,9 +364,9 @@ public class SCABookManageDAO {
 		
 		try {
 			String insertQuery = 
-					" insert into book (book_number, personnel, payment_date, movie_start, member_id, screen_num) " + 
-					" values (concat(?, trim(to_char(seq_book.nextval, '000'))), ?, sysdate, " + 
-					" to_date(?, 'yyyy-mm-dd hh24:mi'), '', ?) ";
+					" INSERT INTO BOOK (BOOK_NUMBER, PERSONNEL, PAYMENT_DATE, MOVIE_START, MEMBER_ID, SCREEN_NUM) " + 
+					" VALUES (CONCAT(?, TRIM(TO_CHAR(SEQ_BOOK.NEXTVAL, '000'))), ?, SYSDATE, " + 
+					" TO_DATE(?, 'YYYY-MM-DD HH24:MI'), '', ?) ";
 			
 			// 1, book_number = (screen_name + movie_code)
 			// 2, personnel
@@ -372,13 +386,13 @@ public class SCABookManageDAO {
 			pstmt.executeUpdate();
 			pstmt.close();
 			
-			// select book_number
+			// 예매 번호 조회
 			String selectQuery = 
-					" select book_number " + 
-					" from (select book_number " + 
-					"       from book " + 
-					"       order by payment_date desc) " + 
-					" where rownum = '1' ";
+					" SELECT BOOK_NUMBER " + 
+					" FROM (SELECT BOOK_NUMBER " + 
+					"       FROM BOOK " + 
+					"       ORDER BY PAYMENT_DATE DESC) " + 
+					" WHERE ROWNUM = '1' ";
 			
 			pstmt = con.prepareStatement(selectQuery);
 			
@@ -396,7 +410,7 @@ public class SCABookManageDAO {
 	} // insertBookScreen
 	
 	/**
-	 * 좌석 테이블 insert
+	 * 좌석 테이블 삽입
 	 * @param con
 	 * @param scabs_vo
 	 * @return
@@ -413,14 +427,14 @@ public class SCABookManageDAO {
 			StringBuilder insertQuery = new StringBuilder();
 			
 			if (screen_name.equals("N")) {
-				insertQuery.append(" insert into standard_seat (seat_num, book_number) ");
+				insertQuery.append(" INSERT INTO STANDARD_SEAT (SEAT_NUM, BOOK_NUMBER) ");
 			} // end if
 			
 			if (screen_name.equals("P")) {
-				insertQuery.append(" insert into premium_seat (seat_num, book_number) ");
+				insertQuery.append(" INSERT INTO PREMIUM_SEAT (SEAT_NUM, BOOK_NUMBER) ");
 			} // end if
 			
-			insertQuery.append(" values (?, ?) ");
+			insertQuery.append(" VALUES (?, ?) ");
 			
 			pstmt = con.prepareStatement(insertQuery.toString());
 			

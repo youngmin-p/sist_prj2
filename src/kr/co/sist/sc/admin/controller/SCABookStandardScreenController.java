@@ -77,7 +77,7 @@ public class SCABookStandardScreenController extends WindowAdapter implements Ac
 				} // end if
 				
 				if (selectedSeat.size() < personnel) {
-					JOptionPane.showMessageDialog(scabssv, "선택한 좌석수가 부족합니다!");
+					JOptionPane.showMessageDialog(scabssv, "선택한 좌석수 (" + (personnel - selectedSeat.size()) + "석)가 부족합니다!");
 					return;
 				} // end if
 				
@@ -170,6 +170,7 @@ public class SCABookStandardScreenController extends WindowAdapter implements Ac
 			
 			if (flag) {
 				JOptionPane.showMessageDialog(scabssv, selectedSeat.toString() + "번 좌석으로 발권이 완료되었습니다.");
+				SCABookManageController.resetBookScreen();
 				scabssv.dispose();
 			} // end if
 		} catch (SQLException sqle) {

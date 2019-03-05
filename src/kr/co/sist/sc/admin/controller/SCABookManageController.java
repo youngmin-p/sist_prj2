@@ -24,16 +24,14 @@ import kr.co.sist.sc.admin.vo.SCABookOnScreenVO;
 import kr.co.sist.sc.admin.vo.SCABookScreenVO;
 
 public class SCABookManageController extends WindowAdapter implements ActionListener {
-	private SCABookManageView scabmv;
-	private List<SCABookMovieListVO> movieList;
+	private static SCABookManageView scabmv;
+	private static List<SCABookMovieListVO> movieList;
 	
+	@SuppressWarnings("static-access")
 	public SCABookManageController(SCABookManageView scabmv) {
 		this.scabmv = scabmv;
 		
-		searchMovieList();
-		
-		// 1) 영화명이 선택되지 않았을 경우 (최초 1회 전체 조회 수행)
-		searchBookOnScreen("");
+		setInitialize();
 		
 	} // SCABookManageController
 	
@@ -96,14 +94,30 @@ public class SCABookManageController extends WindowAdapter implements ActionList
 						screenNum, 
 						Integer.parseInt(personnel));
 				
+				// 예매 시 상영관에 따라 금액 적용 (N : 20,000, P : 40,000)
+				int price = Integer.parseInt(personnel) * (screenName.equals("N") ? 20000 : 40000);
+				
+				StringBuilder sb = new StringBuilder(String.valueOf(price));
+				
+				if (sb.length() < 6) {
+					sb.insert(2, ",");
+				} else {
+					sb.insert(3, ",");
+				} // end else
+				
 				if (JOptionPane.showConfirmDialog(scabmv, 
 						"[영화명 : " + movieTitle + "]\n" + 
 						"[예매수 : " + personnel + "]\n" + 
 						"[상영관 : " + screenName + "]\n" + 
 						"[상영일시 : " + screenDate + "]\n" + 
-						"선택하신 정보로 예매를 진행하시겠습니까?", "영화 예매", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+						"선택하신 정보로 예매를 진행하시겠습니까?\n" + 
+						"금액은 " + sb.toString() + "원입니다.", "영화 예매", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
 					if (Integer.parseInt(seat_remain) < Integer.parseInt(personnel)) {
-						JOptionPane.showMessageDialog(scabmv, "잔여 좌석이 부족합니다!");
+						JOptionPane.showMessageDialog(scabmv, 
+								"[영화명 : " + movieTitle + "]\n" + 
+								"[예매수 : " + personnel + "]\n" + 
+								"[잔여 좌석수 : " + seat_remain + "]\n" + 
+								"잔여 좌석 (" + (Integer.parseInt(personnel) - Integer.parseInt(seat_remain)) + "석)이 부족합니다!");
 						resetBookScreen();
 						return;
 					} // end if
@@ -120,6 +134,16 @@ public class SCABookManageController extends WindowAdapter implements ActionList
 			scabmv.dispose();
 		} // end if
 	} // actionPerformed
+	
+	/**
+	 * 초기 작업
+	 */
+	private void setInitialize() {
+		searchMovieList();
+		
+		// 1) 영화명이 선택되지 않았을 경우 (최초 1회 전체 조회 수행)
+		searchBookOnScreen("");
+	} // setInitialize
 	
 	/**
 	 * 영화명을 조회하는 메서드
@@ -146,7 +170,7 @@ public class SCABookManageController extends WindowAdapter implements ActionList
 	 * 1) 최초 수행 시 당일의 전체 상영 영화 정보를 조회
 	 * 2) 영화명으로 조회 시 당일의 해당 상영 영화 정보를 조회
 	 */
-	private void searchBookOnScreen(String movieCode) {
+	private static void searchBookOnScreen(String movieCode) {
 		DefaultTableModel dtmOnScreenList = scabmv.getDtmOnScreenList();
 		
 		dtmOnScreenList.setRowCount(0);
@@ -188,7 +212,7 @@ public class SCABookManageController extends WindowAdapter implements ActionList
 	 * 1) 최초 수행 시 전체 영화의 예매 정보를 조회
 	 * 2) 영화명으로 조회 시 해당 영화의 예매 정보를 조회
 	 */
-	private void searchBookList(String movieCode) {
+	private static void searchBookList(String movieCode) {
 		DefaultTableModel dtmBookList = scabmv.getDtmBookList();
 		
 		dtmBookList.setRowCount(0);
@@ -242,8 +266,12 @@ public class SCABookManageController extends WindowAdapter implements ActionList
 	/**
 	 * 예매 관리 초기화
 	 */
-	private void resetBookScreen() {
-		String item = (String) scabmv.getJcbMovieTitle().getSelectedItem();
+	public static void resetBookScreen() {
+		JTable jtabOnScreenList = scabmv.getJtabOnScreenList();
+		
+		int row = jtabOnScreenList.getSelectedRow();
+		
+		String item = String.valueOf(jtabOnScreenList.getValueAt(row, (2)));
 		String code = "";
 		
 		for (int i = 0; i < movieList.size(); i++) {
@@ -252,7 +280,7 @@ public class SCABookManageController extends WindowAdapter implements ActionList
 			} // end if
 		} // end for
 		
-		scabmv.getJcbMovieTitle().setSelectedIndex(scabmv.getJcbMovieTitle().getSelectedIndex());
+		scabmv.getJcbMovieTitle().setSelectedItem(item);
 		scabmv.getJcbPersonnel().setSelectedIndex(0);
 		
 		searchBookOnScreen(code);
@@ -261,9 +289,7 @@ public class SCABookManageController extends WindowAdapter implements ActionList
 	/**
 	 * 예매 버튼 클릭 시 상영관에 따라 다른 스크린을 보여주는 메서드
 	 */
-	public void showBookScreen(SCABookScreenVO scabs_vo) {
-		// 선택한 테이블의 해당 row의 상영관 정보를 가져와서 다른 
-		
+	private void showBookScreen(SCABookScreenVO scabs_vo) {
 		String screenName = scabs_vo.getScreen_num().substring(0, 1);
 		
 		if (screenName.equals("N")) {

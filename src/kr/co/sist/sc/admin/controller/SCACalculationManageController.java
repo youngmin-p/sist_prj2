@@ -28,7 +28,7 @@ public class SCACalculationManageController extends WindowAdapter implements Act
 		totalMovieSales = 0;
 		totalSnackSales = 0;
 		
-		setCalculationDate();
+		setInitialize();
 		
 	} // SCACalculationManageController
 	
@@ -55,6 +55,20 @@ public class SCACalculationManageController extends WindowAdapter implements Act
 		} // end if
 	} // actionPerformed
 	
+	/**
+	 * 초기 작업
+	 */
+	private void setInitialize() {
+		setCalculationDate();
+		
+		searchMovieSales();
+		searchSnackSales();
+		printTotalSales();
+	} // setInitialize
+	
+	/**
+	 * sysdate
+	 */
 	private void setCalculationDate() {
 		JComboBox<String> jcbYear = scacmv.getJcbYear();
 		JComboBox<String> jcbMonth = scacmv.getJcbMonth();
@@ -68,7 +82,7 @@ public class SCACalculationManageController extends WindowAdapter implements Act
 		
 		// 년
 		for (int i = 0; i < 5; i++) {
-			jcbYear.addItem(String.valueOf(year - i));
+			jcbYear.addItem(String.valueOf(year - 4 + i));
 			
 		} // end for
 		
@@ -149,6 +163,9 @@ public class SCACalculationManageController extends WindowAdapter implements Act
 		} // end for
 	} // checkLeapYear
 	
+	/**
+	 * 영화 상영 수익 조회
+	 */
 	private void searchMovieSales() {
 		DefaultTableModel MovieSalesList = scacmv.getDtmMovieSalesList();
 		
@@ -187,6 +204,9 @@ public class SCACalculationManageController extends WindowAdapter implements Act
 		} // end catch
 	} // searchMovieSales
 	
+	/**
+	 * 스낵 판매 수익 조회
+	 */
 	private void searchSnackSales() {
 		DefaultTableModel SnackSalesList = scacmv.getDtmSnackSalesList();
 		
@@ -224,6 +244,9 @@ public class SCACalculationManageController extends WindowAdapter implements Act
 		} // end catch
 	} // searchSnackSales
 	
+	/**
+	 * 총 매출 조회
+	 */
 	private void printTotalSales() {
 		JLabel jlblMovieSales = scacmv.getJlblMovieSales();
 		JLabel jlblSnackSales = scacmv.getJlblSnackSales();

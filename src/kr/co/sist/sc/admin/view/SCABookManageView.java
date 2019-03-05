@@ -16,7 +16,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.plaf.ScrollBarUI;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -174,7 +173,7 @@ public class SCABookManageView extends JDialog {
 		jcbMovieTitle = new JComboBox<String>();
 		jcbMovieTitle.setBounds(155, 20, 150, 30);
 		
-		JLabel jlblPersonnel = new JLabel("ÀÎ¿ø¼ö");
+		JLabel jlblPersonnel = new JLabel("¿¹¸Å¼ö");
 		jlblPersonnel.setFont(new Font("³ª´®°íµñ", Font.BOLD, 16));
 		jlblPersonnel.setForeground(Color.WHITE);
 		jlblPersonnel.setBounds(495, 20, 80, 30);
