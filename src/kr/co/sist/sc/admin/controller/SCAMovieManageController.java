@@ -14,23 +14,22 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import kr.co.sist.sc.admin.model.SsangyongCinemaDAO;
 import kr.co.sist.sc.admin.view.SCAMovieManageView;
 import kr.co.sist.sc.admin.view.SCAMovieInsertView;
+import kr.co.sist.sc.admin.model.SCAMovieManageDAO;
 import kr.co.sist.sc.admin.view.SCAMovieDetailsView;
-import kr.co.sist.sc.admin.vo.SCAMovieDatailVO;
+import kr.co.sist.sc.admin.vo.SCAMovieDatailsVO;
 import kr.co.sist.sc.admin.vo.SCAMovieManageVO;
 
 public class SCAMovieManageController extends WindowAdapter implements ActionListener, MouseListener {
 
 	private String selectedMovieCode;
 	private SCAMovieManageView scv;
-	private SsangyongCinemaDAO s_Dao;
+	private SCAMovieManageDAO scamm_dao;
 
 	public SCAMovieManageController(SCAMovieManageView scv) {
-		super();
 		this.scv = scv;
-		s_Dao = SsangyongCinemaDAO.getInstance();
+		scamm_dao = SCAMovieManageDAO.getInstance();
 		showMovie();
 
 	}
@@ -41,7 +40,7 @@ public class SCAMovieManageController extends WindowAdapter implements ActionLis
 		try {
 			SCAMovieManageVO slv = null;
 			String imgPath = "C:/dev/Workspace/Cinema/src/kr/co/sist/sc/admin/images/movie/s_movie_";
-			List<SCAMovieManageVO> listmovie = s_Dao.showMovie();
+			List<SCAMovieManageVO> listmovie = scamm_dao.showMovie();
 			Object[] rowData = null;
 
 			for (int i = 0; i < listmovie.size(); i++) {
@@ -87,8 +86,8 @@ public class SCAMovieManageController extends WindowAdapter implements ActionLis
 			selectedRow = p;
 			selectedMovieCode = (String) jt.getValueAt(jt.getSelectedRow(), 1);
 			try {
-				SCAMovieDatailVO sscdvo=s_Dao.selectMovie(selectedMovieCode);
-				new SCAMovieDetailsView(scv,sscdvo,this);
+				SCAMovieDatailsVO scamd_vo=scamm_dao.selectMovie(selectedMovieCode);
+				new SCAMovieDetailsView(scv,scamd_vo,this);
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -113,11 +112,6 @@ public class SCAMovieManageController extends WindowAdapter implements ActionLis
 	@Override
 	public void windowClosing(WindowEvent e) {
 		scv.dispose();
-	}
-
-	@Override
-	public void windowClosed(WindowEvent e) {
-		System.exit(0);
 	}
 
 	@Override

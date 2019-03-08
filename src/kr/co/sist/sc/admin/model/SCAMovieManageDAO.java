@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import kr.co.sist.sc.admin.vo.SCAMovieDatailVO;
+import kr.co.sist.sc.admin.vo.SCAMovieDatailsVO;
 import kr.co.sist.sc.admin.vo.SCAMovieManageVO;
-import kr.co.sist.sc.admin.vo.SCAMovieRegisterVO;
+import kr.co.sist.sc.admin.vo.SCAMovieInsertVO;
 
 public class SCAMovieManageDAO {
 	private static SCAMovieManageDAO s_Dao;
@@ -88,10 +88,10 @@ public class SCAMovieManageDAO {
 		return list;
 	}
 
-	public SCAMovieDatailVO selectMovie(String code) throws SQLException {
+	public SCAMovieDatailsVO selectMovie(String code) throws SQLException {
 		// 마우스의 의해 더블클릭된 레코드의 영화 제목을 읽어와 제목으로 db에서 조회하여 상세 정보를 읽어옴
 
-		SCAMovieDatailVO scdvo = null;
+		SCAMovieDatailsVO scdvo = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -106,7 +106,7 @@ public class SCAMovieManageDAO {
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				scdvo = new SCAMovieDatailVO(rs.getString("movie_code"), rs.getString("movie_title"),
+				scdvo = new SCAMovieDatailsVO(rs.getString("movie_code"), rs.getString("movie_title"),
 						rs.getString("movie_img"), rs.getString("genre"), rs.getString("country"),
 						rs.getString("director"), rs.getString("movie_grade"), rs.getString("playdate"),
 						rs.getString("synopsis"), rs.getString("actor"), rs.getInt("runningtime"));
@@ -159,7 +159,7 @@ public class SCAMovieManageDAO {
 
 	}
 
-	public void registerMovie(SCAMovieRegisterVO scrvo) throws SQLException {
+	public void registerMovie(SCAMovieInsertVO scrvo) throws SQLException {
 		// 추가
 		Connection con = null;
 		PreparedStatement pstmt = null;

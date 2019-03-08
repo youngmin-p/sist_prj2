@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
 import kr.co.sist.sc.admin.controller.SCAMovieManageController;
-import kr.co.sist.sc.admin.controller.SCAMovieRegisterController;
+import kr.co.sist.sc.admin.controller.SCAMovieInsertController;
 
 @SuppressWarnings("serial")
 public class SCAMovieInsertView extends JDialog {
@@ -25,9 +25,9 @@ public class SCAMovieInsertView extends JDialog {
 		public JButton imgRegister,register,exit;
 		private String adminId;
 		
-		public SCAMovieInsertView(SCAMovieManageView scv, SCAMovieManageController scc) {
-			super(scv ,"관리자"+scv.getAdminId()+" 영화 등록", true);//모달로 받아야함
-			adminId=scv.getAdminId();
+		public SCAMovieInsertView(SCAMovieManageView scammv, SCAMovieManageController scammc) {
+			super(scammv ,"관리자"+scammv.getAdmin_id()+" 영화 등록", true);//모달로 받아야함
+			adminId=scammv.getAdmin_id();
 //			setTitle("관리자 :"+adminId);
 			
 			Font fontSet =new Font("나눔고딕", Font.BOLD, 25);
@@ -268,15 +268,15 @@ public class SCAMovieInsertView extends JDialog {
 			
 			add(backColor);
 			
-			SCAMovieRegisterController scrc =new SCAMovieRegisterController(this, scc);
-			addWindowListener(scrc);
+			SCAMovieInsertController scamic =new SCAMovieInsertController(this, scammc);
+			addWindowListener(scamic);
 			
 			
-			imgRegister.addActionListener(scrc);
-			register.addActionListener(scrc);
-			exit.addActionListener(scrc);
+			imgRegister.addActionListener(scamic);
+			register.addActionListener(scamic);
+			exit.addActionListener(scamic);
 			
-			setBounds(scv.getX()+50,scv.getY()+50, 830, 820);
+			setBounds(scammv.getX()+50,scammv.getY()+50, 830, 820);
 			setVisible(true);
 			setEnabled(false);
 			setResizable(false);
@@ -335,7 +335,7 @@ public class SCAMovieInsertView extends JDialog {
 		
 		
 //		public static void main(String[] args) {
-//			new SsangyoungCinemaDetailView(scv, scdvo, scc)
+//			new SsangyoungCinemaDetailView(scammv, scdvo, scammc)
 //		}
 
 

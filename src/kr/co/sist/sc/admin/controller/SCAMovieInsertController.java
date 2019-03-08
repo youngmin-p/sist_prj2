@@ -4,27 +4,25 @@ import java.awt.FileDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
-import java.io.File;
 import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
 
-import kr.co.sist.sc.admin.model.SsangyongCinemaDAO;
+import kr.co.sist.sc.admin.model.SCAMovieManageDAO;
 import kr.co.sist.sc.admin.view.SCAMovieInsertView;
-import kr.co.sist.sc.admin.vo.SCAMovieRegisterVO;
+import kr.co.sist.sc.admin.vo.SCAMovieInsertVO;
 
 public class SCAMovieInsertController extends WindowAdapter implements ActionListener {
 	private SCAMovieInsertView scrv;
-	private SsangyongCinemaDAO s_Dao;
+	private SCAMovieManageDAO scamm_dao;
 	private SCAMovieManageController scmc;
 	private String uploadImgName;
 
 	public SCAMovieInsertController(SCAMovieInsertView scrv, SCAMovieManageController scmc) {
 		this.scrv = scrv;
 		this.scmc = scmc;
-		s_Dao = SsangyongCinemaDAO.getInstance();
+		scamm_dao = SCAMovieManageDAO.getInstance();
 		uploadImgName="null";
 		
 		scrv.addWindowListener( new WindowAdapter() {
@@ -104,6 +102,7 @@ public class SCAMovieInsertController extends WindowAdapter implements ActionLis
 				return;
 			}
 			// 숫자 로 넘버 입셋션 으로 처리
+			@SuppressWarnings("unused")
 			int num = 0;
 			try {
 				num = Integer.parseInt(scrv.getJtfRunningtime().getText().trim());
@@ -120,7 +119,7 @@ public class SCAMovieInsertController extends WindowAdapter implements ActionLis
 		// 파일을 등록 후 파일명을 가지고 와야함
 //		File file = new File(uploadImg);
 		// movie_title,movie_img,genre,country,director,movie_grade,playdate,synopsis,actor;
-		SCAMovieRegisterVO scrvo = new SCAMovieRegisterVO(scrv.getJtfmovieTitle().getText(), uploadImgName,
+		SCAMovieInsertVO scami_vo = new SCAMovieInsertVO(scrv.getJtfmovieTitle().getText(), uploadImgName,
 				scrv.getJtfGenre().getText(), scrv.getJtfCountry().getText(), scrv.getJtfDirector().getText(),
 				scrv.getJtfmovieGrade().getText(), scrv.getJtfPlaydate().getText(), scrv.getJtaSysnopsis().getText(),
 				scrv.getJtfActor().getText(), scrv.getAdminId(), Integer.parseInt(scrv.getJtfRunningtime().getText()));
@@ -130,7 +129,7 @@ public class SCAMovieInsertController extends WindowAdapter implements ActionLis
 			tempTitle.append("[ ").append(scrv.getJtfmovieTitle().getText()).append(" ]").append("을").append("\n").append("등록 하시겟습니까?");
 			switch (JOptionPane.showConfirmDialog(scrv, tempTitle,"등록 확인", JOptionPane.OK_CANCEL_OPTION)) {
 			case JOptionPane.OK_OPTION:
-				s_Dao.registerMovie(scrvo);
+				scamm_dao.registerMovie(scami_vo);
 				JOptionPane.showMessageDialog(null, "추가완료");
 				scrv.dispose();
 				scmc.showMovie();

@@ -13,21 +13,21 @@ import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
 import kr.co.sist.sc.admin.controller.SCAMovieManageController;
-import kr.co.sist.sc.admin.controller.SCAMovieDetailController;
-import kr.co.sist.sc.admin.vo.SCAMovieDatailVO;
+import kr.co.sist.sc.admin.controller.SCAMovieDetailsController;
+import kr.co.sist.sc.admin.vo.SCAMovieDatailsVO;
 
 @SuppressWarnings("serial")
 public class SCAMovieDetailsView extends JDialog {
 	//830x820px
-	public SCAMovieDatailVO scdvo;
+	public SCAMovieDatailsVO scamd_vo;
 	public JTextField jtfmovieCode, jtfmovieTitle, jtfGenre, jtfCountry, jtfDirector,jtfmovieGrade
 							, jtfRunningtime, jtfPlaydate, jtfActor;
 	public JTextArea  jtaSysnopsis;
 	public JButton delete,exit;
 	
-	public SCAMovieDetailsView(SCAMovieManageView scv, SCAMovieDatailVO scdvo, SCAMovieManageController scc) {
+	public SCAMovieDetailsView(SCAMovieManageView scv, SCAMovieDatailsVO scamd_vo, SCAMovieManageController scc) {
 		super(scv ," 영화 상세 정보", true);//모달로 받아야함
-		this.scdvo=scdvo;
+		this.scamd_vo=scamd_vo;
 		
 		Font fontSet =new Font("나눔고딕", Font.BOLD, 25);
 		
@@ -48,32 +48,32 @@ public class SCAMovieDetailsView extends JDialog {
 				"C:/dev/Workspace/Cinema/src/kr/co/sist/sc/admin/images/admin_detail_movie_bg(830x820).png"));
 		backColor.setBounds(0, 0, 830, 820);
 		String path="C:/dev/Workspace/Cinema/src/kr/co/sist/sc/admin/images/movie/l_movie_";
-		img.setIcon(new ImageIcon(path+scdvo.getMovie_img()));
+		img.setIcon(new ImageIcon(path+scamd_vo.getMovie_img()));
 		
 		 jtfmovieCode=new JTextField(50);
-		 jtfmovieCode.setText(scdvo.getMovie_code());
+		 jtfmovieCode.setText(scamd_vo.getMovie_code());
 		 jtfmovieTitle=new JTextField();
-		 jtfmovieTitle.setText(scdvo.getMovie_title());
+		 jtfmovieTitle.setText(scamd_vo.getMovie_title());
 		 jtfGenre=new JTextField();
-		 jtfGenre.setText(scdvo.getGenre());
+		 jtfGenre.setText(scamd_vo.getGenre());
 		 jtfCountry=new JTextField();
-		 jtfCountry.setText(scdvo.getCountry());
+		 jtfCountry.setText(scamd_vo.getCountry());
 		 jtfDirector=new JTextField();
-		 jtfDirector.setText(scdvo.getDirector());
+		 jtfDirector.setText(scamd_vo.getDirector());
 		 //등급이 빠짐
 		 jtfmovieGrade=new JTextField();
-		 jtfmovieGrade.setText(scdvo.getgrade());
+		 jtfmovieGrade.setText(scamd_vo.getgrade());
 		 
 		 
 		 jtfRunningtime=new JTextField();
-		 jtfRunningtime.setText(Integer.toString(scdvo.getRunningtime()));// 러닝타임은 숫자여서 변환해야함
+		 jtfRunningtime.setText(Integer.toString(scamd_vo.getRunningtime()));// 러닝타임은 숫자여서 변환해야함
 		 jtfPlaydate=new JTextField();
-		 jtfPlaydate.setText(scdvo.getPlaydate());
+		 jtfPlaydate.setText(scamd_vo.getPlaydate());
 		 jtfActor=new JTextField();
-		 jtfActor.setText(scdvo.getActor());
+		 jtfActor.setText(scamd_vo.getActor());
 		
 		JTextArea jtaSysnopsis=new JTextArea();
-		jtaSysnopsis.setText(scdvo.getSynopsis());
+		jtaSysnopsis.setText(scamd_vo.getSynopsis());
 		jtaSysnopsis.setEditable(false);
 		jtaSysnopsis.setLineWrap(true);
 		jtaSysnopsis.setFont(fontSet);
@@ -258,7 +258,7 @@ public class SCAMovieDetailsView extends JDialog {
 		
 		add(backColor);
 		
-		SCAMovieDetailController scdc =new SCAMovieDetailController(this,scc);
+		SCAMovieDetailsController scdc =new SCAMovieDetailsController(this,scc);
 		addWindowListener(scdc);
 		
 		delete.addActionListener(scdc);
@@ -329,7 +329,7 @@ public class SCAMovieDetailsView extends JDialog {
 		return exit;
 	}
 //	public static void main(String[] args) {
-//		new SsangyoungCinemaDetailView(scv, scdvo, scc)
+//		new SsangyoungCinemaDetailView(scv, scamd_vo, scc)
 //	}
 
 

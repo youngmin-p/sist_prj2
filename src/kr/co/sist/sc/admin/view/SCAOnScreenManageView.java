@@ -48,8 +48,7 @@ public class SCAOnScreenManageView extends JDialog{
 	private SimpleDateFormat sdf;
 	
 	
-	public SCAOnScreenManageView() {
-		super();
+	public SCAOnScreenManageView(SCAMainView scamv) {
 		JLabel backColor = new JLabel();
 		backColor.setIcon(new ImageIcon(
 				"C:/dev/Workspace/Cinema/src/kr/co/sist/sc/admin/images/screen_management_2-1_main_bg(870x670).png"));
@@ -468,10 +467,6 @@ public class SCAOnScreenManageView extends JDialog{
 
 	public int getMonth() {
 		return month;
-	}
-
-	public static void main(String[] args) {
-		new SCAOnScreenManageView();
 	}
 
 }

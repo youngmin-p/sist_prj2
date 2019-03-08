@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.util.List;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -341,11 +340,6 @@ public class SCAOnScreenManageController extends WindowAdapter implements Action
 	@Override
 	public void windowClosing(WindowEvent e) {
 		smv.dispose();
-	}
-
-	@Override
-	public void windowClosed(WindowEvent e) {
-		System.exit(0);
 	}
 //	 public static void main(String[] args) { 
 //			SCAOnScreenManageController a=new SCAOnScreenManageController();

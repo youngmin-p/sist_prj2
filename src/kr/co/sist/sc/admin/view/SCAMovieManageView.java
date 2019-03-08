@@ -3,8 +3,6 @@ package kr.co.sist.sc.admin.view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.io.IOException;
-import java.net.MalformedURLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -30,12 +28,11 @@ public class SCAMovieManageView extends JDialog {
 	private JTable tableMovieList;
 	private JScrollPane jspList;
 	private JLabel backColor;
-	private String adminId;
+	private String admin_id;
 
-	public SCAMovieManageView() throws MalformedURLException, IOException {
-		super();
-		adminId="hee"; // 관리자 iD 
-		setTitle("관리자 :"+adminId);
+	public SCAMovieManageView(SCAMainView scamv, String admin_id) {
+		admin_id="hee"; // 관리자 iD 
+		setTitle("관리자 :"+admin_id);
 		  // 테이블 내용 가운데 정렬하기
 	      DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer(); // 디폴트테이블셀렌더러를 생성
 	      dtcr.setHorizontalAlignment(SwingConstants.CENTER);
@@ -150,39 +147,48 @@ public class SCAMovieManageView extends JDialog {
 
 		add(backColor);
 
-		SCAMovieManageController scc = new SCAMovieManageController(this);
-		addWindowListener(scc);
+		SCAMovieManageController scammc = new SCAMovieManageController(this);
+		addWindowListener(scammc);
 
 		////////// 더블클릭
-		tableMovieList.addMouseListener(scc);
+		tableMovieList.addMouseListener(scammc);
 
-		regesterMovie.addActionListener(scc);
-		exit.addActionListener(scc);
+		regesterMovie.addActionListener(scammc);
+		exit.addActionListener(scammc);
 
-		setBounds(50, 50, 600, 720);
+		setSize(600, 720);
+		setLocationRelativeTo(scamv);
 		setResizable(false);
 		setVisible(true);
 
 	}
-	
 
-	public String getAdminId() {
-		return adminId;
-	}
-	public DefaultTableModel getDtmModel() {
-		return dtmModel;
-	}
-	public JTable getTableMovieList() {
-		return tableMovieList;
-	}
-	public JScrollPane getJspList() {
-		return jspList;
-	}
 	public JButton getRegesterMovie() {
 		return regesterMovie;
 	}
+
 	public JButton getExit() {
 		return exit;
 	}
 
+	public DefaultTableModel getDtmModel() {
+		return dtmModel;
+	}
+
+	public JTable getTableMovieList() {
+		return tableMovieList;
+	}
+
+	public JScrollPane getJspList() {
+		return jspList;
+	}
+
+	public JLabel getBackColor() {
+		return backColor;
+	}
+
+	public String getAdmin_id() {
+		return admin_id;
+	}
+	
 }
