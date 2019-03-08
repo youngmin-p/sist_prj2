@@ -1,20 +1,17 @@
 package kr.co.sist.sc.admin.vo;
 
-/**
- * @author owner
- * 회원 관리 - 회원 정보 (정보 수정 버튼)
- */
 public class SCAMemberUpdateVO {
-	private String password, name, phone;
+	
+	private String memberId, name, phone;
 
-	public SCAMemberUpdateVO(String password, String name, String phone) {
-		this.password = password;
+	public SCAMemberUpdateVO(String memberId, String name, String phone) {
+		this.memberId = memberId;
 		this.name = name;
 		this.phone = phone;
 	} // SCAMemberUpdateVO
 
-	public String getPassword() {
-		return password;
+	public String getMemberId() {
+		return memberId;
 	}
 
 	public String getName() {
