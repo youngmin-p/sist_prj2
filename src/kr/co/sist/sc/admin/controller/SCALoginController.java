@@ -13,7 +13,6 @@ import javax.swing.JTextField;
 
 import kr.co.sist.sc.admin.model.SCALoginDAO;
 import kr.co.sist.sc.admin.nio.SCAFileHelper;
-import kr.co.sist.sc.admin.nio.SCAFileServer;
 import kr.co.sist.sc.admin.view.SCALoginView;
 import kr.co.sist.sc.admin.view.SCAMainView;
 import kr.co.sist.sc.admin.vo.SCALoginCheckVO;

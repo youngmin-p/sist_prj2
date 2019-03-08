@@ -152,10 +152,6 @@ public class SCUFileClient {
 		} // end finally
 	} // connectToServer
 	
-//	/**
-//	 * Unit Test
-//	 * @param args
-//	 */
 //	public static void main(String[] args) {
 //		try {
 //			SCUFileClient.getInstance().connectToServer(1);
