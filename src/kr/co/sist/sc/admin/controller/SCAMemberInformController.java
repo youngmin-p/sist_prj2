@@ -49,6 +49,7 @@ public class SCAMemberInformController extends WindowAdapter implements ActionLi
 		String memberId = scamiv.getJtfMemberId().getText();
 		String name = scamiv.getJtfName().getText();
 		String phone = scamiv.getJtfPhone().getText();
+		String[] phoneDiv = scamiv.getJtfPhone().getText().split("-");
 		
 		if(name.equals("")) {
 			JOptionPane.showMessageDialog(scamiv, "변경할 이름을 입력하세요.");
@@ -60,6 +61,21 @@ public class SCAMemberInformController extends WindowAdapter implements ActionLi
 			scamiv.getJtfPhone().requestFocus();
 			return;
 		} // end if
+		for(int i=0; i < phoneDiv.length; i++) {
+			try {
+				Integer.parseInt(phoneDiv[i]);
+			} catch(NumberFormatException nfe) {
+				JOptionPane.showMessageDialog(scamiv, "휴대폰 번호는 숫자와 \"-\"로만 입력해주세요.");
+				scamiv.getJtfPhone().requestFocus();
+				return;
+			} // 
+		} // end for
+		if(phoneDiv.length != 3 || phoneDiv[0].length() != 3 || phoneDiv[1].length() != 4 || phoneDiv[2].length() != 4) {
+			JOptionPane.showMessageDialog(scamiv, "휴대폰 번호의 자리수를 확인해주세요.");
+			scamiv.getJtfPhone().requestFocus();
+			return;
+		} // end if
+		
 		
 		////////////////////////// 19-02-19 김정윤 - 기타 휴대폰 번호 유효성 검증 코드 추가 해야함 ///////////////////////
 		
