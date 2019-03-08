@@ -1,86 +1,188 @@
 package kr.co.sist.sc.admin.view;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.io.IOException;
+import java.net.MalformedURLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.plaf.basic.BasicScrollBarUI;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import kr.co.sist.sc.admin.controller.SCAMovieManageController;
 
 @SuppressWarnings("serial")
 public class SCAMovieManageView extends JDialog {
-	private DefaultTableModel dtmMovieList;
-	private JTable jtabMovieList;
-	private JButton jbtMovieInsert, jbtClose;
-	private String admin_id;
-	
-	public SCAMovieManageView(SCAMainView scamv, String admin_id) {
-		super(scamv, "쌍용관 - 영화 관리", true);
+
+	private JButton regesterMovie, exit;
+	private DefaultTableModel dtmModel;
+	private JTable tableMovieList;
+	private JScrollPane jspList;
+	private JLabel backColor;
+	private String adminId;
+
+	public SCAMovieManageView() throws MalformedURLException, IOException {
+		super();
+		adminId="hee"; // 관리자 iD 
+		setTitle("관리자 :"+adminId);
+		  // 테이블 내용 가운데 정렬하기
+	      DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer(); // 디폴트테이블셀렌더러를 생성
+	      dtcr.setHorizontalAlignment(SwingConstants.CENTER);
+
+	    Font setFont=new Font("나눔고딕", Font.BOLD, 20);
+		JLabel movieManagement = new JLabel("영화관리");
+		movieManagement.setBounds(20, 20, 125, 60);
+//		movieManagement.setContentAreaFilled(false);
+//		movieManagement.setBorderPainted(false);
+		movieManagement.setOpaque(false); // 라벨의 글자 이외의 부분을 투명하게
+		movieManagement.setFont(new Font("나눔고딕", Font.BOLD, 25));
+		movieManagement.setForeground(Color.WHITE);
+		String colum[] = { "순번", "코드","포스터", "제목" };
+		dtmModel = new DefaultTableModel(colum, 4) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+			@Override
+			public Class<?> getColumnClass(int column) {
+				return getValueAt(0, column).getClass();
+			}
+			
+
+	/*		protected void paintComponent(Graphics g) {
+				g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+				super.dtmModel(g);
+			}*/
+		};
+//		dtmModel.
+//		tempColumSet = new JTable(dtmModel);
+		tableMovieList = new JTable(dtmModel);
+		tableMovieList.getTableHeader().setFont(new Font("나눔고딕", Font.BOLD, 22));
+		tableMovieList.getTableHeader().setBorder(new LineBorder(Color.WHITE));
+		tableMovieList.getTableHeader().setForeground(Color.white);
+		tableMovieList.getTableHeader().setBackground(new Color(20,30,65));
+		tableMovieList.getTableHeader().setResizingAllowed(false);
+		tableMovieList.getTableHeader().setPreferredSize(new Dimension(100, 30));
+		// 테이블의 위치 이동 불가설정
+		tableMovieList.getTableHeader().setReorderingAllowed(false);
+		tableMovieList.getTableHeader().setOpaque(false);
+		tableMovieList.setBorder(new LineBorder(Color.WHITE));
+//		tableMovieList.setGridColor(new Color(20,35,65));
+//		tableMovieList.setShowVerticalLines(false);//별로임
+		tableMovieList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tableMovieList.setSelectionForeground(Color.white);
+		tableMovieList.setSelectionBackground(new Color(20,35,65));
+		tableMovieList.setFocusable(false);
+		tableMovieList.setOpaque(false);
+//		각 속성명의 사이즈 설정
+		tableMovieList.getColumnModel().getColumn(0).setPreferredWidth(60); // 순번
+		tableMovieList.getColumnModel().getColumn(0).setCellRenderer(dtcr);
+		tableMovieList.setFont(setFont);
 		
-		this.admin_id = admin_id;
+		tableMovieList.getColumnModel().getColumn(1).setPreferredWidth(120); // 영화 코드
+		tableMovieList.getColumnModel().getColumn(1).setCellRenderer(dtcr);
+		tableMovieList.getColumnModel().getColumn(2).setPreferredWidth(80); // 포스터 이미지
+		tableMovieList.getColumnModel().getColumn(3).setPreferredWidth(150); // 영화 제목
+		tableMovieList.getColumnModel().getColumn(3).setCellRenderer(dtcr);
+		tableMovieList.setRowHeight(160);
+		jspList = new JScrollPane(tableMovieList);
+		jspList.setBounds(10, 100, 565, 450);
+		jspList.setOpaque(false);
+
+		//////////////////////////////////
+		// 등록
+		regesterMovie = new JButton();
+		regesterMovie.setIcon(
+				new ImageIcon("C:/dev/Workspace/Cinema/src/kr/co/sist/sc/admin/images/jbt_resist(125x40).png"));
+		regesterMovie.setBounds(150, 580, 125, 40);
+		regesterMovie.setContentAreaFilled(false);
+		regesterMovie.setBorderPainted(false);
+
+		// 닫기
+		exit = new JButton();
+		exit.setIcon(new ImageIcon("C:/dev/Workspace/Cinema/src/kr/co/sist/sc/admin/images/jbt_close(125x40).png"));
+		exit.setBounds(285, 580, 125, 40);
+		exit.setContentAreaFilled(false);
+		exit.setBorderPainted(false);
+
+		////////////////////////////////////// 전체 배경 색 추가
+		backColor = new JLabel();
+		backColor.setIcon(new ImageIcon(
+				"C:/dev/Workspace/Cinema/src/kr/co/sist/sc/admin/images/admin_movie_management_bg(600x700).png"));
+		backColor.setBounds(0, 0, 600, 700);
+
+		setLayout(null);
+		TitledBorder tb=new TitledBorder("영화목록");
+		tb.setTitleFont(setFont);
+		tb.setTitleColor(Color.white);
+		jspList.setBorder(tb);
+//		jspList.setFont(new Font("나눔궁서", Font.BOLD, 22));
+		jspList.getVerticalScrollBar().setUI(new BasicScrollBarUI() { 
+			 			@Override 
+						protected void configureScrollBarColors() { 
+			 				this.thumbColor = new Color(163, 184, 204); 
+			 			} // configureScrollBarColors 
+					}); 
+
 		
-		jbtMovieInsert = new JButton("영화 등록");
-		jbtMovieInsert.setBounds(0, 0, 80, 40);
+		jspList.setForeground(Color.BLUE);
+		jspList.setBackground(Color.BLUE);
+		jspList.setOpaque(false);
 		
-		jbtClose = new JButton("닫기");
-		jbtClose.setBounds(90, 0, 80, 40);
 		
-		// bg
-		JLabel jlblBackground = new JLabel(new ImageIcon(
-				"C:/dev/workspace/sist_prj2/src/kr/co/sist/sc/admin/images/admin_movie_management_bg(600x700).png"));
-		jlblBackground.setLayout(null);
-		jlblBackground.setBounds(0, 0, 600, 700);
-		
-		jlblBackground.add(jbtMovieInsert);
-		jlblBackground.add(jbtClose);
-		
-		JPanel jp = new JPanel();
-		jp.setLayout(null);
-		jp.setBackground(Color.LIGHT_GRAY);
-		
-		jp.add(jlblBackground);
-		
-		add(jp);
-		
-		//
-		SCAMovieManageController scammc = new SCAMovieManageController(this);
-		
-		jbtMovieInsert.addActionListener(scammc);
-		jbtClose.addActionListener(scammc);
-		
-		addWindowListener(scammc);
-		
-		// size 600X700
-		setSize(600, 720);
-		setLocationRelativeTo(null);
+
+		backColor.add(movieManagement);
+		backColor.add(jspList);
+		backColor.add(regesterMovie);
+		backColor.add(exit);
+
+
+		add(backColor);
+
+		SCAMovieManageController scc = new SCAMovieManageController(this);
+		addWindowListener(scc);
+
+		////////// 더블클릭
+		tableMovieList.addMouseListener(scc);
+
+		regesterMovie.addActionListener(scc);
+		exit.addActionListener(scc);
+
+		setBounds(50, 50, 600, 720);
 		setResizable(false);
 		setVisible(true);
-		
-	} // SCAMovieManageView
 
-	public DefaultTableModel getDtmMovieList() {
-		return dtmMovieList;
-	}
-
-	public JTable getJtabMovieList() {
-		return jtabMovieList;
-	}
-
-	public JButton getJbtMovieInsert() {
-		return jbtMovieInsert;
-	}
-
-	public JButton getJbtClose() {
-		return jbtClose;
-	}
-
-	public String getAdmin_id() {
-		return admin_id;
 	}
 	
-} // class
+
+	public String getAdminId() {
+		return adminId;
+	}
+	public DefaultTableModel getDtmModel() {
+		return dtmModel;
+	}
+	public JTable getTableMovieList() {
+		return tableMovieList;
+	}
+	public JScrollPane getJspList() {
+		return jspList;
+	}
+	public JButton getRegesterMovie() {
+		return regesterMovie;
+	}
+	public JButton getExit() {
+		return exit;
+	}
+
+}
