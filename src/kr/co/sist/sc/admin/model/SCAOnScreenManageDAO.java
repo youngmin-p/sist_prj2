@@ -8,10 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JOptionPane;
 
-import kr.co.sist.sc.admin.vo.SCAMovieManageVO;
-import kr.co.sist.sc.admin.vo.SCAOnScreenCheckVO;
 import kr.co.sist.sc.admin.vo.SCAOnScreenInsertVO;
 import kr.co.sist.sc.admin.vo.SCAOnScreenMovieListVO;
 import kr.co.sist.sc.admin.vo.SCAOnScreenMovieListVO2;
@@ -151,7 +148,7 @@ public class SCAOnScreenManageDAO {
 					slvo = new insertSelectiveVO(rs.getString("screen_num"), rs.getString("movie_code"), rs.getString("movie_img"), 
 							rs.getString("movie_title"),rs.getString( "screen_name"),rs.getString( "start_time"), rs.getString("end_time"),rs.getString("screen_date"));
 					list.add(slvo);
-	//				System.out.println(slvo);
+					System.out.println(slvo);
 				}
 		 }
 		 finally {
@@ -188,17 +185,18 @@ public class SCAOnScreenManageDAO {
 			 rs= pstmt.executeQuery();
 
 			 insertSelectiveVO slvo=null;
-			 System.out.println("dao"+slvo);
-			 if(rs.next()) {
+			 if(rs != null) {
+				 System.out.println("dao    "+slvo);
 			 while(rs.next()) {
 					slvo = new insertSelectiveVO(rs.getString("screen_num"), rs.getString("movie_code"), rs.getString("movie_img"), 
 							rs.getString("movie_title"),rs.getString( "screen_name"),rs.getString( "start_time"), rs.getString("end_time"),rs.getString("screen_date"));
 					selectlist.add(slvo);
+					System.out.println("정말 없는것이냐???      ======"+selectlist);
 				}
 			 }
-			 else {
-				 slvo=new insertSelectiveVO("0","0" , "0", "0", "0", "0","0","0");
-				 selectlist.add(slvo);
+			 if(slvo==null) {
+				 slvo=new insertSelectiveVO("0", "0" , "0", "0", "0", "0","0", "0");
+				 selectlist.add(0, slvo);
 			 }
 		 }
 		 finally {
@@ -215,11 +213,10 @@ public class SCAOnScreenManageDAO {
 		 return selectlist;
 	}
 	//상영 등록을 하는 부분인데 같은 시작시간일 경우 등록 할수 없게 해야함
-	public void screenRegister(SCAOnScreenInsertVO sivo) throws SQLException{
+	public int screenRegister(SCAOnScreenInsertVO sivo) throws SQLException{
 //	screen_num	screen_date	start_time	end_time	movie_code	screen_name
 		Connection con =null;
 		PreparedStatement pstmt =null;
-		ResultSet rs=null;
 		StringBuilder insertQuery =new StringBuilder();
 		insertQuery.append("insert into on_screen (screen_num,screen_date,start_time,end_time,movie_code,screen_name)")
 									.append(" values(").append("'").append(sivo.getScreen_num()).append("',")
@@ -228,17 +225,12 @@ public class SCAOnScreenManageDAO {
 															.append("'").append(sivo.getEnd_time()).append("',")
 															.append("'").append(sivo.getMovie_code()).append("',")
 															.append("'").append(sivo.getScreen_name()).append("')");
-		
-		
-		
+		int cnt =0;
 		try {
 			con=getconn();
 			pstmt = con.prepareStatement(insertQuery.toString());
-			int cnt = pstmt.executeUpdate();
-			if (cnt == 1) {
-				JOptionPane.showMessageDialog(null, "추가완료");
-
-			}
+			
+			cnt=pstmt.executeUpdate();
 			
 			
 		}finally {
@@ -249,14 +241,14 @@ public class SCAOnScreenManageDAO {
 				con.close();
 			}
 		}
-		
+		return cnt;
 	}
 	
 	/**
 	 *삭제 버튼을 누르면 check_remove 부분을 Y 로 하여 삭제 한걸로 한다
 	 * @throws SQLException 
 	 */
-	public void remove(String screenNum) throws SQLException {
+	public int remove(String screenNum) throws SQLException {
 		Connection con =null;
 		PreparedStatement pstmt =null;
 		
@@ -265,16 +257,12 @@ public class SCAOnScreenManageDAO {
 		try {
 			con=getconn();
 			String updateQuery ="UPDATE ON_SCREEN SET CHECK_REMOVE='Y' WHERE SCREEN_NUM=?";
-			System.out.println(updateQuery);
 			
 			pstmt = con.prepareStatement(updateQuery);
 			pstmt.setString(1, screenNum);
 			int cnt = pstmt.executeUpdate();
-			if (cnt == 1) {
-				JOptionPane.showMessageDialog(null, "삭제완료");
-				System.out.println(cnt);
-			}
 			
+			return cnt;
 			
 		}finally {
 			if (pstmt != null) {
@@ -291,7 +279,7 @@ public class SCAOnScreenManageDAO {
 	SCAOnScreenManageDAO sca=new	 SCAOnScreenManageDAO();
 	 
 	 try {
-//		 sca.screeningSelectMovieInfo();
+		 sca.screeningSelectMovieInfo();
 //		 sca.selectiveList();
 //		sca.MovieList();
 //		 sca.showScreenMovieList();
@@ -301,7 +289,7 @@ public class SCAOnScreenManageDAO {
 		 // TODO	 Auto-generated catch block 
 		 e.printStackTrace(); }
 	 
-	  }
-	 */
+	  }*/
+	 
 	
 }

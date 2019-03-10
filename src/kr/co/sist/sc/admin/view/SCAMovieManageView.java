@@ -190,5 +190,8 @@ public class SCAMovieManageView extends JDialog {
 	public String getAdmin_id() {
 		return admin_id;
 	}
+	public static void main(String[] args) {
+		new SCAMovieManageView(null, null);
+	}
 	
 }

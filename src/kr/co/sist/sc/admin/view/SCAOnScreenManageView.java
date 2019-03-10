@@ -4,8 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -19,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
@@ -28,7 +27,7 @@ import javax.swing.table.DefaultTableModel;
 import kr.co.sist.sc.admin.controller.SCAOnScreenManageController;
 
 @SuppressWarnings("serial")
-public class SCAOnScreenManageView extends JDialog{
+public class SCAOnScreenManageView extends JDialog implements Runnable{
 	private DefaultComboBoxModel<String>  djcbMovieSelect,djcbTheaterSelect, djcbSearchMovie;
 	
 	public JComboBox<String> jcbMovieSelect, jcbTheaterSelect, jcbSearchMovie;
@@ -46,12 +45,18 @@ public class SCAOnScreenManageView extends JDialog{
 	private JLabel si,bun;
 	private int year,month;
 	private SimpleDateFormat sdf;
+	private String admin_id;
+	private JTextField time;
+	private String nowTime;
 	
 	
-	public SCAOnScreenManageView(SCAMainView scamv) {
+//	public SCAOnScreenManageView(SCAMainView scamv) {
+		public SCAOnScreenManageView() {
+			admin_id="hee"; // 관리자 iD 
+			setTitle("관리자 :"+admin_id+"\t"+nowTime);
 		JLabel backColor = new JLabel();
 		backColor.setIcon(new ImageIcon(
-				"C:/dev/Workspace/Cinema/src/kr/co/sist/sc/admin/images/screen_management_2-1_main_bg(870x670).png"));
+				"C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/screen_management_2-1_main_bg(870x670).png"));
 		backColor.setBounds(0, 0, 870, 670);
 		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer(); // 디폴트테이블셀렌더러를 생성
 	      dtcr.setHorizontalAlignment(SwingConstants.CENTER);
@@ -100,7 +105,7 @@ public class SCAOnScreenManageView extends JDialog{
 		bun.setForeground(Color.white);
 		
 		jbtOnScreenInsert=new JButton();
-		jbtOnScreenInsert.setIcon(new ImageIcon("C:/dev/Workspace/Cinema/src/kr/co/sist/sc/admin/images/jbt_on_add_screen(100x30).png"));
+		jbtOnScreenInsert.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_on_add_screen(100x30).png"));
 		jbtOnScreenInsert.setContentAreaFilled(false);
 		jbtOnScreenInsert.setBorderPainted(false);
 		
@@ -143,17 +148,17 @@ public class SCAOnScreenManageView extends JDialog{
 		 jcbInsertDay.setPreferredSize(new Dimension(50, 30));
 		 
 		 jbtOnScreenSearch=new JButton();
-		 jbtOnScreenSearch.setIcon(new ImageIcon("C:/dev/Workspace/Cinema/src/kr/co/sist/sc/admin/images/jbt_on_join_screen(100X30).png"));
+		 jbtOnScreenSearch.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_on_join_screen(100X30).png"));
 		 jbtOnScreenSearch.setContentAreaFilled(false);
 		 jbtOnScreenSearch.setBorderPainted(false);
 		 
 		 jbtOnScreenDelete=new JButton();
-		 jbtOnScreenDelete.setIcon(new ImageIcon("C:/dev/Workspace/Cinema/src/kr/co/sist/sc/admin/images/jbt_on_delete_screen(100x30).png"));
+		 jbtOnScreenDelete.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_on_delete_screen(100x30).png"));
 		 jbtOnScreenDelete.setContentAreaFilled(false);
 		 jbtOnScreenDelete.setBorderPainted(false);
 		 
 		 jbtClose=new JButton();
-		 jbtClose.setIcon(new ImageIcon("C:/dev/Workspace/Cinema/src/kr/co/sist/sc/admin/images/jbt_on_close(125x40).png"));
+		 jbtClose.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_on_close(125x40).png"));
 		 jbtClose.setContentAreaFilled(false);
 		 jbtClose.setBorderPainted(false);
 		 jbtClose.setBounds(350,590,125,40);
@@ -217,6 +222,9 @@ public class SCAOnScreenManageView extends JDialog{
 //		jscTable.setPreferredSize(new Dimension(300, 300));
 		
 		
+		//현재 날짜와 시간
+		time=new JTextField();
+		time.setBounds(0, 0, 50,60);
 //		jcbSearchMovie,jcbSearchYear,jcbSearchMonth, jcbSearchDay;
 		JPanel innerNorth=new JPanel()	;
 		innerNorth.add(jcbSearchMovie);
@@ -225,8 +233,11 @@ public class SCAOnScreenManageView extends JDialog{
 		innerNorth.add(jcbSearchDay);
 		innerNorth.add(jbtOnScreenSearch);
 		innerNorth.add(jbtOnScreenDelete);
+		innerNorth.add(time);
+		
+		
 		innerNorth.setOpaque(false);
-		innerNorth.setBounds(20, 100,825, 470);
+		innerNorth.setBounds(20, 100,850, 470);
 		
 		// 테이블
 		JPanel Southmiddle=new JPanel();
@@ -240,7 +251,7 @@ public class SCAOnScreenManageView extends JDialog{
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		SetYear();
 		SetMonth();
-		SetDay();
+		
 		SetHour();
 		SetMinute();
 		
@@ -250,6 +261,8 @@ public class SCAOnScreenManageView extends JDialog{
 		jbtOnScreenSearch.addActionListener(ssmc);
 		 jbtOnScreenDelete.addActionListener(ssmc);
 		jbtClose.addActionListener(ssmc);
+		jcbInsertMonth.addActionListener(ssmc);
+//		jcbSearchMonth.addActionListener(ssmc);
 		
 		
 		add(backColor);
@@ -257,8 +270,49 @@ public class SCAOnScreenManageView extends JDialog{
 		setBounds(50, 50, 870,670);
 		setVisible(true);
 		setResizable(false);
+		new Thread(this).start();
+
+      
+
+
+
+
 //		 870, 670
 	}
+		public void run(){
+            while(true)  {
+                   display();
+
+                   try{
+                          Thread.sleep(1000);
+
+                   }catch(Exception ex){}
+            }
+      }
+		public void display(){
+
+            Calendar cal=Calendar.getInstance();
+
+            int y=cal.get(Calendar.YEAR);
+
+            int m=cal.get(Calendar.MONTH)+1;
+
+            int d=cal.get(Calendar.DATE);
+
+            int h=cal.get(Calendar.HOUR);
+
+            int min=cal.get(Calendar.MINUTE);
+
+            int sec=cal.get(Calendar.SECOND);
+
+            time.setText(y+"년 "+m+"월 "+d+"일 "+h+"시 "+min+"분 "+sec+"초");
+            nowTime=time.getText().toString();
+            setTitle("관리자 :"+admin_id+"                                                                   "+nowTime);
+
+      }
+
+
+
 
 	//년월일 시분 상영등록에
 	private void SetYear() {
@@ -285,9 +339,14 @@ public class SCAOnScreenManageView extends JDialog{
 			}
 		jcbInsertMonth.setSelectedItem(new Integer(now));
 		jcbSearchMonth.setSelectedItem(new Integer(now));
+		SetDay();
 	}
 
 	private void SetDay() {
+/*		if(jcbInsertMonth.getActionListeners() != null) {
+			System.out.println(jcbInsertMonth.getSelectedItem());
+		}*/
+		
 		Calendar cal = new GregorianCalendar(year,month,1);
 		int day = cal.getActualMaximum(Calendar.DATE);
 		int nowday=cal.get(cal.DAY_OF_MONTH);
@@ -296,8 +355,8 @@ public class SCAOnScreenManageView extends JDialog{
 		jcbInsertDay.addItem(i);
 		jcbSearchDay.addItem(i);
 		}
-//		jcbInsertDay.setSelectedItem(new Integer(nowday));
-//		jcbSearchDay.setSelectedItem(new Integer(nowday));
+		jcbInsertDay.setSelectedItem(new Integer(nowday));
+		jcbSearchDay.setSelectedItem(new Integer(nowday));
 	}
 	//시 분 
 	private void SetHour() {
@@ -468,5 +527,10 @@ public class SCAOnScreenManageView extends JDialog{
 	public int getMonth() {
 		return month;
 	}
-
+	public static void main(String[] args) {
+		SCAOnScreenManageView sss=new SCAOnScreenManageView();
+	}
+	
+	
+	
 }
