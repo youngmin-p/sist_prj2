@@ -83,7 +83,11 @@ public class SCASnackManageController extends WindowAdapter implements ActionLis
 
 		// 메뉴 추가 버튼 클릭시
 		if (ae.getSource() == scasmv.getJbtSnackMenuInsert()) {
-			showSnackMenuAdd();
+			if(scasmv.getJbtSnackImg().length > 8) {
+				showSnackMenuAdd();
+			} else {
+				JOptionPane.showMessageDialog(scasmv, "더 이상 스낵 메뉴를 추가할 수 없습니다.");
+			} // end if
 		} // end if
 
 		// 메뉴 삭제 버튼 클릭시
