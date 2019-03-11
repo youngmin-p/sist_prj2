@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -44,7 +43,7 @@ public class SCAOnScreenManageView extends JDialog implements Runnable{
 	private JTable jtLunch, jtOrder;
 	private JLabel si,bun;
 	private int year,month;
-	private SimpleDateFormat sdf;
+//	private SimpleDateFormat sdf;
 	private String admin_id;
 	private JTextField time;
 	private String nowTime;
@@ -163,7 +162,7 @@ public class SCAOnScreenManageView extends JDialog implements Runnable{
 		 jbtClose.setBorderPainted(false);
 		 jbtClose.setBounds(350,590,125,40);
 			
-		 String colum[] = { "순번", "상영번호","영화코드", "포스터", "제목","상영관","상영 시작시간","상영종료시간"};
+		 String colum[] = { "순번", "상영번호","영화코드", "포스터", "제목","상영관","시작시간","종료시간"};
 			dtmModel = new DefaultTableModel(colum, 8) {
 				@Override
 				public boolean isCellEditable(int row, int column) {
@@ -176,7 +175,7 @@ public class SCAOnScreenManageView extends JDialog implements Runnable{
 		
 			};
 		tableMovieList =new JTable(dtmModel);
-		tableMovieList.setBounds(0, 0, 600, 600);
+		tableMovieList.setBounds(0, 0, 620, 600);
 		tableMovieList.getTableHeader().setReorderingAllowed(false);
 		tableMovieList.setOpaque(false);
 		tableMovieList.setAutoscrolls(true);
@@ -203,9 +202,11 @@ public class SCAOnScreenManageView extends JDialog implements Runnable{
 			}
 			tableMovieList.getColumnModel().getColumn(i).setCellRenderer(dtcr);
 		}
-		tableMovieList.getColumnModel().getColumn(0).setPreferredWidth(10);
-		tableMovieList.getColumnModel().getColumn(3).setPreferredWidth(60);
-		tableMovieList.getColumnModel().getColumn(5).setPreferredWidth(30);
+		tableMovieList.getColumnModel().getColumn(0).setPreferredWidth(1);
+		tableMovieList.getColumnModel().getColumn(1).setPreferredWidth(110);
+		tableMovieList.getColumnModel().getColumn(2).setPreferredWidth(70);
+		tableMovieList.getColumnModel().getColumn(3).setPreferredWidth(70);
+		tableMovieList.getColumnModel().getColumn(5).setPreferredWidth(25);
 		
 /*		tableMovieList.getColumnModel().getColumn(0).setCellRenderer(dtcr);
 		tableMovieList.getColumnModel().getColumn(1).setCellRenderer(dtcr);
@@ -233,7 +234,7 @@ public class SCAOnScreenManageView extends JDialog implements Runnable{
 		innerNorth.add(jcbSearchDay);
 		innerNorth.add(jbtOnScreenSearch);
 		innerNorth.add(jbtOnScreenDelete);
-		innerNorth.add(time);
+//		innerNorth.add(time);
 		
 		
 		innerNorth.setOpaque(false);
@@ -243,7 +244,7 @@ public class SCAOnScreenManageView extends JDialog implements Runnable{
 		JPanel Southmiddle=new JPanel();
 		Southmiddle.setLayout(new BorderLayout());
 		Southmiddle.add(jscTable);
-		Southmiddle.setBounds(20, 150,825, 400);
+		Southmiddle.setBounds(10, 150,850, 400);
 		
 		backColor.add(innerNorth);// 검색
 		backColor.add(Southmiddle);//테이블
@@ -330,8 +331,7 @@ public class SCAOnScreenManageView extends JDialog implements Runnable{
 		Calendar cal = Calendar.getInstance();
 //		month = cal.get(Calendar.MONTH);
 		month = cal.getActualMaximum(Calendar.MONTH);
-		int now=cal.get(cal.MONTH)+1;
-		int temp=0;	
+		int now=cal.get(Calendar.MONTH)+1;
 		for(int i=1;i<month+2;i++) {
 				jcbInsertMonth.addItem(i);
 				jcbSearchMonth.addItem(i);
@@ -349,7 +349,7 @@ public class SCAOnScreenManageView extends JDialog implements Runnable{
 		
 		Calendar cal = new GregorianCalendar(year,month,1);
 		int day = cal.getActualMaximum(Calendar.DATE);
-		int nowday=cal.get(cal.DAY_OF_MONTH);
+		int nowday=cal.get(Calendar.DAY_OF_MONTH);
 		for(int i=1;i<day+1;i++) {
 		
 		jcbInsertDay.addItem(i);
@@ -361,8 +361,8 @@ public class SCAOnScreenManageView extends JDialog implements Runnable{
 	//시 분 
 	private void SetHour() {
 		Calendar cal = new GregorianCalendar();
-		int hour =cal.getActualMaximum(cal.HOUR_OF_DAY);
-		int now=cal.get(cal.HOUR_OF_DAY);
+		int hour =cal.getActualMaximum(Calendar.HOUR_OF_DAY);
+		int now=cal.get(Calendar.HOUR_OF_DAY);
 		for(int i=0;i<hour+1;i++) {
 			jcbInsertHour.addItem(i);
 			}
@@ -370,8 +370,8 @@ public class SCAOnScreenManageView extends JDialog implements Runnable{
 	}
 	private void SetMinute() {
 		Calendar cal = new GregorianCalendar();
-		int mi =cal.getActualMaximum(cal.MINUTE);
-		int now=cal.get(cal.MINUTE);
+		int mi =cal.getActualMaximum(Calendar.MINUTE);
+//		int now=cal.get(Calendar.MINUTE);
 		for(int i=0;i<mi+1;i++) {
 			if(i%5==0) {
 			jcbInsertMinute.addItem(i);

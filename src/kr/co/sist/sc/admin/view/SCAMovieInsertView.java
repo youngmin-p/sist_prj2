@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
 import kr.co.sist.sc.admin.controller.SCAMovieManageController;
@@ -139,35 +140,17 @@ public class SCAMovieInsertView extends JDialog {
 			genre.setBounds(350,140 , 100, 100);//40
 			country.setBounds(350, 185, 120, 100);///50
 			director.setBounds(350, 230, 100, 100);///60
-			movieGrade.setBounds(350, 275, 100, 100);//70
-			runningtime.setBounds(350, 320, 100, 100);//80
-			playdate.setBounds(350,365, 100, 100);///90
+			movieGrade.setBounds(350, 270, 100, 100);//70
+			runningtime.setBounds(350, 315, 100, 100);//80
+			playdate.setBounds(350,355, 100, 100);///90
 			actor.setBounds(350, 400, 100, 100);//100
 			
 			
-			imgRegister.setBounds(200, 20, 125, 40);
+			imgRegister.setBounds(180, 20, 125, 40);
 			register.setBounds(250, 730, 125, 40);
 			exit.setBounds(385, 730, 125, 40);
 			//필드 설정
-//			jtfmovieCode.setBounds(550, 75, 185, 30);
-//			jtfmovieCode.setEditable(false);        
-//			jtfmovieCode.setForeground(Color.WHITE);
-//			jtfmovieTitle.setBounds(550, 105, 185, 30);
-//			jtfmovieTitle.setForeground(Color.WHITE);
-//			jtfGenre.setBounds(550, 135, 185, 30);
-//			jtfGenre.setForeground(Color.WHITE);
-//			jtfCountry.setBounds(550, 165, 185, 30);
-//			jtfCountry.setForeground(Color.WHITE);
-//			jtfDirector.setBounds(550, 195, 185, 30);
-//			jtfDirector.setForeground(Color.WHITE);
-//			jtfmovieGrade.setBounds(550, 225, 185, 30);
-//			jtfmovieGrade.setForeground(Color.WHITE);
-//			jtfRunningtime.setBounds(550, 255, 185, 30);
-//			jtfRunningtime.setForeground(Color.WHITE);
-//			jtfPlaydate.setBounds(550, 285, 185, 30);
-//			jtfPlaydate.setForeground(Color.WHITE);
-//			jtfActor.setBounds(550, 315, 185, 30);
-//			jtfActor.setForeground(Color.WHITE);
+
 			
 			jtfmovieCode.setBounds(550,80, 185, 30); //45 씩차이남
 			jtfmovieCode.setEditable(false);        
@@ -218,9 +201,16 @@ public class SCAMovieInsertView extends JDialog {
 			jtfActor.setCaretColor(Color.white);
 			
 			//줄거리
+			
 			jtaSysnopsis.setFont(fontSet);
 			jtaSysnopsis.setForeground(Color.WHITE);
 			jtaSysnopsis.setBackground(new Color(20,44,84));
+			TitledBorder tb=new TitledBorder("영화목록");
+			tb.setTitleFont(fontSet);
+			tb.setTitleColor(Color.white);
+			jsSysnopsis.setBorder(tb);
+			jsSysnopsis.setForeground(Color.BLUE);
+			jsSysnopsis.setOpaque(false);
 			jsSysnopsis.setBounds(10, 500, 800, 200);
 			jsSysnopsis.getVerticalScrollBar().setUI(new BasicScrollBarUI() { 
 	 			@Override 

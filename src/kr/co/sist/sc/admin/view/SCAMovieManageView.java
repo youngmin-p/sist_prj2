@@ -3,6 +3,7 @@ package kr.co.sist.sc.admin.view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.Calendar;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
 import kr.co.sist.sc.admin.controller.SCAMovieManageController;
 
 @SuppressWarnings("serial")
-public class SCAMovieManageView extends JDialog {
+public class SCAMovieManageView extends JDialog implements Runnable {
 
 	private JButton regesterMovie, exit;
 	private DefaultTableModel dtmModel;
@@ -29,10 +30,11 @@ public class SCAMovieManageView extends JDialog {
 	private JScrollPane jspList;
 	private JLabel backColor;
 	private String admin_id;
+	private String nowTime;
 
 	public SCAMovieManageView(SCAMainView scamv, String admin_id) {
 		admin_id="hee"; // 관리자 iD 
-		setTitle("관리자 :"+admin_id);
+//		setTitle("관리자 :"+admin_id);
 		  // 테이블 내용 가운데 정렬하기
 	      DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer(); // 디폴트테이블셀렌더러를 생성
 	      dtcr.setHorizontalAlignment(SwingConstants.CENTER);
@@ -94,7 +96,7 @@ public class SCAMovieManageView extends JDialog {
 		tableMovieList.getColumnModel().getColumn(3).setCellRenderer(dtcr);
 		tableMovieList.setRowHeight(160);
 		jspList = new JScrollPane(tableMovieList);
-		jspList.setBounds(10, 100, 565, 450);
+		jspList.setBounds(15, 100, 565, 480);
 		jspList.setOpaque(false);
 
 		//////////////////////////////////
@@ -102,14 +104,14 @@ public class SCAMovieManageView extends JDialog {
 		regesterMovie = new JButton();
 		regesterMovie.setIcon(
 				new ImageIcon("C:/dev/Workspace/Cinema/src/kr/co/sist/sc/admin/images/jbt_resist(125x40).png"));
-		regesterMovie.setBounds(150, 580, 125, 40);
+		regesterMovie.setBounds(160, 620, 125, 40);
 		regesterMovie.setContentAreaFilled(false);
 		regesterMovie.setBorderPainted(false);
 
 		// 닫기
 		exit = new JButton();
 		exit.setIcon(new ImageIcon("C:/dev/Workspace/Cinema/src/kr/co/sist/sc/admin/images/jbt_close(125x40).png"));
-		exit.setBounds(285, 580, 125, 40);
+		exit.setBounds(305,620, 125, 40);
 		exit.setContentAreaFilled(false);
 		exit.setBorderPainted(false);
 
@@ -159,9 +161,42 @@ public class SCAMovieManageView extends JDialog {
 		setSize(600, 720);
 		setLocationRelativeTo(scamv);
 		setResizable(false);
+		new Thread(this).start();
 		setVisible(true);
 
 	}
+
+	public void run(){
+        while(true)  {
+               display();
+
+               try{
+                      Thread.sleep(1000);
+
+               }catch(Exception ex){}
+        }
+  }
+	public void display(){
+
+        Calendar cal=Calendar.getInstance();
+
+        int y=cal.get(Calendar.YEAR);
+
+        int m=cal.get(Calendar.MONTH)+1;
+
+        int d=cal.get(Calendar.DATE);
+
+        int h=cal.get(Calendar.HOUR);
+
+        int min=cal.get(Calendar.MINUTE);
+
+        int sec=cal.get(Calendar.SECOND);
+
+ //       time.setText(y+"년 "+m+"월 "+d+"일 "+h+"시 "+min+"분 "+sec+"초");
+        nowTime=y+"년 "+m+"월 "+d+"일 "+h+"시 "+min+"분 "+sec+"초";
+        setTitle("관리자 :"+admin_id+"                                     "+nowTime);
+
+  }
 
 	public JButton getRegesterMovie() {
 		return regesterMovie;

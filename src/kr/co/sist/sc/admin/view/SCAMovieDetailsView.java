@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
 import kr.co.sist.sc.admin.controller.SCAMovieManageController;
@@ -146,72 +147,78 @@ public class SCAMovieDetailsView extends JDialog {
 		
 		//830x820px
 		moviedetailTitle.setBounds(10,20,250,30);//왼쪽
-		img.setBounds(20,65,288,413); //왼쪽
+		img.setBounds(30,65,288,413); //왼쪽
 		//오른쪽 부분 라벨 
-		movieCode.setBounds(350, 50, 100, 100);//30->50 20
-		movieTitle.setBounds(350,95, 100, 100);///30
-		genre.setBounds(350,140 , 100, 100);//40
-		country.setBounds(350, 185, 120, 100);///50
-		director.setBounds(350, 230, 100, 100);///60
-		movieGrade.setBounds(350, 275, 100, 100);//70
-		runningtime.setBounds(350, 320, 100, 100);//80
-		playdate.setBounds(350,365, 100, 100);///90
-		actor.setBounds(350, 400, 100, 100);//100
+		movieCode.setBounds(400, 55, 100, 50);//30->50 20
+		movieTitle.setBounds(400,95, 100, 50);///30
+		genre.setBounds(400,140 , 100, 50);//40
+		country.setBounds(400, 185, 120, 50);///50
+		director.setBounds(400, 230, 100, 50);///60
+		movieGrade.setBounds(400,275, 100, 50);//70
+		runningtime.setBounds(400, 320, 100, 50);//80
+		playdate.setBounds(400,365, 100, 50);///90
+		actor.setBounds(400, 410, 100, 50);//100
 		
 //		jtaSysnopsis.setBounds(270, 700, 100, 50);
 //		jsSysnopsis.setBounds(270, 700, 100, 30);
 		
-		delete.setBounds(260, 730, 125, 40);
-		exit.setBounds(395, 730, 125, 40);
+		delete.setBounds(280, 730, 125, 40);
+		exit.setBounds(415, 730, 125, 40);
 		//필드 설정
-		jtfmovieCode.setBounds(550, 50, 185, 100);
+		jtfmovieCode.setBounds(610, 55, 185, 50);
 		jtfmovieCode.setEditable(false);        
 		jtfmovieCode.setForeground(Color.WHITE);
 		jtfmovieCode.setFont(fontSet);
 		jtfmovieCode.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		
-		jtfmovieTitle.setBounds(550, 95, 185, 100);
+		jtfmovieTitle.setBounds(610, 95, 185, 50);
 		jtfmovieTitle.setEditable(false);
 		jtfmovieTitle.setForeground(Color.WHITE);
 		jtfmovieTitle.setFont(fontSet);
 		jtfmovieTitle.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-		jtfGenre.setBounds(550,140 , 185, 100);
+		jtfGenre.setBounds(610,140 , 185, 50);
 		jtfGenre.setEditable(false);
 		jtfGenre.setForeground(Color.WHITE);
 		jtfGenre.setFont(fontSet);
 		jtfGenre.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-		jtfCountry.setBounds(550, 185, 185, 100);
+		jtfCountry.setBounds(610, 185, 185, 50);
 		jtfCountry.setEditable(false);
 		jtfCountry.setForeground(Color.WHITE);
 		jtfCountry.setFont(fontSet);
 		jtfCountry.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-		jtfDirector.setBounds(550, 230, 185, 100);
+		jtfDirector.setBounds(610, 230, 185, 50);
 		jtfDirector.setEditable(false);
 		jtfDirector.setForeground(Color.WHITE);
 		jtfDirector.setFont(fontSet);
 		jtfDirector.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-		jtfmovieGrade.setBounds(550, 275, 185, 100);
+		jtfmovieGrade.setBounds(610, 275, 185, 50);
 		jtfmovieGrade.setEditable(false);
 		jtfmovieGrade.setForeground(Color.WHITE);
 		jtfmovieGrade.setFont(fontSet);
 		jtfmovieGrade.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-		jtfRunningtime.setBounds(550, 320, 185, 100);
+		jtfRunningtime.setBounds(610,320, 185, 50);
 		jtfRunningtime.setEditable(false);
 		jtfRunningtime.setForeground(Color.WHITE);
 		jtfRunningtime.setFont(fontSet);
 		jtfRunningtime.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-		jtfPlaydate.setBounds(550, 365, 185, 100);
+		jtfPlaydate.setBounds(610, 365, 185, 50);
 		jtfPlaydate.setEditable(false);
 		jtfPlaydate.setForeground(Color.WHITE);
 		jtfPlaydate.setFont(fontSet);
 		jtfPlaydate.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-		jtfActor.setBounds(550, 400, 185, 100);
+		jtfActor.setBounds(610, 410, 185, 50);
 		jtfActor.setEditable(false);
 		jtfActor.setForeground(Color.WHITE);
 		jtfActor.setFont(fontSet);
 		jtfActor.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		//줄거리
 		jsSysnopsis.setBounds(10, 500, 800, 200);
+		TitledBorder tb=new TitledBorder("영화목록");
+		tb.setTitleFont(fontSet);
+		tb.setTitleColor(Color.white);
+		jsSysnopsis.setBorder(tb);
+		jsSysnopsis.setForeground(Color.BLUE);
+		jsSysnopsis.setOpaque(false);
 		jsSysnopsis.getVerticalScrollBar().setUI(new BasicScrollBarUI() { 
  			@Override 
 			protected void configureScrollBarColors() { 
