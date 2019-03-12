@@ -169,7 +169,7 @@ public class SCAOnScreenManageController extends WindowAdapter implements Action
 		//n,p 비교 후 러닝타임 비교 
 		 
 		 
-		 System.out.println("상영등록------------------------------------------");
+		 System.out.println("상영등록---등록하기전 중복 검사---------------");
 		 int st_time=0;
 		 int en_time=0;
 		 int temp_st_date=Integer.parseInt(screen_num.substring(2).toString());
@@ -178,40 +178,53 @@ public class SCAOnScreenManageController extends WindowAdapter implements Action
 		 boolean flag_en=false;
 		 String date="";
 		 String temp_date=screen_num.substring(2,8);
+		 String sc_code="";
+		 String temp_code=screenArea.toString();
 		 
+		 System.out.println(sc_code+"/////"+temp_code);
 		 for(int i=0; i< selectiveVO.size();i++) {
 			 st_time=Integer.parseInt(selectiveVO.get(i).getScreen_num().substring(2));
 			 en_time=Integer.parseInt(selectiveVO.get(i).getScreen_num().substring(2, 8)+selectiveVO.get(i).getEnd_time());
+			 date=selectiveVO.get(i).getScreen_num().substring(2, 8);
+			 sc_code=selectiveVO.get(i).getScreen_num().substring(0, 1);
 			 
+			 
+			//SCREEN_NUM	SC
+//				N_19 0129 0830
 			 // 스크린넘버
 //			 if(screen_num.toString().equals(selectiveVO.get(i).getScreen_num())) {
 //				 System.out.println("--"+selectiveVO.get(i).getScreen_num()+"---st--"+st_time+"//en/"+en_time+"////"+temp_st_date+"////"+end_time+"///"+temp_end_date);	
 				
-			 date=selectiveVO.get(i).getScreen_num().substring(2, 8);
-			 System.out.println("1--"+selectiveVO.get(i).getScreen_num()+"-저장-"+st_time+"/en//"+en_time+"//입력/"+temp_st_date+"///////"+temp_end_date);	
-			 if(temp_date.equals(date)) {
-				 System.err.println(selectiveVO.get(i));
-				 System.out.println(date+"////"+temp_date);
+//			 System.out.println("1--"+selectiveVO.get(i).getScreen_num()+"-저장-"+st_time+"/en//"+en_time+"//입력/"+temp_st_date+"///////"+temp_end_date);	
+			if(temp_code.equals(sc_code)) {
+				if(temp_date.equals(date)) {// 날짜가 같은지
+///					 System.err.println(selectiveVO.get(i));
+//					 System.out.println(sc_code+"////"+temp_code+"/////"+date+"////"+temp_date);
+//					 System.out.println("같은 코드의 같은 날짜");
+						 if( st_time<=temp_st_date) {// 입력받은  temp 가  st 보다 높은가
+//								 System.out.println("1--"+selectiveVO.get(i).getScreen_num()+"-저장-"+st_time+"/en//"+en_time+"//입력/"+temp_st_date+"///en//"+temp_end_date);	
+//								 System.out.println();
+									 if(temp_st_date<=en_time) {// 입력받은  tempr 가  en 보다 작은가
+										 flag_st=true;
+										 System.out.println(flag_st+"//////"+flag_en+"-저장-"+st_time+"/en//"+en_time+"//입력/"+temp_st_date+"///en//"+temp_end_date);
+//										 System.out.println("111111111111111111111111111111111111아래");
+									 }
+						 }
+					 System.out.println();
+					 //시작시간에 대한  if 끝
+					 	if(st_time<=temp_end_date) {
+							 if(temp_end_date<=en_time) {
+								 flag_en=true;
+								 System.out.println("안됨");
+								 System.out.println(flag_st+"//////"+flag_en+"-저장-"+st_time+"/en//"+en_time+"//입력/"+temp_st_date+"///en//"+temp_end_date);
+							 }
+					 	}
 			 }
-//			 if( st_time<=temp_st_date) {// 입력받은  temp 가  st 보다 높은가
-//				 System.out.println("111111111111111111111111111111111111아래");
-//				 System.out.println("1--"+selectiveVO.get(i).getScreen_num()+"-저장-"+st_time+"/en//"+en_time+"//입력/"+temp_st_date+"///////"+temp_end_date);	
-//				 System.out.println();
-//				 if(temp_st_date<=en_time) {// 입력받은  tempr 가  en 보다 작은가
-//					 flag_st=true;
-//				 }
-//				 
-//			 }
-//			 if(st_time<=temp_end_date) {
-//				 
-//				 if(temp_end_date<=en_time) {
-//					  System.out.println("안됨");
-//					  flag_en=true;
-//				 }
-//			 }
-//		System.out.println(flag_st+"//////"+flag_en);
-		
-		
+			}//N,P if
+		 }
+			if(flag_en==flag_st) {
+			System.out.println("마지막"+flag_st+"//////"+flag_en+"-저장-"+st_time+"/en//"+en_time+"//입력/"+temp_st_date+"///en//"+temp_end_date);
+			}
 			/* if(st_time<=temp_st_date && temp_st_date <=st_time) {// 시작시간
 					 System.out.println("111111111111111111111111111111111111아래");
 					 System.out.println("1--"+selectiveVO.get(i).getScreen_num()+"-저장-"+st_time+"/en//"+en_time+"//입력/"+temp_st_date+"///////"+temp_end_date);	
@@ -260,7 +273,7 @@ public class SCAOnScreenManageController extends WindowAdapter implements Action
 			
 			return;*/
 	
-		}
+		
 	}
 	
 	/**
