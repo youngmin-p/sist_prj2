@@ -160,7 +160,7 @@ public class SCASnackManageDAO {
 			con = SCAConnect.getInstance().getConn();
 			StringBuilder insertPayment = new StringBuilder();
 			insertPayment.append("INSERT INTO SNACK_SALE(SNACK_ORDER_NUM, QUAN, CHECK_EXCHANGE, SNACK_SALE_DATE, SNACK_NAME) ")
-			.append(" VALUES(SNACK_CODE, ?, 'Y', SYSDATE, ?)");
+			.append(" VALUES(SNACK_CODE, 	?, 'Y', SYSDATE, ?)");
 			
 			pstmt = con.prepareStatement(insertPayment.toString());
 			pstmt.setInt(1, scaspvo.getQuan());

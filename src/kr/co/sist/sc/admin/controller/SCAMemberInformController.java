@@ -16,7 +16,7 @@ import kr.co.sist.sc.admin.view.SCAMemberInformView;
 import kr.co.sist.sc.admin.view.SCAMemberManageView;
 import kr.co.sist.sc.admin.vo.SCAMemberUpdateVO;
 
-public class SCAMemberInformController extends WindowAdapter implements ActionListener, MouseListener {
+public class SCAMemberInformController extends WindowAdapter implements ActionListener {
 
 	private SCAMemberManageView scammv;
 	private SCAMemberInformView scamiv;
@@ -94,7 +94,7 @@ public class SCAMemberInformController extends WindowAdapter implements ActionLi
 				if(SCAMemberManageDAO.getInstance().updateMember(scamuvo)) {
 					JOptionPane.showMessageDialog(scamiv, "회원정보가 수정되었습니다.");
 					scamiv.dispose();
-					new SCAMemberController(scammv);
+					new SCAMemberManageController(scammv);
 				} else {
 					JOptionPane.showMessageDialog(scamiv, "정보 수정에 실패하였습니다.");
 				} // end else
@@ -133,32 +133,4 @@ public class SCAMemberInformController extends WindowAdapter implements ActionLi
 		scamiv.dispose();
 	} // windowClosing
 	
-	@Override
-	public void mousePressed(MouseEvent me) {
-		if(me.getSource() == scamiv.getJbtClose()) {
-			scamiv.getJbtClose().setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_close_pressed(100x30).png"));
-		} // end if
-	} // mousePressed
-
-	@Override
-	public void mouseReleased(MouseEvent me) {
-		if(me.getSource() == scamiv.getJbtClose()) {
-			scamiv.getJbtClose().setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_close(100x30).png"));
-		} // end if
-	} // mouseReleased
-
-
-	
-	///////////////////// not used ////////////////////
-	@Override
-	public void mouseClicked(MouseEvent e) {
-	}
-	
-	@Override
-	public void mouseEntered(MouseEvent e) {
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-	}
 } // class

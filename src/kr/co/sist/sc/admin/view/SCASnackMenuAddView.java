@@ -126,11 +126,8 @@ public class SCASnackMenuAddView extends JDialog {
 		SCASnackMenuAddController scasmac = new SCASnackMenuAddController(scasmv, this);
 		addWindowListener(scasmac);
 		jbtSnackImg.addActionListener(scasmac);
-		jbtSnackImg.addMouseListener(scasmac);
 		jbtSnackInsert.addActionListener(scasmac);
-		jbtSnackInsert.addMouseListener(scasmac);
 		jbtClose.addActionListener(scasmac);
-		jbtClose.addMouseListener(scasmac);
 		setBounds(scasmv.getX()+scasmv.getWidth(), scasmv.getY(), 620, 555);
 		setResizable(false);
 		setVisible(true);

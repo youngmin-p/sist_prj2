@@ -178,11 +178,6 @@ public class SCAMemberInformView extends JDialog{
 		jbtMemberDelete.addActionListener(scamic);
 		jbtClose.addActionListener(scamic);
 		
-		jbtMemberUpdate.addMouseListener(scamic);
-		jbtMemberDelete.addMouseListener(scamic);
-		jbtClose.addMouseListener(scamic);
-		
-		
 		setBounds(scammv.getX()+scammv.getWidth(), scammv.getY(), 390, 520);
 		setResizable(false);
 		setVisible(true);

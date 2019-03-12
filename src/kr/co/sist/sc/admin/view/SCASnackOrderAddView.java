@@ -43,7 +43,7 @@ public class SCASnackOrderAddView extends JDialog {
 		// 스낵 기본 이미지 라벨 생성 및 설정
 		jlSnackImg = new JLabel();
 		jlSnackImg.setBounds(17, 20, 325, 325);
-		jlSnackImg.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/admin_snack_default_img(325x325).png"));
+		
 		
 		// JTF옆에 위치할 라벨 생성
 		JLabel jlSnackName = new JLabel("스낵명");
@@ -159,9 +159,7 @@ public class SCASnackOrderAddView extends JDialog {
 		addWindowListener(scasoac);
 		jcbQuan.addActionListener(scasoac);
 		jbtOrderAdd.addActionListener(scasoac);
-		jbtOrderAdd.addMouseListener(scasoac);
 		jbtClose.addActionListener(scasoac);
-		jbtClose.addMouseListener(scasoac);
 		setBounds(scasmv.getX()+scasmv.getWidth(), scasmv.getY(), 620, 470);
 		setResizable(false);
 		setVisible(true);

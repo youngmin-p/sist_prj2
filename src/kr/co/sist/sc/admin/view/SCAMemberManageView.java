@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
-import kr.co.sist.sc.admin.controller.SCAMemberController;
+import kr.co.sist.sc.admin.controller.SCAMemberManageController;
 
 public class SCAMemberManageView extends JDialog {
 
@@ -120,17 +120,17 @@ public class SCAMemberManageView extends JDialog {
 		
 		add(jlBg);
 		
-		SCAMemberController scamc = new SCAMemberController(this);
-		addWindowListener(scamc);
-//		addMouseListener(scamc);
-		jtabMemberList.addMouseListener(scamc);
-		jbtMemberSelectAll.addActionListener(scamc);
-		jbtMemberSelectAll.addMouseListener(scamc);
-		jbtMemberSelectOne.addActionListener(scamc);
-		jbtMemberSelectOne.addMouseListener(scamc);
-		jbtClose.addActionListener(scamc);
-		jbtClose.addMouseListener(scamc);
-		jtfMemberId.addActionListener(scamc);
+		SCAMemberManageController scammc = new SCAMemberManageController(this);
+		addWindowListener(scammc);
+//		addMouseListener(scammc);
+		jtabMemberList.addMouseListener(scammc);
+		jbtMemberSelectAll.addActionListener(scammc);
+		jbtMemberSelectAll.addMouseListener(scammc);
+		jbtMemberSelectOne.addActionListener(scammc);
+		jbtMemberSelectOne.addMouseListener(scammc);
+		jbtClose.addActionListener(scammc);
+		jbtClose.addMouseListener(scammc);
+		jtfMemberId.addActionListener(scammc);
 		
 		setBounds(scamv.getX()+(scamv.getWidth() - 600) / 2, scamv.getY(), 600, 800);
 		setResizable(false);

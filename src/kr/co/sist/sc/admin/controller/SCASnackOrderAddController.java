@@ -18,7 +18,7 @@ import kr.co.sist.sc.admin.view.SCASnackOrderAddView;
 import kr.co.sist.sc.admin.vo.SCASnackMenuSelectVO;
 import kr.co.sist.sc.admin.vo.SCASnackOrderAddVO;
 
-public class SCASnackOrderAddController extends WindowAdapter implements ActionListener, MouseListener {
+public class SCASnackOrderAddController extends WindowAdapter implements ActionListener {
 
 	private SCASnackManageView scasmv;
 	private SCASnackOrderAddView scasoav;
@@ -37,6 +37,7 @@ public class SCASnackOrderAddController extends WindowAdapter implements ActionL
 			int price = Integer.parseInt(scasoav.getJtfPrice().getText().trim());
 			int quan = Integer.parseInt(selectedQuan);
 			scasoav.getJtfTotalPrice().setText(String.valueOf(price * quan));
+			
 		} // end if
 		
 		if(ae.getSource() == scasoav.getJbtOrderAdd()) {
@@ -49,14 +50,16 @@ public class SCASnackOrderAddController extends WindowAdapter implements ActionL
 	}
 	
 	private void searchMenu() {
-		String imgPath = "C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/";
 		String snackName = scasoav.getJtfSnackName().getText().trim();
+		String imgPath = "C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/snack/";
 		try {
 			SCASnackMenuSelectVO scasvo = SCASnackManageDAO.getInstance().selectSnackMenuDetails(snackName);
 			scasoav.getJlSnackImg().setIcon(new ImageIcon(imgPath+scasvo.getSnackImg()));
 			scasoav.getJtfPrice().setText(String.valueOf(scasvo.getSnackPrice()));
 			scasoav.getJtfTotalPrice().setText(String.valueOf(scasvo.getSnackPrice()));
 			scasoav.getJtaSnackInfo().setText(scasvo.getSnackInfo());
+			
+			scasoav.getJlSnackImg().setIcon(new ImageIcon(imgPath+"l_snack_"+scasvo.getSnackImg()));
 		} catch (SQLException sqle) {
 			JOptionPane.showMessageDialog(scasoav, "DB상의 문제가 발생하였습니다. 잠시후 다시 시도해주세요.");
 			sqle.printStackTrace();
@@ -84,41 +87,4 @@ public class SCASnackOrderAddController extends WindowAdapter implements ActionL
 		} // end siwtch
 	} // addSnackOrder
 	
-	@Override
-	public void mousePressed(MouseEvent me) {
-		if(me.getSource() == scasoav.getJbtOrderAdd()) {
-			scasoav.getJbtOrderAdd().setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/jbt_add_order(125x40).png_pressed(125x40).png"));
-		} // end if
-		
-		if(me.getSource() == scasoav.getJbtClose()) {
-			scasoav.getJbtClose().setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/jbtClose_pressed(125x40).png"));
-		} // end if
-	} // mousePressed
-	
-	@Override
-	public void mouseReleased(MouseEvent me) {
-		if(me.getSource() == scasoav.getJbtOrderAdd()) {
-			scasoav.getJbtOrderAdd().setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/jbt_add_order(125x40).png"));
-		} // end if
-		
-		if(me.getSource() == scasoav.getJbtClose()) {
-			scasoav.getJbtClose().setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/jbt_close(125x40).png"));
-		} // end if
-	} // mouseReleased
-
-	
-	/********************************************* 
-	 * 구현하지 않아도 될 메소드
-	 * *******************************************/
-	@Override
-	public void mouseClicked(MouseEvent e) {
-	}
-	@Override
-	public void mouseEntered(MouseEvent e) {
-	}
-	@Override
-	public void mouseExited(MouseEvent e) {
-	}
-	
-
-}
+} // class

@@ -133,11 +133,6 @@ public class SCASnackManageView extends JDialog{
 		jbtSnackMenuDelete.addActionListener(scasmc);
 		jbtSnackOrderDelete.addActionListener(scasmc);
 		jbtClose.addActionListener(scasmc);
-		jbtSnackMenuInsert.addMouseListener(scasmc);
-		jbtSnackMenuDelete.addMouseListener(scasmc);
-		jbtSnackPayment.addMouseListener(scasmc);
-		jbtSnackOrderDelete.addMouseListener(scasmc);
-		jbtClose.addMouseListener(scasmc);
 		
 		setBounds(100, 100, 900, 800);
 		setResizable(false);

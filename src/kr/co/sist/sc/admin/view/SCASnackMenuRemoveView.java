@@ -88,8 +88,6 @@ public class SCASnackMenuRemoveView extends JDialog {
 		addWindowListener(scasmrc);
 		jbtSnackDelete.addActionListener(scasmrc);
 		jbtClose.addActionListener(scasmrc);
-		jbtSnackDelete.addMouseListener(scasmrc);
-		jbtClose.addMouseListener(scasmrc);
 
 		setBounds(scasmv.getX() + scasmv.getWidth(), scasmv.getY(), 400, 620);
 		setResizable(false);

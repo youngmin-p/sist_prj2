@@ -98,8 +98,8 @@ public class SCAMemberManageController extends WindowAdapter implements ActionLi
 	} // searchOneMember
 
 	private void showMemberInform() {
-		JTable jt = scammv.getJtabMemberList(); // detailControll 에서 사용할 것들?
-		String selectedItem = jt.getValueAt(jt.getSelectedRow(), 0).toString(); // detailControll 에서 사용할 것들?
+		JTable jt = scammv.getJtabMemberList();
+		String selectedItem = jt.getValueAt(jt.getSelectedRow(), 0).toString();
 		
 		try {
 			SCAMemberInformVO scamivo = SCAMemberManageDAO.getInstance().selectMemberInform(selectedItem);
@@ -110,7 +110,6 @@ public class SCAMemberManageController extends WindowAdapter implements ActionLi
 		
 	} // showMemberInform
 	
-	// windowClosing, mouse 관련 event 처리
 	@Override
 	public void windowClosing(WindowEvent we) {
 		scammv.dispose();
@@ -123,37 +122,13 @@ public class SCAMemberManageController extends WindowAdapter implements ActionLi
 		} // end if
 	} // mouseClicked
 
+	
 	@Override
 	public void mousePressed(MouseEvent me) {
-		if(me.getSource() == scammv.getJbtMemberSelectAll()) {
-			scammv.getJbtMemberSelectAll().setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_member_select_all_pressed(125x40).png"));
-		} // end if
-		
-		if(me.getSource() == scammv.getJbtMemberSelectOne()) {
-			scammv.getJbtMemberSelectOne().setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_member_select_one_pressed(100x30).png"));
-		} // end if
-		
-		if(me.getSource() == scammv.getJbtClose()) {
-			scammv.getJbtClose().setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbtClose_pressed(125x40).png"));
-		} // end if
 	}
-
 	@Override
 	public void mouseReleased(MouseEvent me) {
-		if(me.getSource() == scammv.getJbtMemberSelectAll()) {
-			scammv.getJbtMemberSelectAll().setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_member_select_all(125x40).png"));
-		} // end if
-		
-		if(me.getSource() == scammv.getJbtMemberSelectOne()) {
-			scammv.getJbtMemberSelectOne().setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_member_select_one(100x30).png"));
-		} // end if
-		
-		if(me.getSource() == scammv.getJbtClose()) {
-			scammv.getJbtClose().setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbtClose(125x40).png"));
-		} // end if
 	}
-
-	////////////////////// not used ////////////////////
 	@Override
 	public void mouseEntered(MouseEvent e) {
 	}
@@ -161,5 +136,4 @@ public class SCAMemberManageController extends WindowAdapter implements ActionLi
 	@Override
 	public void mouseExited(MouseEvent e) {
 	}
-
 } // class

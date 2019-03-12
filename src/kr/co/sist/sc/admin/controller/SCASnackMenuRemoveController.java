@@ -20,7 +20,7 @@ import kr.co.sist.sc.admin.view.SCASnackManageView;
 import kr.co.sist.sc.admin.view.SCASnackMenuRemoveView;
 import kr.co.sist.sc.admin.vo.SCASnackMenuTableSelectVO;
 
-public class SCASnackMenuRemoveController extends WindowAdapter implements ActionListener, MouseListener {
+public class SCASnackMenuRemoveController extends WindowAdapter implements ActionListener {
 
 	private SCASnackMenuRemoveView scasmrv;
 	private SCASnackManageView scasmv;
@@ -120,48 +120,4 @@ public class SCASnackMenuRemoveController extends WindowAdapter implements Actio
 		} // end catch
 	} // refreshSnackButton
 	
-	
-	
-	
-	@Override
-	public void mousePressed(MouseEvent me) {
-		if (me.getSource() == scasmrv.getJbtSnackDelete()) {
-			scasmrv.getJbtSnackDelete().setIcon(
-					new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/jbt_snack_delete_pressed(125x40).png"));
-		} // end if
-		if (me.getSource() == scasmrv.getJbtClose()) {
-			scasmrv.getJbtClose().setIcon(new ImageIcon(
-					"C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/jbtClose_pressed(125x40).png"));
-		} // end if
-	} // mousePressed
-
-	@Override
-	public void mouseReleased(MouseEvent me) {
-		if (me.getSource() == scasmrv.getJbtSnackDelete()) {
-			scasmrv.getJbtSnackDelete().setIcon(
-					new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/jbt_snack_delete(125x40).png"));
-		} // end if
-		if (me.getSource() == scasmrv.getJbtClose()) {
-			scasmrv.getJbtClose().setIcon(
-					new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/jbt_close(125x40).png"));
-		} // end if
-	} // mouseReleased
-
-	@Override
-	public void windowClosing(WindowEvent we) {
-		scasmrv.dispose();
-	} // windowClosing
-	
-	////////////// not used //////////////////////
-	@Override
-	public void mouseClicked(MouseEvent e) {
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-	}
 } // class

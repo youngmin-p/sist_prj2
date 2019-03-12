@@ -28,7 +28,7 @@ import kr.co.sist.sc.admin.vo.SCASnackMenuAddVO;
 import kr.co.sist.sc.admin.vo.SCASnackMenuTableSelectVO;
 
 
-public class SCASnackMenuAddController extends WindowAdapter implements ActionListener, MouseListener{
+public class SCASnackMenuAddController extends WindowAdapter implements ActionListener {
 	
 	private SCASnackManageView scasmv;
 	private SCASnackMenuAddView scasmav;
@@ -177,22 +177,27 @@ public class SCASnackMenuAddController extends WindowAdapter implements ActionLi
 			byte[] readData = new byte[512];
 			
 			int length = 0;
-			String uploadPath = "C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/";
-			fos = new FileOutputStream(uploadPath+imageFile.getName());
+			String uploadPath = "C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/snack/";
+			fos = new FileOutputStream(uploadPath+"l_snack_"+imageFile.getName());
 			
 			while((length = fis.read(readData)) != -1) {
 				fos.write(readData, 0, length);
 				fos.flush();
 			} // end while
 			
-//			fis.close();
-//			fos.close();
+			fis.close();
+			fos.close();
 			
 			// 작은 스낵 이미지 업로드
-			// fis = new FileInputStream(imageFile.getParent()+"/s_"+imageFile.getName());
+			fis = new FileInputStream(imageFile.getParent()+"/s_snack_"+imageFile.getName());
 			
-			// length = 0;
-//			fos = new FileOutputStream(imageFile)
+			length = 0;
+			fos = new FileOutputStream(uploadPath+"s_snack_"+imageFile.getName());
+			
+			while( (length=fis.read(readData)) != -1 ) {
+				fos.write(readData, 0, length);
+				fos.flush();
+			} // end while
 			
 		} finally {
 			if( fis != null ) { fis.close(); } // end if
@@ -237,57 +242,5 @@ public class SCASnackMenuAddController extends WindowAdapter implements ActionLi
 			JOptionPane.showMessageDialog(scasmav, "DB상의 문제가 발생하였습니다. 스낵관리 창을 닫고 다시 켜주세요.");
 		} // end catch
 	} // refreshSnackMenu
-	
-	// 버튼 인터랙션 (마우스 버튼이 눌려질 때, 손을 떼었을 때)
-	@Override
-	public void mousePressed(MouseEvent me) {
-		// 이미지 등록 버튼
-		if(me.getSource() == scasmav.getJbtSnackImg()) {
-			scasmav.getJbtSnackImg().setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/jbt_add_image_pressed(125x40).png"));
-		} // end if
-		// 메뉴 추가 버튼
-		if(me.getSource() == scasmav.getJbtSnackInsert()) {
-			scasmav.getJbtSnackInsert().setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/jbt_add_menu_pressed(125x40).png"));
-		} // end if
-		// 닫기 버튼
-		if(me.getSource() == scasmav.getJbtClose()) {
-			scasmav.getJbtClose().setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/jbtClose_pressed(125x40).png"));
-		} // end if
-	}
-	@Override
-	public void mouseReleased(MouseEvent me) {
-		// 이미지 등록 버튼
-		if(me.getSource() == scasmav.getJbtSnackImg()) {
-			scasmav.getJbtSnackImg().setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/jbt_add_image(125x40).png"));
-		} // end if
-		// 메뉴 추가 버튼
-		if(me.getSource() == scasmav.getJbtSnackInsert()) {
-			scasmav.getJbtSnackInsert().setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/jbt_add_menu(125x40).png"));
-		} // end if
-		// 닫기 버튼
-		if(me.getSource() == scasmav.getJbtClose()) {
-			scasmav.getJbtClose().setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/jbt_close(125x40).png"));
-		} // end if
-	}
-	
-	@Override
-	public void windowClosing(WindowEvent we) {
-		scasmav.dispose();
-	} // end if
-	
-	/////////////////////// not used //////////////////////
-	@Override
-	public void mouseClicked(MouseEvent e) {
-	}
-	@Override
-	public void mouseEntered(MouseEvent e) {
-	}
-	@Override
-	public void mouseExited(MouseEvent e) {
-	}
-	
-	
-	
-	
 	
 } // class
