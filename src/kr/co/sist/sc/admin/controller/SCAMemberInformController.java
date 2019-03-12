@@ -136,14 +136,14 @@ public class SCAMemberInformController extends WindowAdapter implements ActionLi
 	@Override
 	public void mousePressed(MouseEvent me) {
 		if(me.getSource() == scamiv.getJbtClose()) {
-			scamiv.getJbtClose().setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/jbt_close_pressed(100x30).png"));
+			scamiv.getJbtClose().setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_close_pressed(100x30).png"));
 		} // end if
 	} // mousePressed
 
 	@Override
 	public void mouseReleased(MouseEvent me) {
 		if(me.getSource() == scamiv.getJbtClose()) {
-			scamiv.getJbtClose().setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/jbt_close(100x30).png"));
+			scamiv.getJbtClose().setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_close(100x30).png"));
 		} // end if
 	} // mouseReleased
 

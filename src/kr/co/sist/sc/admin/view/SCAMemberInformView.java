@@ -27,7 +27,7 @@ public class SCAMemberInformView extends JDialog{
 		// 배경, 타이틀 라벨
 		JLabel jlBg = new JLabel();
 		jlBg.setBounds(0, 0, 390, 550);
-		jlBg.setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/member_management_4-2_info_bg(390x520).png"));
+		jlBg.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/member_management_4-2_info_bg(390x520).png"));
 		
 		JLabel jlTitle = new JLabel("회원 정보");
 		jlTitle.setFont(new Font("나눔바른고딕", Font.BOLD, 24));
@@ -126,9 +126,9 @@ public class SCAMemberInformView extends JDialog{
 		jbtClose = new JButton();
 		
 		// JButton 아이콘 설정
-		jbtMemberUpdate.setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/jbt_member_update(100x30).png"));
-		jbtMemberDelete.setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/jbt_member_delete(100x30).png"));
-		jbtClose.setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/jbt_close(100x30).png"));
+		jbtMemberUpdate.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_member_update(100x30).png"));
+		jbtMemberDelete.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_member_delete(100x30).png"));
+		jbtClose.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_close(100x30).png"));
 		
 		// JButton 위치, 크기
 		jbtMemberUpdate.setBounds(25, 430, 100, 30);

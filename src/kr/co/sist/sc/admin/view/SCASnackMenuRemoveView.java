@@ -38,11 +38,11 @@ public class SCASnackMenuRemoveView extends JDialog {
 
 		// 이미지 아이콘 설정
 		jlBg.setIcon(new ImageIcon(
-				"C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/snack_management_6-4_delete_snack_bg(400x620).png"));
+				"C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/snack_management_6-4_delete_snack_bg(400x620).png"));
 		jbtSnackDelete.setIcon(new ImageIcon(
-				"C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/jbt_snack_delete(125x40).png"));
+				"C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_snack_delete(125x40).png"));
 		jbtClose.setIcon(
-				new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/jbt_close(125x40).png"));
+				new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_close(125x40).png"));
 
 		// 기본 버튼 스타일 제거
 		jbtSnackDelete.setContentAreaFilled(false);

@@ -33,7 +33,7 @@ public class SCASnackOrderAddView extends JDialog {
 		
 		// 배경 설정
 		JLabel jlBg = new JLabel();
-		jlBg.setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/snack_management_6-2_add_order_bg(620x470).png"));
+		jlBg.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/snack_management_6-2_add_order_bg(620x470).png"));
 		jlBg.setBounds(0, 0, 620, 470);
 		
 		// 공통 폰트
@@ -43,7 +43,7 @@ public class SCASnackOrderAddView extends JDialog {
 		// 스낵 기본 이미지 라벨 생성 및 설정
 		jlSnackImg = new JLabel();
 		jlSnackImg.setBounds(17, 20, 325, 325);
-		jlSnackImg.setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/admin_snack_default_img(325x325).png"));
+		jlSnackImg.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/admin_snack_default_img(325x325).png"));
 		
 		// JTF옆에 위치할 라벨 생성
 		JLabel jlSnackName = new JLabel("스낵명");
@@ -104,8 +104,8 @@ public class SCASnackOrderAddView extends JDialog {
 		jbtClose = new JButton();
 
 		// JButton 아이콘
-		jbtOrderAdd.setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/jbt_add_order(125x40).png"));
-		jbtClose.setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/jbt_close(125x40).png"));
+		jbtOrderAdd.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_add_order(125x40).png"));
+		jbtClose.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_close(125x40).png"));
 
 		// 콤보박스
 		String[] quan = {"1개","2개","3개","4개","5개"};

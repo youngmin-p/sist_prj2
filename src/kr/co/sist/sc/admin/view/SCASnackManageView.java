@@ -32,7 +32,7 @@ public class SCASnackManageView extends JDialog{
 		
 		JLabel jlBg = new JLabel();
 		jlBg.setBounds(0, 0, 900, 800);
-		jlBg.setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/admin_snack_bg(900x800).png"));
+		jlBg.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/snack_management_6-1_main_bg(900x800).png"));
 	
 		// JButton 배열을 담을 JPanel
 		JPanel jpSnackImgBox = new JPanel();
@@ -82,11 +82,11 @@ public class SCASnackManageView extends JDialog{
 		jbtSnackOrderDelete.setBounds(385, 700, 125, 40);
 		jbtClose.setBounds(525, 700, 125, 40);
 		
-		jbtSnackMenuInsert.setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/jbt_add_menu(125x40).png"));
-		jbtSnackPayment.setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/jbtSnackPayment(125x40).png"));
-		jbtSnackMenuDelete.setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/jbtDeleteMenu(125x40).png"));
-		jbtSnackOrderDelete.setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/jbtDeleteOrder(125x40).png"));
-		jbtClose.setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/jbtClose(125x40).png"));
+		jbtSnackMenuInsert.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_add_menu(125x40).png"));
+		jbtSnackPayment.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbtSnackPayment(125x40).png"));
+		jbtSnackMenuDelete.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbtDeleteMenu(125x40).png"));
+		jbtSnackOrderDelete.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbtDeleteOrder(125x40).png"));
+		jbtClose.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbtClose(125x40).png"));
 
 		String[] strTabCols = {"번호","스낵명","가격","수량","총가격"}; 
 				

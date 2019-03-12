@@ -27,14 +27,14 @@ public class SCASnackMenuAddView extends JDialog {
 		
 		// 배경 설정
 		JLabel jlBg = new JLabel();
-		jlBg.setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/admin_snack_bg2(620x555).png"));
+		jlBg.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/snack_management_6-3_add_menu_bg(620x555).png"));
 		jlBg.setBounds(0, 0, 620, 555);
 		
 		/*라벨 생성*/
 		// 스낵 기본 이미지 라벨 생성 및 설정
 		jlSnackImg = new JLabel();
 		jlSnackImg.setBounds(17, 20, 325, 325);
-		jlSnackImg.setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/admin_snack_default_img(325x325).png"));
+		jlSnackImg.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/admin_snack_default_img(325x325).png"));
 		
 		// JTF옆에 위치할 라벨 생성
 		JLabel jlSnackName = new JLabel("스낵명");
@@ -80,9 +80,9 @@ public class SCASnackMenuAddView extends JDialog {
 		jbtClose = new JButton();
 
 		// 아이콘
-		jbtSnackImg.setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/jbt_add_image(125x40).png"));
-		jbtSnackInsert.setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/jbt_add_menu(125x40).png"));
-		jbtClose.setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/jbt_close(125x40).png"));
+		jbtSnackImg.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_add_image(125x40).png"));
+		jbtSnackInsert.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_add_menu(125x40).png"));
+		jbtClose.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_close(125x40).png"));
 
 		// setbounds
 		jtfSnackName.setBounds(430, 20, 170, 30);

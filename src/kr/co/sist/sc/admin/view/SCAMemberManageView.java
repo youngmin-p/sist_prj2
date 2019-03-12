@@ -1,6 +1,7 @@
 package kr.co.sist.sc.admin.view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 
 import javax.swing.ImageIcon;
@@ -10,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import kr.co.sist.sc.admin.controller.SCAMemberController;
@@ -27,7 +29,7 @@ public class SCAMemberManageView extends JDialog {
 		
 		// 배경이미지가 들어간 JLabel 생성, 아이콘, 크기, 위치 설정  
 		JLabel jlBg = new JLabel();
-		jlBg.setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/admin_member_management_bg(600x800).png"));
+		jlBg.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/member_management_4-1_main_bg(600x800).png"));
 		jlBg.setBounds(0, 0, 600, 800);
 
 		// 등급별 누적 포인트 조건을 설명하기 위한 StringBuilder 생성
@@ -58,9 +60,9 @@ public class SCAMemberManageView extends JDialog {
 		jbtMemberSelectOne = new JButton();
 		jbtClose = new JButton();
 		
-		jbtMemberSelectAll.setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/jbt_member_select_all(125x40).png"));
-		jbtMemberSelectOne.setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/jbt_member_select_one(100x30).png"));
-		jbtClose.setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/jbt_close(125x40).png"));
+		jbtMemberSelectAll.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_member_select_all(125x40).png"));
+		jbtMemberSelectOne.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_member_select_one(100x30).png"));
+		jbtClose.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_close(125x40).png"));
 		
 		jbtMemberSelectAll.setBounds(275, 690, 125, 40);
 		jbtMemberSelectOne.setBounds(470, 630, 100, 30);
@@ -82,16 +84,24 @@ public class SCAMemberManageView extends JDialog {
 			};
 		};
 		jtabMemberList = new JTable(dtmMemberList);
+		
+		jtabMemberList.getTableHeader().setFont(new Font("나눔고딕", Font.BOLD, 14));
+		jtabMemberList.getTableHeader().setForeground(Color.WHITE);
+//		jtabMemberList.getTableHeader().setBorder(new LineBorder(Color.WHITE));
+		jtabMemberList.getTableHeader().setBackground(new Color(20, 35, 65));
+		jtabMemberList.getTableHeader().setReorderingAllowed(false);
+		jtabMemberList.getTableHeader().setResizingAllowed(false);
+		jtabMemberList.getTableHeader().setPreferredSize(new Dimension(100, 30));
+		
 		jtabMemberList.setOpaque(false);
-		
-		
 		
 		
 		jtabMemberList.setRowHeight(30);
 		jtabMemberList.setFont(new Font("나눔바른고딕", Font.PLAIN, 16));
 		
 		JScrollPane jspMemberList = new JScrollPane(jtabMemberList);
-		jspMemberList.setBounds(230, 70, 340, 550);
+		jspMemberList.setBounds(230, 35, 340, 575);
+		
 		
 		jtfMemberId = new JTextField();
 		jtfMemberId.setBounds(230, 630, 230, 30);
