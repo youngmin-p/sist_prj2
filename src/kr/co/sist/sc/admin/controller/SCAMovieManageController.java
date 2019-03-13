@@ -40,6 +40,8 @@ public class SCAMovieManageController extends WindowAdapter implements ActionLis
 		try {
 			SCAMovieManageVO slv = null;
 			String imgPath = "C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/movie/s_movie_";
+									
+			
 			List<SCAMovieManageVO> listmovie = scamm_dao.showMovie();
 			Object[] rowData = null;
 
@@ -130,8 +132,8 @@ public class SCAMovieManageController extends WindowAdapter implements ActionLis
 	public void mouseExited(MouseEvent e) {
 	}
 
-//	public String getselectedMovieCode() {
-//		return selectedMovieCode;
-//	}
+	public String getselectedMovieCode() {
+		return selectedMovieCode;
+	}
 
 }

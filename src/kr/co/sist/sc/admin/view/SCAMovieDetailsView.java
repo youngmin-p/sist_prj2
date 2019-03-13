@@ -46,9 +46,9 @@ public class SCAMovieDetailsView extends JDialog {
 		JLabel synopsis =new JLabel("¡Ÿ∞≈∏Æ");
 		JLabel backColor = new JLabel();
 		backColor.setIcon(new ImageIcon(
-				"C:/dev/Workspace/Cinema/src/kr/co/sist/sc/admin/images/admin_detail_movie_bg(830x820).png"));
+				"C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/admin_detail_movie_bg(830x820).png"));
 		backColor.setBounds(0, 0, 830, 820);
-		String path="C:/dev/Workspace/Cinema/src/kr/co/sist/sc/admin/images/movie/l_movie_";
+		String path="C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/movie/l_movie_";
 		img.setIcon(new ImageIcon(path+scamd_vo.getMovie_img()));
 		
 		 jtfmovieCode=new JTextField(50);
@@ -86,13 +86,13 @@ public class SCAMovieDetailsView extends JDialog {
 		
 		delete= new JButton();
 		delete.setIcon(
-				new ImageIcon("C:/dev/Workspace/Cinema/src/kr/co/sist/sc/admin/images/jbt_delete(125x40).png"));
+				new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_delete(125x40).png"));
 		
 		delete.setContentAreaFilled(false);
 		delete.setBorderPainted(false);
 		
 		exit=new JButton();
-		exit.setIcon(new ImageIcon("C:/dev/Workspace/Cinema/src/kr/co/sist/sc/admin/images/jbt_close(125x40).png"));
+		exit.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_close(125x40).png"));
 		
 		exit.setContentAreaFilled(false);
 		exit.setBorderPainted(false);
