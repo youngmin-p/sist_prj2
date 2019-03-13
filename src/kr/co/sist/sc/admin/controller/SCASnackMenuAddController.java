@@ -1,5 +1,6 @@
 package kr.co.sist.sc.admin.controller;
 
+import java.awt.Color;
 import java.awt.FileDialog;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
@@ -128,8 +129,6 @@ public class SCASnackMenuAddController extends WindowAdapter implements ActionLi
 		} // end if
 		
 		try {
-			// 기존에 등록된 스낵 메뉴가 8개 미만인지?
-			if(SCASnackManageDAO.getInstance().selectSnackMenuTable().size() != 8) {
 				SCASnackMenuAddVO scasmavo = new SCASnackMenuAddVO(snackName, imageFile.getName(), snackInfo, price);
 			
 				try {
@@ -144,20 +143,6 @@ public class SCASnackMenuAddController extends WindowAdapter implements ActionLi
 				
 				JOptionPane.showMessageDialog(scasmav, "새로운 스낵 메뉴가 추가되었습니다.");
 				scasmav.dispose();
-				
-				
-//				// 컴포넌트 초기화
-//				scasmav.getJtfSnackName().setText("");
-//				scasmav.getJtfPrice().setText("");
-//				scasmav.getjtaSnackInfo().setText("");
-//				scasmav.getJtfSnackName().requestFocus();
-//				scasmav.getJlSnackImg().setIcon(new ImageIcon("C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/admin_snack_default_img(325x325).png"));
-				
-				
-				
-			} else {
-				JOptionPane.showMessageDialog(scasmav, "더 이상 스낵 메뉴를 추가할 수 없습니다. (최대 메뉴 개수 8개)");
-			} // end else
 			
 		} catch (SQLException sqle) {
 			JOptionPane.showMessageDialog(scasmav, "DB상의 문제가 발생했습니다. 잠시후 다시 시도해주세요.");
@@ -214,7 +199,7 @@ public class SCASnackMenuAddController extends WindowAdapter implements ActionLi
 			
 			
 			int listLength = 0;
-			String imgDir = "C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/";
+			String imgDir = "C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/snack/";
 			
 			for(int i=0; i < jbtSnack.length; i++) {
 				for(int j=0; j < jbtSnack[i].length; j++) {
@@ -230,14 +215,15 @@ public class SCASnackMenuAddController extends WindowAdapter implements ActionLi
 					if(listLength == snackList.size()) {
 						return;
 					} // end if
-					jbtSnack[k][l].setIcon(new ImageIcon(imgDir+snackList.get(listLength).getSnackImg()));
+					jbtSnack[k][l].setIcon(new ImageIcon(imgDir+"s_snack_"+snackList.get(listLength).getSnackImg()));
 					jbtSnack[k][l].setText(snackList.get(listLength).getSnackName());
+					jbtSnack[k][l].setHorizontalTextPosition(JButton.CENTER);
+					jbtSnack[k][l].setVerticalTextPosition(JButton.CENTER);
+					jbtSnack[k][l].setForeground(new Color(255, 255, 255, 0));
 					listLength++;
 				} // end for
 			} // end for
-			
 			listLength = 0;
-			
 		} catch (SQLException sqle) {
 			JOptionPane.showMessageDialog(scasmav, "DB상의 문제가 발생하였습니다. 스낵관리 창을 닫고 다시 켜주세요.");
 		} // end catch

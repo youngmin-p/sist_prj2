@@ -91,7 +91,7 @@ public class SCASnackMenuRemoveController extends WindowAdapter implements Actio
 			
 			
 			int listLength = 0;
-			String imgDir = "C:/dev/workspace/cinema_prj/src/kr/co/sist/sc/admin/images/";
+			String imgDir = "C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/snack/";
 			
 			for(int i=0; i < jbtSnack.length; i++) {
 				for(int j=0; j < jbtSnack[i].length; j++) {
@@ -107,7 +107,7 @@ public class SCASnackMenuRemoveController extends WindowAdapter implements Actio
 					if(listLength == snackList.size()) {
 						return;
 					} // end if
-					jbtSnack[k][l].setIcon(new ImageIcon(imgDir+snackList.get(listLength).getSnackImg()));
+					jbtSnack[k][l].setIcon(new ImageIcon(imgDir+"s_snack_"+snackList.get(listLength).getSnackImg()));
 					jbtSnack[k][l].setText(snackList.get(listLength).getSnackName());
 					listLength++;
 				} // end for

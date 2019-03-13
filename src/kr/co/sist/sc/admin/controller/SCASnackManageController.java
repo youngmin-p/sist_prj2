@@ -1,6 +1,7 @@
 package kr.co.sist.sc.admin.controller;
 
 import java.awt.Color;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -80,11 +81,18 @@ public class SCASnackManageController extends WindowAdapter implements ActionLis
 
 		// 메뉴 추가 버튼 클릭시
 		if (ae.getSource() == scasmv.getJbtSnackMenuInsert()) {
-			if(scasmv.getJbtSnackImg().length > 8) {
-				showSnackMenuAdd();
-			} else {
-				JOptionPane.showMessageDialog(scasmv, "더 이상 스낵 메뉴를 추가할 수 없습니다.");
+			
+//			if(scasmv.getJbtSnackImg().length < 8) {
+			try {
+				if(SCASnackManageDAO.getInstance().selectSnackMenuTable().size() < 8) {
+					showSnackMenuAdd();
+				} else {
+					JOptionPane.showMessageDialog(scasmv, "더 이상 스낵 메뉴를 추가할 수 없습니다.");
+				}
+			} catch (SQLException sqle) {
+				JOptionPane.showMessageDialog(scasmv, "DB상의 문제가 발생하였습니다. 잠시후 다시 시도해주세요.");
 			} // end if
+			
 		} // end if
 
 		// 메뉴 삭제 버튼 클릭시
