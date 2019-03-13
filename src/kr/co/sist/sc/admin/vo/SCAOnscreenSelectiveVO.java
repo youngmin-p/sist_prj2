@@ -4,10 +4,10 @@ package kr.co.sist.sc.admin.vo;
  *
  * @author owner
  */
-public class insertSelectiveVO {
+public class SCAOnscreenSelectiveVO {
 	private String screen_num,movie_code,movie_img,movie_title,screen_name,start_time,end_time,screen_date;
 
-	public insertSelectiveVO(String screen_num, String movie_code, String movie_img, String movie_title, String screen_name,
+	public SCAOnscreenSelectiveVO(String screen_num, String movie_code, String movie_img, String movie_title, String screen_name,
 			String start_time, String end_time, String screen_date) {
 		super();
 		this.screen_num = screen_num;

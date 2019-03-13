@@ -12,7 +12,7 @@ import java.util.List;
 import kr.co.sist.sc.admin.vo.SCAOnScreenInsertVO;
 import kr.co.sist.sc.admin.vo.SCAOnScreenMovieListVO;
 import kr.co.sist.sc.admin.vo.SCAOnScreenMovieListVO2;
-import kr.co.sist.sc.admin.vo.insertSelectiveVO;
+import kr.co.sist.sc.admin.vo.SCAOnscreenSelectiveVO;
 
 public class SCAOnScreenManageDAO {
 	private static SCAOnScreenManageDAO scao_dao;
@@ -129,8 +129,8 @@ public class SCAOnScreenManageDAO {
 	}
 	
 	//처음 상영관리에 진입시 기본적으로 보여줄 테이블
-	public List<insertSelectiveVO> selectiveList() throws SQLException{
-		 List<insertSelectiveVO> list=new ArrayList<insertSelectiveVO>();
+	public List<SCAOnscreenSelectiveVO> selectiveList() throws SQLException{
+		 List<SCAOnscreenSelectiveVO> list=new ArrayList<SCAOnscreenSelectiveVO>();
 		 Connection con=null;
 		 PreparedStatement pstmt =null;
 		 ResultSet rs=null;
@@ -143,9 +143,9 @@ public class SCAOnScreenManageDAO {
 			 String onScreenFirst=tempquery.toString();
 			 pstmt = con.prepareStatement(onScreenFirst);
 			 rs= pstmt.executeQuery();
-			 insertSelectiveVO slvo=null;
+			 SCAOnscreenSelectiveVO slvo=null;
 			 while(rs.next()) {
-					slvo = new insertSelectiveVO(rs.getString("screen_num"), rs.getString("movie_code"), rs.getString("movie_img"), 
+					slvo = new SCAOnscreenSelectiveVO(rs.getString("screen_num"), rs.getString("movie_code"), rs.getString("movie_img"), 
 							rs.getString("movie_title"),rs.getString( "screen_name"),rs.getString( "start_time"), rs.getString("end_time"),rs.getString("screen_date"));
 					list.add(slvo);
 					System.out.println(slvo);
@@ -166,8 +166,8 @@ public class SCAOnScreenManageDAO {
 	}
 	
 	//상영관리에서 선택한 영화의 상영설정정보를 보여주는 부분
-	public List<insertSelectiveVO> screeningSelectMovieInfo(String code,String date) throws SQLException{
-		 List<insertSelectiveVO> selectlist=new ArrayList<insertSelectiveVO>();
+	public List<SCAOnscreenSelectiveVO> screeningSelectMovieInfo(String code,String date) throws SQLException{
+		 List<SCAOnscreenSelectiveVO> selectlist=new ArrayList<SCAOnscreenSelectiveVO>();
 		 Connection con=null;
 		 PreparedStatement pstmt =null;
 		 ResultSet rs=null;
@@ -184,18 +184,18 @@ public class SCAOnScreenManageDAO {
 			 pstmt = con.prepareStatement(onScreenFirst);
 			 rs= pstmt.executeQuery();
 
-			 insertSelectiveVO slvo=null;
+			 SCAOnscreenSelectiveVO slvo=null;
 			 if(rs != null) {
 				 System.out.println("dao    "+slvo);
 			 while(rs.next()) {
-					slvo = new insertSelectiveVO(rs.getString("screen_num"), rs.getString("movie_code"), rs.getString("movie_img"), 
+					slvo = new SCAOnscreenSelectiveVO(rs.getString("screen_num"), rs.getString("movie_code"), rs.getString("movie_img"), 
 							rs.getString("movie_title"),rs.getString( "screen_name"),rs.getString( "start_time"), rs.getString("end_time"),rs.getString("screen_date"));
 					selectlist.add(slvo);
 					System.out.println("정말 없는것이냐???      ======"+selectlist);
 				}
 			 }
 			 if(slvo==null) {
-				 slvo=new insertSelectiveVO("0", "0" , "0", "0", "0", "0","0", "0");
+				 slvo=new SCAOnscreenSelectiveVO("0", "0" , "0", "0", "0", "0","0", "0");
 				 selectlist.add(0, slvo);
 			 }
 		 }

@@ -18,7 +18,7 @@ import kr.co.sist.sc.admin.view.SCAOnScreenManageView;
 import kr.co.sist.sc.admin.vo.SCAOnScreenInsertVO;
 import kr.co.sist.sc.admin.vo.SCAOnScreenMovieListVO;
 import kr.co.sist.sc.admin.vo.SCAOnScreenMovieListVO2;
-import kr.co.sist.sc.admin.vo.insertSelectiveVO;
+import kr.co.sist.sc.admin.vo.SCAOnscreenSelectiveVO;
 
 public class SCAOnScreenManageController extends WindowAdapter implements ActionListener {
 
@@ -27,7 +27,7 @@ public class SCAOnScreenManageController extends WindowAdapter implements Action
 //	private SCAOnScreenManageController ssmc;
 	private List<SCAOnScreenMovieListVO> listmovie; //윗 영화 목록 select
 	private List<SCAOnScreenMovieListVO2> screenMovieList; //아래 영화 목록 select
-	private List<insertSelectiveVO> selectiveVO ;// 테이블에 값 넣기
+	private List<SCAOnscreenSelectiveVO> selectiveVO ;// 테이블에 값 넣기
 	
 
 //	SCAOnScreenManageView smv
@@ -61,7 +61,7 @@ public class SCAOnScreenManageController extends WindowAdapter implements Action
 //상영중인 영화의 영화선택 부분을 조회 테이블을말함
 	public void nowScreen() throws SQLException {
 		//"순번", "상영번호","영화코드", "포스터", "제목","상영관","상영 시작시간","상영종료시간
-		String path="C:/dev/Workspace/Cinema/src/kr/co/sist/sc/admin/images/movie/s_movie_";
+//		String path="C:/dev/Workspace/Cinema/src/kr/co/sist/sc/admin/images/movie/s_movie_";
 		selectiveVO=sm_Dao.selectiveList();
 		smv.getDtmModel().setRowCount(0);
 		Object[] rowData = null;
@@ -122,7 +122,7 @@ public class SCAOnScreenManageController extends WindowAdapter implements Action
 		for (int i = 0; i < listmovie.size(); i++) {
 			if (listmovie.get(i).getMovie_title().equals(m_title)) {
 				m_code = listmovie.get(i).getMovie_code();
-				runningTime = listmovie.get(i).getRunningtime();
+				runningTime = 30+listmovie.get(i).getRunningtime();
 			}
 		}
 
@@ -170,108 +170,134 @@ public class SCAOnScreenManageController extends WindowAdapter implements Action
 		 
 		 
 		 System.out.println("상영등록---등록하기전 중복 검사---------------");
-		 int st_time=0;
-		 int en_time=0;
-		 int temp_st_date=Integer.parseInt(screen_num.substring(2).toString());
-		 int temp_end_date= Integer.parseInt(screen_num.substring(2,8)+end_time);
+		 int vo_st_time=0;
+		 int vo_en_time=0;
+		 int temp_st_time=Integer.parseInt(screen_num.substring(2).toString());
+		 int temp_end_time= Integer.parseInt(screen_num.substring(2,8)+end_time);
 		 boolean flag_st=false;
 		 boolean flag_en=false;
-		 String date="";
+		 
+		 String vo_date="";
 		 String temp_date=screen_num.substring(2,8);
 		 String sc_code="";
 		 String temp_code=screenArea.toString();
 		 
+		 
+		 int selectiveVOcnt=selectiveVO.size();
+		 int cnt=0;
 		 System.out.println(sc_code+"/////"+temp_code);
+		 /////////전날용
+		 String temp_tr="";
+		 String temptr_date="";		//변환된 날짜
+		 int temp_st_tr_time=0;
+		 Calendar cal = Calendar.getInstance();
+		 StringBuilder temp=new StringBuilder();
+		 
 		 for(int i=0; i< selectiveVO.size();i++) {
-			 st_time=Integer.parseInt(selectiveVO.get(i).getScreen_num().substring(2));
-			 en_time=Integer.parseInt(selectiveVO.get(i).getScreen_num().substring(2, 8)+selectiveVO.get(i).getEnd_time());
-			 date=selectiveVO.get(i).getScreen_num().substring(2, 8);
+			 vo_st_time=Integer.parseInt(selectiveVO.get(i).getScreen_num().substring(2));
+			 vo_en_time=Integer.parseInt(selectiveVO.get(i).getScreen_num().substring(2, 8)+selectiveVO.get(i).getEnd_time());
+			 vo_date=selectiveVO.get(i).getScreen_num().substring(2, 8);
 			 sc_code=selectiveVO.get(i).getScreen_num().substring(0, 1);
 			 
 			 
-			//SCREEN_NUM	SC
-//				N_19 0129 0830
-			 // 스크린넘버
-//			 if(screen_num.toString().equals(selectiveVO.get(i).getScreen_num())) {
-//				 System.out.println("--"+selectiveVO.get(i).getScreen_num()+"---st--"+st_time+"//en/"+en_time+"////"+temp_st_date+"////"+end_time+"///"+temp_end_date);	
-				
-//			 System.out.println("1--"+selectiveVO.get(i).getScreen_num()+"-저장-"+st_time+"/en//"+en_time+"//입력/"+temp_st_date+"///////"+temp_end_date);	
 			if(temp_code.equals(sc_code)) {
-				if(temp_date.equals(date)) {// 날짜가 같은지
-///					 System.err.println(selectiveVO.get(i));
-//					 System.out.println(sc_code+"////"+temp_code+"/////"+date+"////"+temp_date);
-//					 System.out.println("같은 코드의 같은 날짜");
-						 if( st_time<=temp_st_date) {// 입력받은  temp 가  st 보다 높은가
-//								 System.out.println("1--"+selectiveVO.get(i).getScreen_num()+"-저장-"+st_time+"/en//"+en_time+"//입력/"+temp_st_date+"///en//"+temp_end_date);	
-//								 System.out.println();
-									 if(temp_st_date<=en_time) {// 입력받은  tempr 가  en 보다 작은가
+				if(temp_date.equals(vo_date)) {// 날짜가 같은지
+						 if( vo_st_time<=temp_st_time) {// 입력받은  temp 가  st 보다 높은가
+									 if(temp_st_time<=vo_en_time) {// 입력받은  tempr 가  en 보다 작은가
 										 flag_st=true;
-										 System.out.println(flag_st+"//////"+flag_en+"-저장-"+st_time+"/en//"+en_time+"//입력/"+temp_st_date+"///en//"+temp_end_date);
-//										 System.out.println("111111111111111111111111111111111111아래");
+										 System.out.println(flag_st+"//////"+flag_en+"-저장-"+vo_st_time+"/en//"+vo_en_time+"//입력/"+temp_st_time+"///en//"+temp_end_time);
+										 break;
 									 }
 						 }
 					 System.out.println();
 					 //시작시간에 대한  if 끝
-					 	if(st_time<=temp_end_date) {
-							 if(temp_end_date<=en_time) {
+					 	if(vo_st_time<=temp_end_time) {
+							 if(temp_end_time<=vo_en_time) {
 								 flag_en=true;
 								 System.out.println("안됨");
-								 System.out.println(flag_st+"//////"+flag_en+"-저장-"+st_time+"/en//"+en_time+"//입력/"+temp_st_date+"///en//"+temp_end_date);
+								 System.out.println(flag_st+"//////"+flag_en+"-저장-"+vo_st_time+"/en//"+vo_en_time+"//입력/"+temp_st_time+"///en//"+temp_end_time);
+								 break;
 							 }
 					 	}
-			 }
+				 }
+					 	//전날
+					 	
+					 	if(0<=s_hour && s_hour<=4) {//00시부터 04 시까지
+							 cal.set(year, month-1, day);// 입력 되는 년월일
+					 		System.out.println(cal.get(Calendar.MONTH)+1+"/"+ cal.get(Calendar.DAY_OF_MONTH));
+					 		cal.add(Calendar.DAY_OF_MONTH, -1);
+					 		
+					 		System.out.println(cal.get(Calendar.MONTH)+1+"/"+ cal.get(Calendar.DAY_OF_MONTH));
+					 		temp.append(year).append(nf.format(cal.get(Calendar.MONTH)+1)).append(cal.get(Calendar.DAY_OF_MONTH))
+					 							.append(nf.format(s_hour+24)).append(nf.format(s_minute));
+					 		temp_tr=temp.toString().substring(0,6);
+					 		System.out.println(vo_date+"//"+temp_tr+"//temp_tr ="+temp+"vo_date"+vo_date+"vo_st_time"+vo_st_time);
+					 		temptr_date=temp.toString();
+					 		temp_st_tr_time=Integer.parseInt(temptr_date.toString());/// 여기서 에러
+					 		
+					 		temp.setLength(0);
+					 		if(temp_tr.equals(vo_date)) {// 날짜가 같은지
+//					 			System.out.println("같은 코드의 같은 날짜");
+//					 			System.out.println("시간"+temp_st_tr_time);
+ 									 if( vo_st_time<=temp_st_tr_time) {// 입력받은  temp 가  st 보다 높은가
+					 							 System.out.println("1--"+selectiveVO.get(i).getScreen_num()+"-저장-"+vo_st_time+"/en//"+vo_en_time+"//입력/"+temp_st_time+"///en//"+temp_end_time);	
+					 							System.out.println();
+ 												 if(temp_st_tr_time<=vo_en_time) {// 입력받은  tempr 가  en 보다 작은가
+ 													 flag_st=true;
+ 													 System.out.println(flag_st+"//////"+flag_en+"-저장-"+vo_st_time+"/en//"+vo_en_time+"//입력/"+temp_st_time+"///en//"+temp_end_time);
+//					 								System.out.println("중복!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+ 													 break;
+ 												 }
+ 									 }
+					 		}
+					 		
+					 	}
 			}//N,P if
+			cnt=i;
+//			System.out.println("i=cnt"+cnt+"//VO=="+selectiveVOcnt);
 		 }
-			if(flag_en==flag_st) {
-			System.out.println("마지막"+flag_st+"//////"+flag_en+"-저장-"+st_time+"/en//"+en_time+"//입력/"+temp_st_date+"///en//"+temp_end_date);
-			}
-			/* if(st_time<=temp_st_date && temp_st_date <=st_time) {// 시작시간
-					 System.out.println("111111111111111111111111111111111111아래");
-					 System.out.println("1--"+selectiveVO.get(i).getScreen_num()+"-저장-"+st_time+"/en//"+en_time+"//입력/"+temp_st_date+"///////"+temp_end_date);	
-					 System.out.println();
-					 if(temp_st_date<=en_time) {
-						 System.out.println("222222222222222222222222222222222222222아래.");
-						 System.out.println("1--"+selectiveVO.get(i).getScreen_num()+"---저장--"+st_time+"/en//"+en_time+"/입력//"+temp_st_date+"/////"+temp_end_date);
-						 System.out.println();
-						 StringBuilder che=new StringBuilder();
-						 che.append("[ ").append(smv.getJcbMovieSelect().getSelectedItem()).append(" ]").append("\n")
-						 .append("[ ").append(smv.getJcbTheaterSelect().getSelectedItem()).append(" ]").append("\n")
-						 .append("[ ").append(onDate).append(" ]").append("\n")
-						 .append(" 에는 이미 상영중인 영화가 있습니다");
-						 JOptionPane.showMessageDialog(smv, che,"알림",JOptionPane.CLOSED_OPTION);
-						 return;
-					 }
-					 
-				 }*/
-				 
-	//		 }
-//		 }
+		 if( true==flag_st || true==flag_en ) {//true 일때만 
+			 System.out.println("안되는  flag "+flag_st+"//////"+flag_en);
+			 StringBuilder che=new StringBuilder();
+			 che.append("[ ").append(smv.getJcbMovieSelect().getSelectedItem()).append(" ]").append("\n")
+			 .append("[ ").append(smv.getJcbTheaterSelect().getSelectedItem()).append(" ]").append("\n")
+			 .append("[ ").append(onDate).append(" ]").append("\n")
+			 .append(" 에는 이미 상영중인 영화가 있습니다");
+			 JOptionPane.showMessageDialog(smv, che,"알림",JOptionPane.CLOSED_OPTION);
+			 return;
+		 }
+		 if(selectiveVOcnt-1==cnt&&(flag_en==flag_st) ) {//완벽한 false 일때만
+			 System.out.println(" 상영 등록 가능"+flag_st+"//////"+flag_en+"카운트 값"+selectiveVOcnt+"////"+cnt);
+		 
 		////////////////////////////////////////////////////////////////////////////////////////// 아래는 추가 부분
-		/* StringBuilder insertChe=new StringBuilder();
-		 insertChe.append("[ ").append(smv.getJcbMovieSelect().getSelectedItem()).append(" ]").append("\n")
-		 .append("[ ").append(smv.getJcbTheaterSelect().getSelectedItem()).append(" ]").append("\n")
-		 .append(onDate).append("\n").append("을 등록 하시겠습니까?");
-		 SCAOnScreenInsertVO sivo = new SCAOnScreenInsertVO(screen_num.toString(), onDate.toString(),
-					start_time.toString(), end_time.toString(), m_code.toString(), screenArea.toString());
-		 switch (JOptionPane.showConfirmDialog(smv,insertChe, "알림", JOptionPane.OK_CANCEL_OPTION)) {
-		case JOptionPane.OK_OPTION:
-			
-			try {
-				int cnt=0;
-				cnt=sm_Dao.screenRegister(sivo);
-				if (cnt == 1) {
-					JOptionPane.showMessageDialog(null, insertChe);
-					insertChe.append("[ ").append(smv.getJcbMovieSelect().getSelectedItem()).append(" ]").append("\n")
+					 StringBuilder insertChe=new StringBuilder();
+					 insertChe.append("[ ").append(smv.getJcbMovieSelect().getSelectedItem()).append(" ]").append("\n")
 					 .append("[ ").append(smv.getJcbTheaterSelect().getSelectedItem()).append(" ]").append("\n")
-					 .append(onDate).append("을 등록하였습니다");
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			break;
-		case JOptionPane.CANCEL_OPTION:
-			
-			return;*/
+					 .append(onDate).append("\n").append("을 등록 하시겠습니까?");
+					 SCAOnScreenInsertVO sivo = new SCAOnScreenInsertVO(screen_num.toString(), onDate.toString(),
+								start_time.toString(), end_time.toString(), m_code.toString(), screenArea.toString());
+					 
+					 switch (JOptionPane.showConfirmDialog(smv,insertChe, "알림", JOptionPane.OK_CANCEL_OPTION)) {
+					case JOptionPane.OK_OPTION:
+						
+						try {
+							int cntt=0;
+							cnt=sm_Dao.screenRegister(sivo);
+							if (cntt == 1) {
+								JOptionPane.showMessageDialog(null, insertChe);
+								insertChe.append("[ ").append(smv.getJcbMovieSelect().getSelectedItem()).append(" ]").append("\n")
+								 .append("[ ").append(smv.getJcbTheaterSelect().getSelectedItem()).append(" ]").append("\n")
+								 .append(onDate).append("을 등록하였습니다");
+							}
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+						break;
+					case JOptionPane.CANCEL_OPTION:
+						
+						return;
+					 }
+		 }
 	
 		
 	}
@@ -300,7 +326,7 @@ public class SCAOnScreenManageController extends WindowAdapter implements Action
 		
 		System.out.println("controller 조회 ");
 		try {
-			List<insertSelectiveVO>list =sm_Dao.screeningSelectMovieInfo(m_code,temp.toString());
+			List<SCAOnscreenSelectiveVO>list =sm_Dao.screeningSelectMovieInfo(m_code,temp.toString());
 			System.out.println("리스트값은      "+list.get(0).getMovie_code());
 			if(null==list.get(0).getMovie_code()) {
 				System.out.println("controller-screenCheck()   자료없음"+list);
@@ -403,11 +429,7 @@ public class SCAOnScreenManageController extends WindowAdapter implements Action
 		
 			smv.getDjcbInsertDay().addElement(i);
 			smv.getDjcbSearchDay().addElement(i);
-//		smv.getdcbInsertDay.add/*Item(i);
-//		jcbSearchDay.addItem(i);*/
 		}
-//		jcbInsertDay.setSelectedItem(new Integer(nowday));
-//		jcbSearchDay.setSelectedItem(new Integer(nowday));
 	}
 	
 
@@ -476,3 +498,4 @@ public class SCAOnScreenManageController extends WindowAdapter implements Action
 //	 }
 
 }
+

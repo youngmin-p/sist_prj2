@@ -34,7 +34,7 @@ public class SCAMovieManageView extends JDialog implements Runnable {
 
 	public SCAMovieManageView(SCAMainView scamv, String admin_id) {
 		admin_id="hee"; // 관리자 iD 
-//		setTitle("관리자 :"+admin_id);
+		setTitle("관리자 :"+admin_id);
 		  // 테이블 내용 가운데 정렬하기
 	      DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer(); // 디폴트테이블셀렌더러를 생성
 	      dtcr.setHorizontalAlignment(SwingConstants.CENTER);
@@ -103,14 +103,14 @@ public class SCAMovieManageView extends JDialog implements Runnable {
 		// 등록
 		regesterMovie = new JButton();
 		regesterMovie.setIcon(
-				new ImageIcon("C:/dev/Workspace/Cinema/src/kr/co/sist/sc/admin/images/jbt_resist(125x40).png"));
+				new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_resist(125x40).png"));
 		regesterMovie.setBounds(160, 620, 125, 40);
 		regesterMovie.setContentAreaFilled(false);
 		regesterMovie.setBorderPainted(false);
 
 		// 닫기
 		exit = new JButton();
-		exit.setIcon(new ImageIcon("C:/dev/Workspace/Cinema/src/kr/co/sist/sc/admin/images/jbt_close(125x40).png"));
+		exit.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_close(125x40).png"));
 		exit.setBounds(305,620, 125, 40);
 		exit.setContentAreaFilled(false);
 		exit.setBorderPainted(false);
@@ -118,7 +118,7 @@ public class SCAMovieManageView extends JDialog implements Runnable {
 		////////////////////////////////////// 전체 배경 색 추가
 		backColor = new JLabel();
 		backColor.setIcon(new ImageIcon(
-				"C:/dev/Workspace/Cinema/src/kr/co/sist/sc/admin/images/admin_movie_management_bg(600x700).png"));
+				"C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/admin_movie_management_bg(600x700).png"));
 		backColor.setBounds(0, 0, 600, 700);
 
 		setLayout(null);
@@ -225,8 +225,8 @@ public class SCAMovieManageView extends JDialog implements Runnable {
 	public String getAdmin_id() {
 		return admin_id;
 	}
-	public static void main(String[] args) {
+/*	public static void main(String[] args) {
 		new SCAMovieManageView(null, null);
-	}
+	}*/
 	
 }

@@ -39,7 +39,7 @@ public class SCAMovieManageController extends WindowAdapter implements ActionLis
 		dtmMovie.setRowCount(0);
 		try {
 			SCAMovieManageVO slv = null;
-			String imgPath = "C:/dev/Workspace/Cinema/src/kr/co/sist/sc/admin/images/movie/s_movie_";
+			String imgPath = "C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/movie/s_movie_";
 			List<SCAMovieManageVO> listmovie = scamm_dao.showMovie();
 			Object[] rowData = null;
 
