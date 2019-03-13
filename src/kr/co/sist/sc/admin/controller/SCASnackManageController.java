@@ -17,6 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 import javax.swing.JToggleButton;
 import javax.swing.table.DefaultTableModel;
 
@@ -71,7 +72,6 @@ public class SCASnackManageController extends WindowAdapter implements ActionLis
 						scasmv.getDtmOrderList().removeRow(selectedRows[i]);
 //						selectedRows = scasmv.getJtabOrderList().getSelectedRows();
 					} // end for
-					JOptionPane.showMessageDialog(scasmv, "주문 목록에서 삭제되었습니다.");
 					break;
 				} // end switch
 			} else {
@@ -120,7 +120,7 @@ public class SCASnackManageController extends WindowAdapter implements ActionLis
 
 			for (int i = 0; i < jbtSnack.length; i++) {
 				for (int j = 0; j < jbtSnack[i].length; j++) {
-					jbtSnack[i][j].setIcon(null);
+					jbtSnack[i][j].setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jl_no_snack_image(187x162).png"));
 					jbtSnack[i][j].setText("");
 					listLength++;
 				} // end for
@@ -160,6 +160,8 @@ public class SCASnackManageController extends WindowAdapter implements ActionLis
 		int price = 0, quan = 0, itemPrice = 0, totalPrice = 0;
 
 		StringBuilder receipt = new StringBuilder();
+		
+		
 		for (int i = 0; i < dtmOrderlist.getRowCount(); i++) {
 			snackName = String.valueOf(scasmv.getDtmOrderList().getValueAt(i, 1));
 			price = Integer.parseInt(scasmv.getDtmOrderList().getValueAt(i, 2).toString());
@@ -167,16 +169,19 @@ public class SCASnackManageController extends WindowAdapter implements ActionLis
 			itemPrice = 0;
 			itemPrice += price * quan;
 			totalPrice += price * quan;
-			receipt.append("[스낵명] - ").append(snackName).append("\n")
-			.append("[수　량] - ").append(quan).append("개\n")
-			.append("[가　격] - ").append(itemPrice).append("원\n");
+			receipt.append("[스낵명] - ").append(snackName).append("\t")
+			.append("[수　량] - ").append(quan).append("개\t")
+			.append("[가　격] - ").append(itemPrice).append("원\t\n");
 		} // end for
-		receipt.append("-------------------------------------------\n");
+		receipt.append("-----------------------------------------------------------------------------------------------------------\n");
 		receipt.append("[총가격] - ").append(totalPrice).append("원\n\n")
 		.append("결제 하시겠습니까?");
 		
+		JTextArea jtaReceipt = new JTextArea(30, 40);
+		jtaReceipt.setText(receipt.toString());
+		jtaReceipt.setEditable(false);
 		
-		switch(JOptionPane.showConfirmDialog(scasmv, receipt, "영수증", JOptionPane.YES_NO_OPTION)){
+		switch(JOptionPane.showConfirmDialog(scasmv, jtaReceipt, "영수증", JOptionPane.YES_NO_OPTION)){
 			case JOptionPane.OK_OPTION :
 			try {
 				for(int j=0; j < dtmOrderlist.getRowCount(); j++) {

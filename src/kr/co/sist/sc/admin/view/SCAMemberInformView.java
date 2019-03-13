@@ -120,6 +120,14 @@ public class SCAMemberInformView extends JDialog{
 		jtfAccPoint.setBounds(105, 343, 250, 22);
 		jtfInputDate.setBounds(105, 380, 250, 22);
 		
+		jtfMemberId.setBackground(Color.LIGHT_GRAY);
+		jpfPassword.setBackground(Color.LIGHT_GRAY);
+		jtfBirthdate.setBackground(Color.LIGHT_GRAY);
+		jtfMembership.setBackground(Color.LIGHT_GRAY);
+		jtfHoldPoint.setBackground(Color.LIGHT_GRAY);
+		jtfAccPoint.setBackground(Color.LIGHT_GRAY);
+		jtfInputDate.setBackground(Color.LIGHT_GRAY);
+		
 		// JButton »ý¼º
 		jbtMemberUpdate = new JButton();
 		jbtMemberDelete = new JButton();

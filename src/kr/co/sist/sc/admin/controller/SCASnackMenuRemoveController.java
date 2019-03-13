@@ -44,12 +44,15 @@ public class SCASnackMenuRemoveController extends WindowAdapter implements Actio
 			
 			try {
 				if(SCASnackManageDAO.getInstance().deleteSnackMenu(selectedSnack)) {
-					StringBuilder msg = new StringBuilder();
-					msg.append("["+selectedSnack+"]\n").append("스낵목록에서 삭제되었습니다.");
-					JOptionPane.showMessageDialog(scasmrv, msg);
-					selectSnackNameTable();
-					refreshSnackMenu();
-					scasmrv.dispose();
+					switch(JOptionPane.showConfirmDialog(scasmrv, "정말 삭제하시겠습니까?", "스낵 메뉴 삭제", JOptionPane.YES_NO_OPTION)) {
+					case(JOptionPane.OK_OPTION):
+						StringBuilder msg = new StringBuilder();
+						msg.append("["+selectedSnack+"]\n").append("스낵목록에서 삭제되었습니다.");
+						JOptionPane.showMessageDialog(scasmrv, msg);
+						selectSnackNameTable();
+						refreshSnackMenu();
+						scasmrv.dispose();
+					} // end switch
 				} else {
 					JOptionPane.showMessageDialog(scasmrv, "스낵이 삭제되지 않았습니다.");
 				} // end if
@@ -95,7 +98,7 @@ public class SCASnackMenuRemoveController extends WindowAdapter implements Actio
 			
 			for(int i=0; i < jbtSnack.length; i++) {
 				for(int j=0; j < jbtSnack[i].length; j++) {
-					jbtSnack[i][j].setIcon(null);
+					jbtSnack[i][j].setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jl_no_snack_image(187x162).png"));
 					jbtSnack[i][j].setText("");
 					listLength++;
 				} // end for

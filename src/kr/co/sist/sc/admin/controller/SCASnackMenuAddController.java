@@ -100,8 +100,22 @@ public class SCASnackMenuAddController extends WindowAdapter implements ActionLi
 			return;
 		} // end if
 		
+		if(snackName.contains(" ")) {
+			JOptionPane.showMessageDialog(scasmav, "스낵명에 공백이 들어갈 수 없습니다.");
+			scasmav.getJtfSnackName().setText("");
+			scasmav.getJtfSnackName().requestFocus();
+			return;
+		} // end if
+		
 		if(snackPrice.equals("")) {
 			JOptionPane.showMessageDialog(scasmav, "스낵의 가격은 필수로 입력해주세요.");
+			scasmav.getJtfPrice().requestFocus();
+			return;
+		} // end if
+		
+		if(snackPrice.contains(" ")) {
+			JOptionPane.showMessageDialog(scasmav, "스낵의 가격에 공백이 들어갈 수 없습니다.");
+			scasmav.getJtfPrice().setText("");
 			scasmav.getJtfPrice().requestFocus();
 			return;
 		} // end if
@@ -197,13 +211,12 @@ public class SCASnackMenuAddController extends WindowAdapter implements ActionLi
 		try {
 			snackList = SCASnackManageDAO.getInstance().selectSnackMenuTable();
 			
-			
 			int listLength = 0;
 			String imgDir = "C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/snack/";
 			
 			for(int i=0; i < jbtSnack.length; i++) {
 				for(int j=0; j < jbtSnack[i].length; j++) {
-					jbtSnack[i][j].setIcon(null);
+					jbtSnack[i][j].setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jl_no_snack_image(187x162).png"));
 					jbtSnack[i][j].setText("");
 					listLength++;
 				} // end for

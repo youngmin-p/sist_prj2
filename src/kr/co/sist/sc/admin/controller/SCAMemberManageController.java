@@ -78,6 +78,12 @@ public class SCAMemberManageController extends WindowAdapter implements ActionLi
 			return;
 		} // end if
 		
+		if(memberId.contains(" ")) {
+			JOptionPane.showMessageDialog(scammv, "아이디에 공백이 들어갈 수 없습니다.");
+			scammv.getJtfMemberId().setText("");
+			return;
+		} // end if
+		
 		try {
 			SCAMemberSelectVO	scamvo = SCAMemberManageDAO.getInstance().selectOneMember(memberId.trim());
 			Object[] rowData = new Object[3];

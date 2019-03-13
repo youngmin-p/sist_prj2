@@ -36,25 +36,6 @@ public class SCAMemberManageView extends JDialog {
 		StringBuilder sbSilver = new StringBuilder();
 		StringBuilder sbGold = new StringBuilder();
 		StringBuilder sbVip = new StringBuilder();
-		sbSilver.append("Silver<br>").append("10000~50000 Æ÷ÀÎÆ®");
-		sbGold.append("Gold<br>").append("50000~100000 Æ÷ÀÎÆ®");
-		sbVip.append("VIP<br>").append("100000 Æ÷ÀÎÆ® ÀÌ»ó");
-		
-		JLabel jlSilver, jlGold, jlVip;
-		jlSilver = new JLabel(sbSilver.toString());
-		jlGold = new JLabel(sbGold.toString());
-		jlVip = new JLabel(sbVip.toString());
-		
-		jlSilver.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.BOLD, 16));
-		jlSilver.setForeground(Color.WHITE);
-		jlGold.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.BOLD, 16));
-		jlGold.setForeground(Color.WHITE);
-		jlVip.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.BOLD, 16));
-		jlVip.setForeground(Color.WHITE);
-		
-		jlSilver.setBounds(30, 50, 350, 60);
-		jlSilver.setBounds(30, 110, 350, 60);
-		jlSilver.setBounds(30, 170, 350, 60);
 		
 		jbtMemberSelectAll = new JButton();
 		jbtMemberSelectOne = new JButton();
@@ -87,7 +68,6 @@ public class SCAMemberManageView extends JDialog {
 		
 		jtabMemberList.getTableHeader().setFont(new Font("³ª´®°íµñ", Font.BOLD, 14));
 		jtabMemberList.getTableHeader().setForeground(Color.WHITE);
-//		jtabMemberList.getTableHeader().setBorder(new LineBorder(Color.WHITE));
 		jtabMemberList.getTableHeader().setBackground(new Color(20, 35, 65));
 		jtabMemberList.getTableHeader().setReorderingAllowed(false);
 		jtabMemberList.getTableHeader().setResizingAllowed(false);
@@ -108,11 +88,7 @@ public class SCAMemberManageView extends JDialog {
 		jtfMemberId.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.BOLD, 20));
 		
 		
-		
 		jlBg.add(jspMemberList);
-//		jlBg.add(jlSilver);
-//		jlBg.add(jlGold);
-//		jlBg.add(jlVip);
 		jlBg.add(jbtMemberSelectAll);
 		jlBg.add(jbtMemberSelectOne);
 		jlBg.add(jtfMemberId);
@@ -122,7 +98,6 @@ public class SCAMemberManageView extends JDialog {
 		
 		SCAMemberManageController scammc = new SCAMemberManageController(this);
 		addWindowListener(scammc);
-//		addMouseListener(scammc);
 		jtabMemberList.addMouseListener(scammc);
 		jbtMemberSelectAll.addActionListener(scammc);
 		jbtMemberSelectAll.addMouseListener(scammc);

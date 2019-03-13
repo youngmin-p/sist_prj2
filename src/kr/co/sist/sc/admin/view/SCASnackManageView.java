@@ -92,7 +92,11 @@ public class SCASnackManageView extends JDialog{
 				
 		// JTable ÄÄÆ÷³ÍÆ®
 		dtmOrderList = new DefaultTableModel(strTabCols, 0);
-		jtabOrderList = new JTable(dtmOrderList);
+		jtabOrderList = new JTable(dtmOrderList){
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			};
+		};
 		jtabOrderList.getTableHeader().setOpaque(false);
 		jtabOrderList.getTableHeader().setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 16));
 		jtabOrderList.getTableHeader().setBackground(new Color(20, 42, 99));

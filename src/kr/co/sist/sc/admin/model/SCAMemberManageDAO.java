@@ -36,7 +36,7 @@ public class SCAMemberManageDAO {
 
 		try {
 			con = SCAConnect.getInstance().getConn();
-			String selectAllMember = " SELECT MEMBER_ID, NAME, BIRTHDATE FROM MEMBER ";
+			String selectAllMember = " SELECT MEMBER_ID, NAME, BIRTHDATE FROM MEMBER WHERE PASSWORD != ' ' ";
 
 			pstmt = con.prepareStatement(selectAllMember);
 			rs = pstmt.executeQuery();
@@ -168,7 +168,8 @@ public class SCAMemberManageDAO {
 		
 		try {
 			con = SCAConnect.getInstance().getConn();
-			String deleteMember = " DELETE FROM MEMBER WHERE MEMBER_ID=? ";
+//			String deleteMember = " DELETE FROM MEMBER WHERE MEMBER_ID=? ";
+			String deleteMember = " update member set password=' ', name=' ', birthdate=' ', phone=' ', membership=' ', hold_point=0, acc_point=0 where member_id=? ";
 			pstmt = con.prepareStatement(deleteMember);
 			pstmt.setString(1, memberId.trim()); // trim() 없이 설정시 에러
 			
