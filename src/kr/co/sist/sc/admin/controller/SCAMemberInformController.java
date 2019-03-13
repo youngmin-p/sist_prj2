@@ -94,9 +94,6 @@ public class SCAMemberInformController extends WindowAdapter implements ActionLi
 			return;
 		} // end if
 		
-		
-		////////////////////////// 19-02-19 김정윤 - 기타 휴대폰 번호 유효성 검증 코드 추가 해야함 ///////////////////////
-		
 		// confirm dialog 에 들어갈 메시지
 		StringBuilder modifyMsg = new StringBuilder();
 		modifyMsg.append("이름 : [").append(name).append("]\n")

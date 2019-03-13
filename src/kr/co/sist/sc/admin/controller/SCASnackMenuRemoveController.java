@@ -35,32 +35,14 @@ public class SCASnackMenuRemoveController extends WindowAdapter implements Actio
 	public void actionPerformed(ActionEvent ae) {
 		// 삭제
 		if (ae.getSource() == scasmrv.getJbtSnackDelete()) {
-			String selectedSnack = scasmrv.getJlstSnackName().getSelectedValue();
 			
-			if(selectedSnack == null) {
+			if(scasmrv.getJlstSnackName().getSelectedValue() == null) {
 				JOptionPane.showMessageDialog(scasmrv, "먼저 삭제할 아이템을 선택해야 합니다.");
 				return;
 			} // end if
 			
-			try {
-				if(SCASnackManageDAO.getInstance().deleteSnackMenu(selectedSnack)) {
-					switch(JOptionPane.showConfirmDialog(scasmrv, "정말 삭제하시겠습니까?", "스낵 메뉴 삭제", JOptionPane.YES_NO_OPTION)) {
-					case(JOptionPane.OK_OPTION):
-						StringBuilder msg = new StringBuilder();
-						msg.append("["+selectedSnack+"]\n").append("스낵목록에서 삭제되었습니다.");
-						JOptionPane.showMessageDialog(scasmrv, msg);
-						selectSnackNameTable();
-						refreshSnackMenu();
-						scasmrv.dispose();
-					} // end switch
-				} else {
-					JOptionPane.showMessageDialog(scasmrv, "스낵이 삭제되지 않았습니다.");
-				} // end if
-				
-			} catch (SQLException sqle) {
-				sqle.printStackTrace();
-				JOptionPane.showMessageDialog(scasmrv, "DB상의 문제가 발생하였습니다. 잠시후 다시 시도해주세요.");
-			} // end catch
+			deleteSnackMenu();
+			
 		} // end if
 		
 		// 닫기
@@ -70,6 +52,29 @@ public class SCASnackMenuRemoveController extends WindowAdapter implements Actio
 		
 	} // actionPerformed
 
+	private void deleteSnackMenu() {
+		String selectedSnack = scasmrv.getJlstSnackName().getSelectedValue();
+		try {
+			if(SCASnackManageDAO.getInstance().deleteSnackMenu(scasmrv.getJlstSnackName().getSelectedValue())) {
+				switch(JOptionPane.showConfirmDialog(scasmrv, "정말 삭제하시겠습니까?", "스낵 메뉴 삭제", JOptionPane.YES_NO_OPTION)) {
+				case(JOptionPane.OK_OPTION):
+					StringBuilder msg = new StringBuilder();
+					msg.append("["+scasmrv.getJlstSnackName().getSelectedValue()+"]\n").append("스낵목록에서 삭제되었습니다.");
+					JOptionPane.showMessageDialog(scasmrv, msg);
+					selectSnackNameTable();
+					refreshSnackMenu();
+					scasmrv.dispose();
+				} // end switch
+			} else {
+				JOptionPane.showMessageDialog(scasmrv, "스낵이 삭제되지 않았습니다.");
+			} // end if
+			
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+			JOptionPane.showMessageDialog(scasmrv, "DB상의 문제가 발생하였습니다. 잠시후 다시 시도해주세요.");
+		} // end catch
+	} // deleteSnackMenu
+	
 	private void selectSnackNameTable() {
 		List<SCASnackMenuTableSelectVO> snackNameList = new ArrayList<SCASnackMenuTableSelectVO>();
 		DefaultListModel<String> dlmSnackName = scasmrv.getDlmSnackName();
