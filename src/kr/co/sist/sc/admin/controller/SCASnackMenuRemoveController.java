@@ -51,7 +51,7 @@ public class SCASnackMenuRemoveController extends WindowAdapter implements Actio
 					refreshSnackMenu();
 					scasmrv.dispose();
 				} else {
-					JOptionPane.showMessageDialog(scasmrv, "도시락이 삭제되지 않았습니다.");
+					JOptionPane.showMessageDialog(scasmrv, "스낵이 삭제되지 않았습니다.");
 				} // end if
 				
 			} catch (SQLException sqle) {

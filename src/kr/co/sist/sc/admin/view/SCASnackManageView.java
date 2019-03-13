@@ -134,7 +134,7 @@ public class SCASnackManageView extends JDialog{
 		jbtSnackOrderDelete.addActionListener(scasmc);
 		jbtClose.addActionListener(scasmc);
 		
-		setBounds(100, 100, 900, 800);
+		setBounds(scamv.getX()+(scamv.getWidth()/2)-900, scamv.getY(), 900, 800);
 		setResizable(false);
 		setVisible(true);
 		
