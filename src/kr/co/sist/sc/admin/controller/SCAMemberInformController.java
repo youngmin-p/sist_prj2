@@ -2,14 +2,11 @@ package kr.co.sist.sc.admin.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import kr.co.sist.sc.admin.model.SCAMemberManageDAO;
@@ -29,7 +26,6 @@ public class SCAMemberInformController extends WindowAdapter implements ActionLi
 		this.scammv = scammv;
 	} // SCAMemberInformController
 	
-	// 액션 이벤트
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		if(ae.getSource() == scamiv.getJbtMemberUpdate()) {
@@ -45,7 +41,6 @@ public class SCAMemberInformController extends WindowAdapter implements ActionLi
 		} // end if
 	} // actionPerformed
 
-	// 정보 수정
 	private void modifyMember() {
 		String memberId = scamiv.getJtfMemberId().getText();
 		String name = scamiv.getJtfName().getText();
@@ -81,30 +76,25 @@ public class SCAMemberInformController extends WindowAdapter implements ActionLi
 				return;
 			} // 
 		} // end for
-		
 		if(!phoneDiv[0].equals("010") && !phoneDiv[0].equals("011") && !phoneDiv[0].equals("016") && !phoneDiv[0].equals("017") && !phoneDiv[0].equals("019")) {
 			JOptionPane.showMessageDialog(scamiv, "휴대폰 앞자리를 확인해주세요.");
 			scamiv.getJtfPhone().requestFocus();
 			return;
 		} // end if
-		
 		if(phoneDiv.length != 3 || phoneDiv[0].length() != 3 || phoneDiv[1].length() != 4 || phoneDiv[2].length() != 4) {
 			JOptionPane.showMessageDialog(scamiv, "휴대폰 번호의 자리수를 확인해주세요.");
 			scamiv.getJtfPhone().requestFocus();
 			return;
 		} // end if
 		
-		// confirm dialog 에 들어갈 메시지
 		StringBuilder modifyMsg = new StringBuilder();
 		modifyMsg.append("이름 : [").append(name).append("]\n")
 					.append("휴대폰 번호 : [").append(phone).append("]\n")
 					.append("회원 정보를 수정 하시겠습니까?");
 		
-		// switch 문
 		switch(JOptionPane.showConfirmDialog(scamiv, modifyMsg, "회원 정보 수정", JOptionPane.YES_NO_OPTION)) {
 		case JOptionPane.OK_OPTION:
 			SCAMemberUpdateVO scamuvo = new SCAMemberUpdateVO(memberId, name, phone);
-			// try 문
 			try {
 				if(SCAMemberManageDAO.getInstance().updateMember(scamuvo)) {
 					JOptionPane.showMessageDialog(scamiv, "회원정보가 수정되었습니다.");
@@ -119,7 +109,6 @@ public class SCAMemberInformController extends WindowAdapter implements ActionLi
 		
 			break;
 		} // end switch
-		
 	} // modifyMember
 	
 	private void removeMember() {

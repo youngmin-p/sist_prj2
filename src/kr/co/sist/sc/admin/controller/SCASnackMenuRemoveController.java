@@ -33,27 +33,20 @@ public class SCASnackMenuRemoveController extends WindowAdapter implements Actio
 
 	@Override
 	public void actionPerformed(ActionEvent ae) {
-		// 삭제
 		if (ae.getSource() == scasmrv.getJbtSnackDelete()) {
-			
 			if(scasmrv.getJlstSnackName().getSelectedValue() == null) {
 				JOptionPane.showMessageDialog(scasmrv, "먼저 삭제할 아이템을 선택해야 합니다.");
 				return;
 			} // end if
-			
 			deleteSnackMenu();
-			
 		} // end if
 		
-		// 닫기
 		if (ae.getSource() == scasmrv.getJbtClose()) {
 			scasmrv.dispose();
 		} // end if
-		
 	} // actionPerformed
 
 	private void deleteSnackMenu() {
-		String selectedSnack = scasmrv.getJlstSnackName().getSelectedValue();
 		try {
 			if(SCASnackManageDAO.getInstance().deleteSnackMenu(scasmrv.getJlstSnackName().getSelectedValue())) {
 				switch(JOptionPane.showConfirmDialog(scasmrv, "정말 삭제하시겠습니까?", "스낵 메뉴 삭제", JOptionPane.YES_NO_OPTION)) {

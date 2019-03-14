@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 
 import kr.co.sist.sc.admin.controller.SCASnackManageController;
 
+@SuppressWarnings("serial")
 public class SCASnackManageView extends JDialog{
 
 	private JButton[][] jbtSnackImg;
@@ -34,15 +35,12 @@ public class SCASnackManageView extends JDialog{
 		jlBg.setBounds(0, 0, 900, 800);
 		jlBg.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/snack_management_6-1_main_bg(900x800).png"));
 	
-		// JButton 배열을 담을 JPanel
 		JPanel jpSnackImgBox = new JPanel();
 		jpSnackImgBox.setLayout(null);
 		jpSnackImgBox.setBackground(new Color(0, 0, 0, 0));
 		jpSnackImgBox.setBounds(50, 20, 793, 339);
 		
-		// JButton 배열 (등록된 스낵 아이템들)
 		jbtSnackImg = new JButton[2][4];
-		// JButton 간의 간격을 위한 변수 colGab, lineGab
 		int colGab = 0, lineGab = 0;
 		for(int i = 0; i < jbtSnackImg.length; i++) {
 			for(int j = 0; j < jbtSnackImg[i].length; j++) {
@@ -53,12 +51,14 @@ public class SCASnackManageView extends JDialog{
 				jbtSnackImg[i][j].setBounds(j*187+colGab, i*162+lineGab, 187, 162);
 				jbtSnackImg[i][j].setBackground(new Color(255, 255, 255));
 				jpSnackImgBox.add(jbtSnackImg[i][j]);
+				jbtSnackImg[i][j].setFocusable(false);
+				jbtSnackImg[i][j].setOpaque(false);
+				jbtSnackImg[i][j].setBorderPainted(false);
 			} // end for
 			colGab = 0;
 			lineGab = 15;
 		} // end for
 		
-		// JButton 컴포넌트
 		jbtSnackMenuInsert = new JButton();
 		jbtSnackPayment = new JButton();
 		jbtSnackMenuDelete = new JButton();
@@ -90,7 +90,6 @@ public class SCASnackManageView extends JDialog{
 
 		String[] strTabCols = {"번호","스낵명","가격","수량","총가격"}; 
 				
-		// JTable 컴포넌트
 		dtmOrderList = new DefaultTableModel(strTabCols, 0);
 		jtabOrderList = new JTable(dtmOrderList){
 			public boolean isCellEditable(int row, int column) {
@@ -107,11 +106,17 @@ public class SCASnackManageView extends JDialog{
 		jtabOrderList.setRowHeight(25);
 		jtabOrderList.getTableHeader().setPreferredSize(new Dimension(100, 30));
 		
-		// JTable 스크롤바
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+		jtabOrderList.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
+		jtabOrderList.getColumnModel().getColumn(1).setCellRenderer( centerRenderer );
+		jtabOrderList.getColumnModel().getColumn(2).setCellRenderer( centerRenderer );
+		jtabOrderList.getColumnModel().getColumn(3).setCellRenderer( centerRenderer );
+		jtabOrderList.getColumnModel().getColumn(4).setCellRenderer( centerRenderer );
+		
 		JScrollPane jspOrderList = new JScrollPane(jtabOrderList);
 		jspOrderList.setBounds(50, 430, 795, 250);
 			
-		// 배경 라벨에 컴포넌트 추가
 		jlBg.add(jbtSnackMenuInsert);
 		jlBg.add(jbtSnackMenuDelete);
 		jlBg.add(jbtSnackPayment);
@@ -125,7 +130,6 @@ public class SCASnackManageView extends JDialog{
 		SCASnackManageController scasmc = new SCASnackManageController(this);
 		addWindowListener(scasmc);
 		
-		// JButton(스낵 메뉴) 이벤트 일괄처리
 		for(int k = 0; k < jbtSnackImg.length; k ++) {
 			for(int l = 0; l < jbtSnackImg[k].length; l ++) {
 				jbtSnackImg[k][l].addActionListener(scasmc);
@@ -143,9 +147,7 @@ public class SCASnackManageView extends JDialog{
 		setVisible(true);
 		
 	} // SCASnackMageView
-
 	
-	/////////////////////////  getter  ///////////////////////////////
 	public JButton[][] getJbtSnackImg() {
 		return jbtSnackImg;
 	}
@@ -181,10 +183,6 @@ public class SCASnackManageView extends JDialog{
 	public ButtonGroup getJbtGroup() {
 		return jbtGroup;
 	}
-
-	
-	
-	/////////////////////////  getter  ///////////////////////////////
 
 } // class
 

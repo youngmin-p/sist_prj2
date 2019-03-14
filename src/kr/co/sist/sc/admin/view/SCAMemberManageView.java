@@ -11,11 +11,11 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import kr.co.sist.sc.admin.controller.SCAMemberManageController;
 
+@SuppressWarnings("serial")
 public class SCAMemberManageView extends JDialog {
 
 	private JButton jbtMemberSelectAll, jbtMemberSelectOne, jbtClose;
@@ -27,16 +27,10 @@ public class SCAMemberManageView extends JDialog {
 		super(scamv, "회원관리", true);
 		setLayout(null);
 		
-		// 배경이미지가 들어간 JLabel 생성, 아이콘, 크기, 위치 설정  
 		JLabel jlBg = new JLabel();
 		jlBg.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/member_management_4-1_main_bg(600x800).png"));
 		jlBg.setBounds(0, 0, 600, 800);
 
-		// 등급별 누적 포인트 조건을 설명하기 위한 StringBuilder 생성
-		StringBuilder sbSilver = new StringBuilder();
-		StringBuilder sbGold = new StringBuilder();
-		StringBuilder sbVip = new StringBuilder();
-		
 		jbtMemberSelectAll = new JButton();
 		jbtMemberSelectOne = new JButton();
 		jbtClose = new JButton();

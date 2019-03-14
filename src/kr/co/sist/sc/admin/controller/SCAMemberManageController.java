@@ -7,10 +7,8 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
@@ -26,11 +24,11 @@ public class SCAMemberManageController extends WindowAdapter implements ActionLi
 
 	public SCAMemberManageController(SCAMemberManageView scammv) {
 		this.scammv = scammv;
-		
+
 		searchAllMember();
-		
+
 	} // SCAMemberController
-	
+
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 
@@ -62,7 +60,7 @@ public class SCAMemberManageController extends WindowAdapter implements ActionLi
 				rowData[1] = scamsvo.getName();
 				rowData[2] = scamsvo.getBirthDate();
 
-				
+				scammv.getJtfMemberId().setText("");
 				scammv.getDtmMemberList().addRow(rowData);
 			} // end for
 		} catch (SQLException sqle) {
@@ -72,50 +70,50 @@ public class SCAMemberManageController extends WindowAdapter implements ActionLi
 
 	private void searchOneMember() {
 		String memberId = scammv.getJtfMemberId().getText();
-		
-		if(memberId.equals("")) {
+
+		if (memberId.equals("")) {
 			JOptionPane.showMessageDialog(scammv, "먼저 검색할 아이디를 입력하세요.");
 			return;
 		} // end if
-		
-		if(memberId.contains(" ")) {
+
+		if (memberId.contains(" ")) {
 			JOptionPane.showMessageDialog(scammv, "아이디에 공백이 들어갈 수 없습니다.");
 			scammv.getJtfMemberId().setText("");
 			return;
 		} // end if
-		
+
 		try {
-			SCAMemberSelectVO	scamvo = SCAMemberManageDAO.getInstance().selectOneMember(memberId.trim());
+			SCAMemberSelectVO scamvo = SCAMemberManageDAO.getInstance().selectOneMember(memberId.trim());
 			Object[] rowData = new Object[3];
 			rowData[0] = scamvo.getMember_id();
 			rowData[1] = scamvo.getName();
 			rowData[2] = scamvo.getBirthDate();
-			
+
 			scammv.getDtmMemberList().setRowCount(0);
 			scammv.getDtmMemberList().addRow(rowData);
 		} catch (SQLException sqle) {
-			sqle.printStackTrace();
+			JOptionPane.showMessageDialog(scammv, "DB상의 문제가 발생했습니다. 잠시후 다시 시도해주세요.");
 		} catch (NullPointerException npe) {
-			JOptionPane.showMessageDialog(scammv, "["+memberId+"] - 조회된 결과가 없는 ID 입니다.");
+			JOptionPane.showMessageDialog(scammv, "[" + memberId + "] - 조회된 결과가 없는 ID 입니다.");
 			scammv.getJtfMemberId().setText("");
 			scammv.getJtfMemberId().requestFocus();
 		} // end catch
-		
+
 	} // searchOneMember
 
 	private void showMemberInform() {
 		JTable jt = scammv.getJtabMemberList();
 		String selectedItem = jt.getValueAt(jt.getSelectedRow(), 0).toString();
-		
+
 		try {
 			SCAMemberInformVO scamivo = SCAMemberManageDAO.getInstance().selectMemberInform(selectedItem);
 			new SCAMemberInformView(scammv, scamivo);
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 		} // end catch
-		
+
 	} // showMemberInform
-	
+
 	@Override
 	public void windowClosing(WindowEvent we) {
 		scammv.dispose();
@@ -123,18 +121,19 @@ public class SCAMemberManageController extends WindowAdapter implements ActionLi
 
 	@Override
 	public void mouseClicked(MouseEvent me) {
-		if(me.getClickCount() == 2 && me.getSource() == scammv.getJtabMemberList()) {
+		if (me.getClickCount() == 2 && me.getSource() == scammv.getJtabMemberList()) {
 			showMemberInform();
 		} // end if
 	} // mouseClicked
 
-	
 	@Override
 	public void mousePressed(MouseEvent me) {
 	}
+
 	@Override
 	public void mouseReleased(MouseEvent me) {
 	}
+
 	@Override
 	public void mouseEntered(MouseEvent e) {
 	}
