@@ -42,8 +42,6 @@ public class SCAMovieManageView extends JDialog implements Runnable {
 	    Font setFont=new Font("나눔고딕", Font.BOLD, 20);
 		JLabel movieManagement = new JLabel("영화관리");
 		movieManagement.setBounds(20, 20, 125, 60);
-//		movieManagement.setContentAreaFilled(false);
-//		movieManagement.setBorderPainted(false);
 		movieManagement.setOpaque(false); // 라벨의 글자 이외의 부분을 투명하게
 		movieManagement.setFont(new Font("나눔고딕", Font.BOLD, 25));
 		movieManagement.setForeground(Color.WHITE);
@@ -59,13 +57,7 @@ public class SCAMovieManageView extends JDialog implements Runnable {
 			}
 			
 
-	/*		protected void paintComponent(Graphics g) {
-				g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
-				super.dtmModel(g);
-			}*/
 		};
-//		dtmModel.
-//		tempColumSet = new JTable(dtmModel);
 		tableMovieList = new JTable(dtmModel);
 		tableMovieList.getTableHeader().setFont(new Font("나눔고딕", Font.BOLD, 22));
 		tableMovieList.getTableHeader().setBorder(new LineBorder(Color.WHITE));
@@ -77,8 +69,6 @@ public class SCAMovieManageView extends JDialog implements Runnable {
 		tableMovieList.getTableHeader().setReorderingAllowed(false);
 		tableMovieList.getTableHeader().setOpaque(false);
 		tableMovieList.setBorder(new LineBorder(Color.WHITE));
-//		tableMovieList.setGridColor(new Color(20,35,65));
-//		tableMovieList.setShowVerticalLines(false);//별로임
 		tableMovieList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tableMovieList.setSelectionForeground(Color.white);
 		tableMovieList.setSelectionBackground(new Color(20,35,65));
@@ -126,7 +116,6 @@ public class SCAMovieManageView extends JDialog implements Runnable {
 		tb.setTitleFont(setFont);
 		tb.setTitleColor(Color.white);
 		jspList.setBorder(tb);
-//		jspList.setFont(new Font("나눔궁서", Font.BOLD, 22));
 		jspList.getVerticalScrollBar().setUI(new BasicScrollBarUI() { 
 			 			@Override 
 						protected void configureScrollBarColors() { 
@@ -192,7 +181,6 @@ public class SCAMovieManageView extends JDialog implements Runnable {
 
         int sec=cal.get(Calendar.SECOND);
 
- //       time.setText(y+"년 "+m+"월 "+d+"일 "+h+"시 "+min+"분 "+sec+"초");
         nowTime=y+"년 "+m+"월 "+d+"일 "+h+"시 "+min+"분 "+sec+"초";
         setTitle("관리자 :"+admin_id+"                                     "+nowTime);
 
@@ -225,8 +213,5 @@ public class SCAMovieManageView extends JDialog implements Runnable {
 	public String getAdmin_id() {
 		return admin_id;
 	}
-/*	public static void main(String[] args) {
-		new SCAMovieManageView(null, null);
-	}*/
 	
 }

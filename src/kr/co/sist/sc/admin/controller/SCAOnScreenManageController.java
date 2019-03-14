@@ -24,13 +24,11 @@ public class SCAOnScreenManageController extends WindowAdapter implements Action
 
 	private SCAOnScreenManageView smv;
 	private SCAOnScreenManageDAO sm_Dao;
-//	private SCAOnScreenManageController ssmc;
 	private List<SCAOnScreenMovieListVO> listmovie; //윗 영화 목록 select
 	private List<SCAOnScreenMovieListVO2> screenMovieList; //아래 영화 목록 select
 	private List<SCAOnscreenSelectiveVO> selectiveVO ;// 테이블에 값 넣기
 	
 
-//	SCAOnScreenManageView smv
 
 	public SCAOnScreenManageController(SCAOnScreenManageView smv) {
 		super();
@@ -53,15 +51,12 @@ public class SCAOnScreenManageController extends WindowAdapter implements Action
 		listmovie = sm_Dao.MovieList();
 
 		for (int i = 0; i < listmovie.size(); i++) {
-//		smv.getDjcbSearchMovie().addElement(listmovie.get(i).getMovie_title());
 			smv.getDjcbMovieSelect().addElement(listmovie.get(i).getMovie_title());
 		}
 	}
 	
-//상영중인 영화의 영화선택 부분을 조회 테이블을말함
+//상영중인 영화 조회 테이블을말함
 	public void nowScreen() throws SQLException {
-		//"순번", "상영번호","영화코드", "포스터", "제목","상영관","상영 시작시간","상영종료시간
-//		String path="C:/dev/Workspace/Cinema/src/kr/co/sist/sc/admin/images/movie/s_movie_";
 		selectiveVO=sm_Dao.selectiveList();
 		smv.getDtmModel().setRowCount(0);
 		Object[] rowData = null;
@@ -82,7 +77,7 @@ public class SCAOnScreenManageController extends WindowAdapter implements Action
 		
 	}
 	/**
-	 * 현재 상영중인 영화 목록 을 보여줌
+	 * 현재 상영중인 영화 목록 을 보여줌 select 부분
 	 * @throws SQLException
 	 */
 	public void screenMovieList() throws SQLException {
@@ -90,7 +85,6 @@ public class SCAOnScreenManageController extends WindowAdapter implements Action
 		screenMovieList=sm_Dao.showScreenMovieList();
 		
 		for (int i = 0; i < screenMovieList.size(); i++) {
-//		smv.getDjcbSearchMovie().addElement(listmovie.get(i).getMovie_title());
 			smv.getDjcbSearchMovie().addElement(screenMovieList.get(i).getMovie_title());
 		}
 		
@@ -126,7 +120,6 @@ public class SCAOnScreenManageController extends WindowAdapter implements Action
 			}
 		}
 
-//		System.out.println("러닝타임" + runningTime);
 		if ("일반".equals(screenArea)) {
 			screenArea = "N";
 		}
@@ -134,8 +127,6 @@ public class SCAOnScreenManageController extends WindowAdapter implements Action
 			screenArea = "P";
 		}
 		
-		// ent_time를 위한 계산이 들어가야함 60으로 나누어서 몫은 시간과 더하고
-		// 나머지는 분과더해서 60이 넘어가면 시를 더해주고 그 나머지를 분으로 한다
 		e_hour = s_hour + (runningTime / 60);
 		e_minute = s_minute + (runningTime % 60);
 
@@ -143,13 +134,7 @@ public class SCAOnScreenManageController extends WindowAdapter implements Action
 			e_hour += 1;
 			e_minute = e_minute - 60;
 		}
-//		System.out.println(s_hour+"시작시분"+s_minute+"/////////"+e_hour+"끝시간 분"+e_minute);
-		// sysdate
-//SCREEN_NUM	SCREEN_DATE  	START_TIME	 end_time	MOVIE_CODE	SCREEN_NAME	
-//	N_19 0129 0830 	2019-01-29	       0830			계산  			M_000020			N	
 
-//	System.out.println(m_code+"/"+screenArea+"/"+year+"/"+month+"/"+day+"/"+s_hour+"/"+s_minute);
-//		System.out.println(nf.format(s_hour)+"시/분"+nf.format(s_minute));
 		StringBuilder screen_num = new StringBuilder();
 		screen_num.append(screenArea).append("_").append(year).append(nf.format(month)).append(nf.format(day))
 				.append(nf.format(s_hour)).append(nf.format(s_minute));
@@ -163,13 +148,8 @@ public class SCAOnScreenManageController extends WindowAdapter implements Action
 
 		
 /////////////////////////////////////////////////
-//		System.out.println(screen_num+"/"+screenArea+"/"+dateYear+"/"+s_hour+"/"+e_hour);
-//		 System.out.println(screen_num+"/"+onDate+"/"+start_time+"/"+end_time+"/"+m_code+"/"+screenArea);
-		//seletiveVO 에서 값을 가지고 와서 for을 돌려 값을 비교
-		//n,p 비교 후 러닝타임 비교 
 		 
 		 
-		 System.out.println("상영등록---등록하기전 중복 검사---------------");
 		 int vo_st_time=0;
 		 int vo_en_time=0;
 		 int temp_st_time=Integer.parseInt(screen_num.substring(2).toString());
@@ -185,8 +165,6 @@ public class SCAOnScreenManageController extends WindowAdapter implements Action
 		 
 		 int selectiveVOcnt=selectiveVO.size();
 		 int cnt=0;
-		 System.out.println(sc_code+"/////"+temp_code);
-		 /////////전날용
 		 String temp_tr="";
 		 String temptr_date="";		//변환된 날짜
 		 int temp_st_tr_time=0;
@@ -205,17 +183,13 @@ public class SCAOnScreenManageController extends WindowAdapter implements Action
 						 if( vo_st_time<=temp_st_time) {// 입력받은  temp 가  st 보다 높은가
 									 if(temp_st_time<=vo_en_time) {// 입력받은  tempr 가  en 보다 작은가
 										 flag_st=true;
-										 System.out.println(flag_st+"//////"+flag_en+"-저장-"+vo_st_time+"/en//"+vo_en_time+"//입력/"+temp_st_time+"///en//"+temp_end_time);
 										 break;
 									 }
 						 }
-					 System.out.println();
 					 //시작시간에 대한  if 끝
 					 	if(vo_st_time<=temp_end_time) {
 							 if(temp_end_time<=vo_en_time) {
 								 flag_en=true;
-								 System.out.println("안됨");
-								 System.out.println(flag_st+"//////"+flag_en+"-저장-"+vo_st_time+"/en//"+vo_en_time+"//입력/"+temp_st_time+"///en//"+temp_end_time);
 								 break;
 							 }
 					 	}
@@ -224,28 +198,19 @@ public class SCAOnScreenManageController extends WindowAdapter implements Action
 					 	
 					 	if(0<=s_hour && s_hour<=4) {//00시부터 04 시까지
 							 cal.set(year, month-1, day);// 입력 되는 년월일
-					 		System.out.println(cal.get(Calendar.MONTH)+1+"/"+ cal.get(Calendar.DAY_OF_MONTH));
 					 		cal.add(Calendar.DAY_OF_MONTH, -1);
 					 		
-					 		System.out.println(cal.get(Calendar.MONTH)+1+"/"+ cal.get(Calendar.DAY_OF_MONTH));
 					 		temp.append(year).append(nf.format(cal.get(Calendar.MONTH)+1)).append(cal.get(Calendar.DAY_OF_MONTH))
 					 							.append(nf.format(s_hour+24)).append(nf.format(s_minute));
 					 		temp_tr=temp.toString().substring(0,6);
-					 		System.out.println(vo_date+"//"+temp_tr+"//temp_tr ="+temp+"vo_date"+vo_date+"vo_st_time"+vo_st_time);
 					 		temptr_date=temp.toString();
 					 		temp_st_tr_time=Integer.parseInt(temptr_date.toString());/// 여기서 에러
 					 		
 					 		temp.setLength(0);
 					 		if(temp_tr.equals(vo_date)) {// 날짜가 같은지
-//					 			System.out.println("같은 코드의 같은 날짜");
-//					 			System.out.println("시간"+temp_st_tr_time);
  									 if( vo_st_time<=temp_st_tr_time) {// 입력받은  temp 가  st 보다 높은가
-					 							 System.out.println("1--"+selectiveVO.get(i).getScreen_num()+"-저장-"+vo_st_time+"/en//"+vo_en_time+"//입력/"+temp_st_time+"///en//"+temp_end_time);	
-					 							System.out.println();
  												 if(temp_st_tr_time<=vo_en_time) {// 입력받은  tempr 가  en 보다 작은가
  													 flag_st=true;
- 													 System.out.println(flag_st+"//////"+flag_en+"-저장-"+vo_st_time+"/en//"+vo_en_time+"//입력/"+temp_st_time+"///en//"+temp_end_time);
-//					 								System.out.println("중복!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
  													 break;
  												 }
  									 }
@@ -254,10 +219,8 @@ public class SCAOnScreenManageController extends WindowAdapter implements Action
 					 	}
 			}//N,P if
 			cnt=i;
-//			System.out.println("i=cnt"+cnt+"//VO=="+selectiveVOcnt);
 		 }
-		 if( true==flag_st || true==flag_en ) {//true 일때만 
-			 System.out.println("안되는  flag "+flag_st+"//////"+flag_en);
+		 if(flag_st || flag_en ) {//true 일때만 
 			 StringBuilder che=new StringBuilder();
 			 che.append("[ ").append(smv.getJcbMovieSelect().getSelectedItem()).append(" ]").append("\n")
 			 .append("[ ").append(smv.getJcbTheaterSelect().getSelectedItem()).append(" ]").append("\n")
@@ -267,9 +230,8 @@ public class SCAOnScreenManageController extends WindowAdapter implements Action
 			 return;
 		 }
 		 if(selectiveVOcnt-1==cnt&&(flag_en==flag_st) ) {//완벽한 false 일때만
-			 System.out.println(" 상영 등록 가능"+flag_st+"//////"+flag_en+"카운트 값"+selectiveVOcnt+"////"+cnt);
 		 
-		////////////////////////////////////////////////////////////////////////////////////////// 아래는 추가 부분
+		/////////////////////////////////////////////////////////////////////////////////////////
 					 StringBuilder insertChe=new StringBuilder();
 					 insertChe.append("[ ").append(smv.getJcbMovieSelect().getSelectedItem()).append(" ]").append("\n")
 					 .append("[ ").append(smv.getJcbTheaterSelect().getSelectedItem()).append(" ]").append("\n")
@@ -306,7 +268,6 @@ public class SCAOnScreenManageController extends WindowAdapter implements Action
 	 * 상영 조회를 할때
 	 */
 	public void screenCheck() {
-		// djcbSearchMovie =new DefaultComboBoxModel<String>();
 		NumberFormat nf = NumberFormat.getInstance();
 		nf.setMinimumIntegerDigits(2);
 		String m_title = smv.getJcbSearchMovie().getSelectedItem().toString();
@@ -324,18 +285,14 @@ public class SCAOnScreenManageController extends WindowAdapter implements Action
 		StringBuilder temp=new StringBuilder();
 		temp.append(year).append("-").append(nf.format(month)).append("-").append(nf.format(day));
 		
-		System.out.println("controller 조회 ");
 		try {
 			List<SCAOnscreenSelectiveVO>list =sm_Dao.screeningSelectMovieInfo(m_code,temp.toString());
-			System.out.println("리스트값은      "+list.get(0).getMovie_code());
 			if(null==list.get(0).getMovie_code()) {
-				System.out.println("controller-screenCheck()   자료없음"+list);
 				JOptionPane.showMessageDialog(smv, "결과 없음");
 				nowScreen();
 				return;
 			}
 			else if("0".equals(list.get(0).getMovie_code())) {
-				System.out.println("controller-screenCheck()   자료없음"+list);
 				JOptionPane.showMessageDialog(smv, "결과 없음");
 				nowScreen();
 				return;
@@ -366,8 +323,6 @@ public class SCAOnScreenManageController extends WindowAdapter implements Action
 	 * 선택된 테이블의 레코드에 대해 삭제 과정
 	 */
 	public void removeScreen() {
-		System.out.println("삭제");
-		System.out.println( smv.getTableMovieList().getSelectedRow());
 		
 		
 		if(-1==smv.getTableMovieList().getSelectedRow()) {
@@ -409,10 +364,9 @@ public class SCAOnScreenManageController extends WindowAdapter implements Action
 		
 	}
 	public String setImg(String imgFileName) {
-		String path="C:/dev/Workspace/Cinema/src/kr/co/sist/sc/admin/images/movie/s_movie_";
+		String path="C:/Users/owner/git/sist_prj2//src/kr/co/sist/sc/admin/images/movie/s_movie_";
 		
 		String allpath=path+imgFileName;
-//		System.out.println(allpath);
 		return allpath;
 	}
 	
@@ -484,18 +438,6 @@ public class SCAOnScreenManageController extends WindowAdapter implements Action
 	public void windowClosing(WindowEvent e) {
 		smv.dispose();
 	}
-//	 public static void main(String[] args) { 
-//			SCAOnScreenManageController a=new SCAOnScreenManageController();
-//			
-//			 
-//			 try {
-//				 a.searchMovieList();
-//			 } 
-//			 
-//			 catch (SQLException e) { 
-//				 // TODO	 Auto-generated catch block 
-//				 e.printStackTrace(); }
-//	 }
 
 }
 

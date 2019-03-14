@@ -15,7 +15,6 @@ public class SCAMovieDetailsController extends WindowAdapter implements ActionLi
 
 	private SCAMovieDetailsView scdv;
 	private SCAMovieManageController scc;
-//	private SCAMovieDatailsVO scamd_vo;
 	private SCAMovieManageDAO scamm_dao;
 
 	public SCAMovieDetailsController(SCAMovieDetailsView scdv,SCAMovieManageController scc) {
@@ -23,13 +22,12 @@ public class SCAMovieDetailsController extends WindowAdapter implements ActionLi
 		this.scdv = scdv;
 		scamm_dao=SCAMovieManageDAO.getInstance();
 		this.scc=scc;
-//		scdv.getJtfmovie_code().setText(scamd_vo.getMovie_code());
 	}
 
 	public void detailDelete() {
 		
 		StringBuilder confirmMsg = new StringBuilder();
-		confirmMsg.append("[").append(scdv.getJtfmovieTitle().getText()).append("]\n").append("삭제 원해?");
+		confirmMsg.append("[").append(scdv.getJtfmovieTitle().getText()).append("]\n").append("삭제 ?");
 		String tempCode = scdv.getJtfmovieCode().getText();
 		String tempTitle =scdv.getJtfmovieTitle().getText();
 

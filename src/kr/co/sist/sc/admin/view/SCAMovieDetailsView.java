@@ -80,7 +80,6 @@ public class SCAMovieDetailsView extends JDialog {
 		jtaSysnopsis.setFont(fontSet);
 		jtaSysnopsis.setForeground(Color.white);
 		jtaSysnopsis.setBackground(new Color(20,44,84));
-//		jtaSysnopsis.setOpaque(false);
 		
 		JScrollPane jsSysnopsis=new JScrollPane(jtaSysnopsis);
 		
@@ -159,8 +158,6 @@ public class SCAMovieDetailsView extends JDialog {
 		playdate.setBounds(400,365, 100, 50);///90
 		actor.setBounds(400, 410, 100, 50);//100
 		
-//		jtaSysnopsis.setBounds(270, 700, 100, 50);
-//		jsSysnopsis.setBounds(270, 700, 100, 30);
 		
 		delete.setBounds(280, 730, 125, 40);
 		exit.setBounds(415, 730, 125, 40);
@@ -335,9 +332,6 @@ public class SCAMovieDetailsView extends JDialog {
 	public JButton getExit() {
 		return exit;
 	}
-//	public static void main(String[] args) {
-//		new SsangyoungCinemaDetailView(scv, scamd_vo, scc)
-//	}
 
 
 }

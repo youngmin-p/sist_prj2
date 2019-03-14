@@ -50,7 +50,6 @@ public class SCAMovieManageController extends WindowAdapter implements ActionLis
 				rowData = new Object[4];
 				rowData[0] = i + 1;
 				rowData[1]= slv.getMovie_Code();
-//				rowData[2] =slv.getMovie_Img();// new ImageIcon(imgPath + slv.getMovieImg());
 				rowData[2] = new ImageIcon(imgPath +slv.getMovie_Img());// new ImageIcon(imgPath + slv.getMovieImg());
 				rowData[3] = slv.getMovie_Title();
 

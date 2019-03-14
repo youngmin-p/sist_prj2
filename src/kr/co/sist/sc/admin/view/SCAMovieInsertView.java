@@ -49,7 +49,7 @@ public class SCAMovieInsertView extends JDialog {
 			JLabel synopsis =new JLabel("줄거리");
 			JLabel backColor = new JLabel();
 			backColor.setIcon(new ImageIcon(
-					"C:/dev/Workspace/Cinema/src/kr/co/sist/sc/admin/images/admin_detail_movie_bg(830x820).png"));
+					"C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/admin_detail_movie_bg(830x820).png"));
 			backColor.setBounds(0, 0, 830, 820);
 			//vo 에서 값을받아 설정
 			 jtfmovieCode=new JTextField(50);
@@ -66,18 +66,18 @@ public class SCAMovieInsertView extends JDialog {
 			jtaSysnopsis.setLineWrap(true);
 			JScrollPane jsSysnopsis=new JScrollPane(jtaSysnopsis);
 			imgRegister =new JButton();
-			imgRegister.setIcon(new ImageIcon("C:/dev/Workspace/Cinema/src/kr/co/sist/sc/admin/images/jbt_add_img(125x40).png"));
+			imgRegister.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_add_img(125x40).png"));
 			imgRegister.setContentAreaFilled(false);
 			imgRegister.setBorderPainted(false);
 			register= new JButton();
 			register.setIcon(
-					new ImageIcon("C:/dev/Workspace/Cinema/src/kr/co/sist/sc/admin/images/jbt_resist(125x40).png"));
+					new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_resist(125x40).png"));
 			
 			register.setContentAreaFilled(false);
 			register.setBorderPainted(false);
 			
 			exit=new JButton();
-			exit.setIcon(new ImageIcon("C:/dev/Workspace/Cinema/src/kr/co/sist/sc/admin/images/jbt_close(125x40).png"));
+			exit.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_close(125x40).png"));
 			
 			exit.setContentAreaFilled(false);
 			exit.setBorderPainted(false);
@@ -86,7 +86,7 @@ public class SCAMovieInsertView extends JDialog {
 			moviedetailTitle.setFont(fontSet);
 			moviedetailTitle.setForeground(Color.WHITE);
 			img.setOpaque(false);
-			img.setIcon(new ImageIcon("C:/dev/Workspace/Cinema/src/kr/co/sist/sc/admin/images/NoImage.png"));
+			img.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/NoImage.png"));
 			movieCode .setOpaque(false);
 			movieCode.setFont(fontSet);
 			movieCode.setForeground(Color.WHITE);
@@ -320,14 +320,6 @@ public class SCAMovieInsertView extends JDialog {
 		public JButton getExit() {
 			return exit;
 		}
-
-
-		
-		
-//		public static void main(String[] args) {
-//			new SsangyoungCinemaDetailView(scammv, scdvo, scammc)
-//		}
-
 
 	}
 

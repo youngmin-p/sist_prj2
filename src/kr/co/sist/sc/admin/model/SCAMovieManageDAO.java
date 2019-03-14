@@ -32,14 +32,6 @@ public class SCAMovieManageDAO {
 		return s_Dao;
 	}
 
-//	public Connection getconn() throws SQLException {
-//		String url = "jdbc:oracle:thin:@localhost:1521:orcl";
-//		String id = "scott";
-//		String pass = "tiger";
-//		Connection con = DriverManager.getConnection(url, id, pass);
-//		return con;
-//
-//	}
 	
 	public Connection getconn() throws SQLException {
 	String url = "jdbc:oracle:thin:@211.63.89.142:1521:orcl";
@@ -128,7 +120,7 @@ public class SCAMovieManageDAO {
 	}
 
 	public boolean selectDeleteMovie(String code) throws SQLException {
-		// db에서 영화 삭제시 확인을하고 확인 값을 받고 commit를 날려야하나? 아니면 rollback 를 내가 해야하나?
+		// db에서 영화 삭제
 
 		boolean flag = false;
 		Connection con = null;
@@ -194,17 +186,5 @@ public class SCAMovieManageDAO {
 		}
 
 	}
-
-	/*
-	 * public static void main(String[] args) { SsangyongCinemaDAO ff=new
-	 * SsangyongCinemaDAO();
-	 * 
-	 * try { ff.selectDeleteMovie("M_0000012"); } catch (SQLException e) { // TODO
-	 * Auto-generated catch block e.printStackTrace(); }
-	 * 
-	 * 
-	 * 
-	 * }
-	 */
 
 }

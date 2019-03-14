@@ -32,14 +32,6 @@ public class SCAOnScreenManageDAO {
 		return scao_dao;
 	}
 	
-//	public Connection getconn() throws SQLException {
-//		String url = "jdbc:oracle:thin:@localhost:1521:orcl";
-//		String id = "scott";
-//		String pass = "tiger";
-//		Connection con = DriverManager.getConnection(url, id, pass);
-//		return con;
-//
-//	}
 	public Connection getconn() throws SQLException {
 		String url = "jdbc:oracle:thin:@211.63.89.142:1521:orcl";
 		String id = "scadmin";
@@ -71,7 +63,6 @@ public class SCAOnScreenManageDAO {
 				sosmvo = new SCAOnScreenMovieListVO(rs.getString("movie_code"),rs.getString("movie_title"),rs.getInt("runningtime"));
 				list.add(sosmvo);
 				
-//			System.out.println(sosmvo);
 			}
 		}
 		finally {
@@ -110,7 +101,6 @@ public class SCAOnScreenManageDAO {
 				sosmvo2= new SCAOnScreenMovieListVO2(rs.getString("movie_code"),rs.getString("movie_title"));
 				list.add(sosmvo2);
 				
-			System.out.println("showScreenMovieList()"+sosmvo2);
 			}
 		}
 		finally {
@@ -148,7 +138,6 @@ public class SCAOnScreenManageDAO {
 					slvo = new SCAOnscreenSelectiveVO(rs.getString("screen_num"), rs.getString("movie_code"), rs.getString("movie_img"), 
 							rs.getString("movie_title"),rs.getString( "screen_name"),rs.getString( "start_time"), rs.getString("end_time"),rs.getString("screen_date"));
 					list.add(slvo);
-					System.out.println(slvo);
 				}
 		 }
 		 finally {
@@ -186,12 +175,10 @@ public class SCAOnScreenManageDAO {
 
 			 SCAOnscreenSelectiveVO slvo=null;
 			 if(rs != null) {
-				 System.out.println("dao    "+slvo);
 			 while(rs.next()) {
 					slvo = new SCAOnscreenSelectiveVO(rs.getString("screen_num"), rs.getString("movie_code"), rs.getString("movie_img"), 
 							rs.getString("movie_title"),rs.getString( "screen_name"),rs.getString( "start_time"), rs.getString("end_time"),rs.getString("screen_date"));
 					selectlist.add(slvo);
-					System.out.println("정말 없는것이냐???      ======"+selectlist);
 				}
 			 }
 			 if(slvo==null) {
@@ -212,7 +199,7 @@ public class SCAOnScreenManageDAO {
 		 }
 		 return selectlist;
 	}
-	//상영 등록을 하는 부분인데 같은 시작시간일 경우 등록 할수 없게 해야함
+	//상영 등록을 하는 부분
 	public int screenRegister(SCAOnScreenInsertVO sivo) throws SQLException{
 //	screen_num	screen_date	start_time	end_time	movie_code	screen_name
 		Connection con =null;
@@ -252,7 +239,6 @@ public class SCAOnScreenManageDAO {
 		Connection con =null;
 		PreparedStatement pstmt =null;
 		
-		System.out.println("dao-remove");
 	
 		try {
 			con=getconn();
@@ -275,21 +261,6 @@ public class SCAOnScreenManageDAO {
 		
 		
 	}
-/*	 public static void main(String[] args) { 
-	SCAOnScreenManageDAO sca=new	 SCAOnScreenManageDAO();
-	 
-	 try {
-		 sca.screeningSelectMovieInfo();
-//		 sca.selectiveList();
-//		sca.MovieList();
-//		 sca.showScreenMovieList();
-//		 sca.remove();
-	 } 
-	 catch (SQLException e) { 
-		 // TODO	 Auto-generated catch block 
-		 e.printStackTrace(); }
-	 
-	  }*/
 	 
 	
 }

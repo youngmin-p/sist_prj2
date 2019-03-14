@@ -33,11 +33,9 @@ public class SCAMovieInsertController extends WindowAdapter implements ActionLis
 	}
 
 	public void registerMovie() {
-//		StringBuilder temp=new StringBuilder();
-//		temp.append(scrv.getJtfmovieTitle().getText());
 		
 			if (scrv.getJtfmovieTitle().getText().equals("")) {
-				JOptionPane.showMessageDialog(scrv, "타이틀!!");
+				JOptionPane.showMessageDialog(scrv, "타이틀 입력하세요");
 				scrv.getJtfmovieTitle().setText("");
 				scrv.getJtfmovieTitle().requestFocus();
 				return;
@@ -49,25 +47,25 @@ public class SCAMovieInsertController extends WindowAdapter implements ActionLis
 				return;
 			} // end if
 			if (scrv.getJtfGenre().getText().equals("")) {
-				JOptionPane.showMessageDialog(scrv, "장르.");
+				JOptionPane.showMessageDialog(scrv, "장르.입력하세요");
 				scrv.getJtfGenre().setText("");
 				scrv.getJtfGenre().requestFocus();
 				return;
 			}
 			if (scrv.getJtfCountry().getText().equals("")) {
-				JOptionPane.showMessageDialog(scrv, "국가.");
+				JOptionPane.showMessageDialog(scrv, "국가.입력하세요");
 				scrv.getJtfCountry().setText("");
 				scrv.getJtfCountry().requestFocus();
 				return;
 			}
 			if (scrv.getJtfDirector().getText().equals("")) {
-				JOptionPane.showMessageDialog(scrv, "감독");
+				JOptionPane.showMessageDialog(scrv, "감독 입력하세요");
 				scrv.getJtfDirector().setText("");
 				scrv.getJtfDirector().requestFocus();
 				return;
 			}
 			if (scrv.getJtfmovieGrade().getText().equals("")) {
-				JOptionPane.showMessageDialog(scrv, "등급");
+				JOptionPane.showMessageDialog(scrv, "등급 입력하세요");
 				scrv.getJtfmovieGrade().setText("");
 				scrv.getJtfmovieGrade().requestFocus();
 				return;
@@ -90,13 +88,13 @@ public class SCAMovieInsertController extends WindowAdapter implements ActionLis
 				return;
 			}
 			if (scrv.getJtaSysnopsis().getText().equals("")) {
-				JOptionPane.showMessageDialog(scrv, "줄거리");
+				JOptionPane.showMessageDialog(scrv, "줄거리 입력하세요");
 				scrv.getJtaSysnopsis().setText("");
 				scrv.getJtaSysnopsis().requestFocus();
 				return;
 			}
 			if (scrv.getJtfActor().getText().equals("")) {
-				JOptionPane.showMessageDialog(scrv, "배우");
+				JOptionPane.showMessageDialog(scrv, "배우 입력하세요" );
 				scrv.getJtfActor().setText("");
 				scrv.getJtfActor().requestFocus();
 				return;
@@ -111,14 +109,8 @@ public class SCAMovieInsertController extends WindowAdapter implements ActionLis
 				return;
 			}
 			
-//		} catch (NullPointerException npe) {
-	//		JOptionPane.showMessageDialog(scrv, "빈공간이 있다");
-	//		return;
-//		}
 		// 추가
 		// 파일을 등록 후 파일명을 가지고 와야함
-//		File file = new File(uploadImg);
-		// movie_title,movie_img,genre,country,director,movie_grade,playdate,synopsis,actor;
 		SCAMovieInsertVO scami_vo = new SCAMovieInsertVO(scrv.getJtfmovieTitle().getText(), uploadImgName,
 				scrv.getJtfGenre().getText(), scrv.getJtfCountry().getText(), scrv.getJtfDirector().getText(),
 				scrv.getJtfmovieGrade().getText(), scrv.getJtfPlaydate().getText(), scrv.getJtaSysnopsis().getText(),
@@ -152,7 +144,6 @@ public class SCAMovieInsertController extends WindowAdapter implements ActionLis
 	}
 
 	private void setImg() {
-		// 이미지 하다가 말았음
 		FileDialog fdOpen = new FileDialog(scrv, "포스터 업로드", FileDialog.LOAD);
 		
 		fdOpen.setVisible(true);

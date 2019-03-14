@@ -43,14 +43,11 @@ public class SCAOnScreenManageView extends JDialog implements Runnable{
 	private JTable jtLunch, jtOrder;
 	private JLabel si,bun;
 	private int year,month;
-//	private SimpleDateFormat sdf;
 	private String admin_id;
-	private JTextField time;
 	private String nowTime;
 	
 	
 	public SCAOnScreenManageView(SCAMainView scamv) {
-//		public SCAOnScreenManageView() {
 			admin_id="hee"; // 관리자 iD 
 			setTitle("관리자 :"+admin_id+"\t"+nowTime);
 		JLabel backColor = new JLabel();
@@ -189,8 +186,6 @@ public class SCAOnScreenManageView extends JDialog implements Runnable{
 		tableMovieList.getTableHeader().setReorderingAllowed(false);
 		tableMovieList.getTableHeader().setOpaque(false);
 		tableMovieList.setBorder(new LineBorder(Color.WHITE));
-//		tableMovieList.setGridColor(new Color(20,35,65));
-//		tableMovieList.setShowVerticalLines(false);//별로임
 		tableMovieList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tableMovieList.setSelectionForeground(Color.white);
 		tableMovieList.setSelectionBackground(new Color(20,35,65));
@@ -208,25 +203,16 @@ public class SCAOnScreenManageView extends JDialog implements Runnable{
 		tableMovieList.getColumnModel().getColumn(3).setPreferredWidth(70);
 		tableMovieList.getColumnModel().getColumn(5).setPreferredWidth(25);
 		
-/*		tableMovieList.getColumnModel().getColumn(0).setCellRenderer(dtcr);
-		tableMovieList.getColumnModel().getColumn(1).setCellRenderer(dtcr);
-		tableMovieList.getColumnModel().getColumn(3).setCellRenderer(dtcr);
-		*/
 		
 		
 		tableMovieList.setRowHeight(175);
 		JScrollPane jscTable=new JScrollPane(tableMovieList);
-//		jscTable.setBounds(0, 0, 600, 600);
 		jscTable.setOpaque(false);
 		jscTable.setAutoscrolls(true);
 		
-//		jscTable.setPreferredSize(new Dimension(300, 300));
 		
 		
 		//현재 날짜와 시간
-		time=new JTextField();
-		time.setBounds(0, 0, 50,60);
-//		jcbSearchMovie,jcbSearchYear,jcbSearchMonth, jcbSearchDay;
 		JPanel innerNorth=new JPanel()	;
 		innerNorth.add(jcbSearchMovie);
 		innerNorth.add(jcbSearchYear);
@@ -234,7 +220,6 @@ public class SCAOnScreenManageView extends JDialog implements Runnable{
 		innerNorth.add(jcbSearchDay);
 		innerNorth.add(jbtOnScreenSearch);
 		innerNorth.add(jbtOnScreenDelete);
-//		innerNorth.add(time);
 		
 		
 		innerNorth.setOpaque(false);
@@ -263,7 +248,6 @@ public class SCAOnScreenManageView extends JDialog implements Runnable{
 		 jbtOnScreenDelete.addActionListener(ssmc);
 		jbtClose.addActionListener(ssmc);
 		jcbInsertMonth.addActionListener(ssmc);
-//		jcbSearchMonth.addActionListener(ssmc);
 		
 		
 		add(backColor);
@@ -306,8 +290,7 @@ public class SCAOnScreenManageView extends JDialog implements Runnable{
 
             int sec=cal.get(Calendar.SECOND);
 
-            time.setText(y+"년 "+m+"월 "+d+"일 "+h+"시 "+min+"분 "+sec+"초");
-            nowTime=time.getText().toString();
+            nowTime=y+"년 "+m+"월 "+d+"일 "+h+"시 "+min+"분 "+sec+"초";
             setTitle("관리자 :"+admin_id+"                                                                   "+nowTime);
 
       }
@@ -329,13 +312,11 @@ public class SCAOnScreenManageView extends JDialog implements Runnable{
 
 	private void SetMonth() {
 		Calendar cal = Calendar.getInstance();
-//		month = cal.get(Calendar.MONTH);
 		month = cal.getActualMaximum(Calendar.MONTH);
 		int now=cal.get(Calendar.MONTH)+1;
 		for(int i=1;i<month+2;i++) {
 				jcbInsertMonth.addItem(i);
 				jcbSearchMonth.addItem(i);
-//				System.out.println(sdf.format(i+1));
 			}
 		jcbInsertMonth.setSelectedItem(new Integer(now));
 		jcbSearchMonth.setSelectedItem(new Integer(now));
@@ -343,9 +324,6 @@ public class SCAOnScreenManageView extends JDialog implements Runnable{
 	}
 
 	private void SetDay() {
-/*		if(jcbInsertMonth.getActionListeners() != null) {
-			System.out.println(jcbInsertMonth.getSelectedItem());
-		}*/
 		
 		Calendar cal = new GregorianCalendar(year,month,1);
 		int day = cal.getActualMaximum(Calendar.DATE);
@@ -371,7 +349,6 @@ public class SCAOnScreenManageView extends JDialog implements Runnable{
 	private void SetMinute() {
 		Calendar cal = new GregorianCalendar();
 		int mi =cal.getActualMaximum(Calendar.MINUTE);
-//		int now=cal.get(Calendar.MINUTE);
 		for(int i=0;i<mi+1;i++) {
 			if(i%5==0) {
 			jcbInsertMinute.addItem(i);
@@ -527,9 +504,6 @@ public class SCAOnScreenManageView extends JDialog implements Runnable{
 	public int getMonth() {
 		return month;
 	}
-/*	public static void main(String[] args) {
-		SCAOnScreenManageView sss=new SCAOnScreenManageView();
-	}*/
 	
 	
 	
