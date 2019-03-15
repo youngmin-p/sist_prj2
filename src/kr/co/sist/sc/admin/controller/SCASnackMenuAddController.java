@@ -145,11 +145,11 @@ public class SCASnackMenuAddController extends WindowAdapter implements ActionLi
 				try {
 					SCASnackManageDAO.getInstance().insertSnackMenu(scasmavo);
 					uploadSnackImg(imageFile);
-					refreshSnackMenu();
 				} catch (IOException ioe) {
 					ioe.printStackTrace();
 				} // end catch
 				
+				refreshSnackMenu();
 				JOptionPane.showMessageDialog(scasmav, "새로운 스낵 메뉴가 추가되었습니다.");
 				scasmav.dispose();
 			

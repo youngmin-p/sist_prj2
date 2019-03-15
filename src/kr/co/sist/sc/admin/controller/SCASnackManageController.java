@@ -76,7 +76,6 @@ public class SCASnackManageController extends WindowAdapter implements ActionLis
 		} // end if
 
 		if (ae.getSource() == scasmv.getJbtSnackMenuInsert()) {
-			
 			try {
 				if(SCASnackManageDAO.getInstance().selectSnackMenuTable().size() < 8) {
 					showSnackMenuAdd();
@@ -86,7 +85,6 @@ public class SCASnackManageController extends WindowAdapter implements ActionLis
 			} catch (SQLException sqle) {
 				JOptionPane.showMessageDialog(scasmv, "DB상의 문제가 발생하였습니다. 잠시후 다시 시도해주세요.");
 			} // end if
-			
 		} // end if
 
 		if (ae.getSource() == scasmv.getJbtSnackMenuDelete()) {
