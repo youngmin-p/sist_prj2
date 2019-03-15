@@ -27,7 +27,6 @@ public class SCASnackOrderAddController extends WindowAdapter implements ActionL
 		this.scasoav = scasoav;
 		this.scasmv = scasmv;
 		searchMenu();
-		
 	} // SCASnackOrderController
 	
 	@Override
@@ -37,7 +36,6 @@ public class SCASnackOrderAddController extends WindowAdapter implements ActionL
 			int price = Integer.parseInt(scasoav.getJtfPrice().getText().trim());
 			int quan = Integer.parseInt(selectedQuan);
 			scasoav.getJtfTotalPrice().setText(String.valueOf(price * quan));
-			
 		} // end if
 		
 		if(ae.getSource() == scasoav.getJbtOrderAdd()) {
@@ -58,7 +56,6 @@ public class SCASnackOrderAddController extends WindowAdapter implements ActionL
 			scasoav.getJtfPrice().setText(String.valueOf(scasvo.getSnackPrice()));
 			scasoav.getJtfTotalPrice().setText(String.valueOf(scasvo.getSnackPrice()));
 			scasoav.getJtaSnackInfo().setText(scasvo.getSnackInfo());
-			
 			scasoav.getJlSnackImg().setIcon(new ImageIcon(imgPath+"l_snack_"+scasvo.getSnackImg()));
 		} catch (SQLException sqle) {
 			JOptionPane.showMessageDialog(scasoav, "DB상의 문제가 발생하였습니다. 잠시후 다시 시도해주세요.");

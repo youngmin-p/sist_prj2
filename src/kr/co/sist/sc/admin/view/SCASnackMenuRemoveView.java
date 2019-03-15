@@ -3,6 +3,7 @@ package kr.co.sist.sc.admin.view;
 import java.awt.Color;
 import java.awt.Font;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -12,13 +13,11 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
-import javax.swing.border.LineBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import javax.swing.border.TitledBorder;
 
-import kr.co.sist.sc.admin.controller.SCASnackManageController;
 import kr.co.sist.sc.admin.controller.SCASnackMenuRemoveController;
 
+@SuppressWarnings("serial")
 public class SCASnackMenuRemoveView extends JDialog {
 
 	private JButton jbtSnackDelete, jbtClose;
@@ -29,14 +28,11 @@ public class SCASnackMenuRemoveView extends JDialog {
 		super(scasmv, "삭제할 메뉴를 선택하세요.", true);
 		setLayout(null);
 
-		// 배경 라벨
 		JLabel jlBg = new JLabel();
 
-		// 버튼
 		jbtSnackDelete = new JButton();
 		jbtClose = new JButton();
 
-		// 이미지 아이콘 설정
 		jlBg.setIcon(new ImageIcon(
 				"C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/snack_management_6-4_delete_snack_bg(400x620).png"));
 		jbtSnackDelete.setIcon(new ImageIcon(
@@ -44,46 +40,41 @@ public class SCASnackMenuRemoveView extends JDialog {
 		jbtClose.setIcon(
 				new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_close(125x40).png"));
 
-		// 기본 버튼 스타일 제거
 		jbtSnackDelete.setContentAreaFilled(false);
 		jbtSnackDelete.setBorderPainted(false);
 		jbtClose.setContentAreaFilled(false);
 		jbtClose.setBorderPainted(false);
 
-		// J리스트
 		dlmSnackName = new DefaultListModel<String>();
 		jlstSnackName = new JList<String>(dlmSnackName);
 		jlstSnackName.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-		// J리스트 설정
 		jlstSnackName.setFixedCellHeight(58);
 		jlstSnackName.setFont(new Font("나눔바른고딕", Font.PLAIN, 24));
-		jlstSnackName.setForeground(Color.BLACK);
+		jlstSnackName.setForeground(Color.WHITE);
 		DefaultListCellRenderer jlstRenderer = (DefaultListCellRenderer) jlstSnackName.getCellRenderer();
 		jlstRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-		
-		// J리스트는 setOpaque 와 setBackground(흰색설정)을 통해 배경색을 없앨 수 있다.
-//		jlstSnackName.setBackground(new Color(0, 0, 0, 0));
-//		jlstSnackName.setOpaque(false);
-		
-		jlstSnackName.setBorder(new LineBorder(Color.WHITE));
+
+		jlstSnackName.setBackground(new Color(255, 255, 255, 0));
+		jlstSnackName.setOpaque(false);
 		
 		
-		// 위치, 크기 설정
+		TitledBorder titledBorder = BorderFactory.createTitledBorder("삭제할 메뉴를 선택하세요.");
+		jlstSnackName.setBorder(titledBorder);
+		titledBorder.setTitleColor(Color.WHITE);
+		titledBorder.setTitleFont(new Font("나눔바른고딕", Font.PLAIN, 16));
+		
 		jlBg.setBounds(0, 0, 400, 620);
 		jlstSnackName.setBounds(12, 30, 370, 470);
 		jbtSnackDelete.setBounds(68, 520, 125, 40);
 		jbtClose.setBounds(208, 520, 125, 40);
-
-		// 배경 라벨에 컴포넌트 추가
+		
 		jlBg.add(jlstSnackName);
 		jlBg.add(jbtSnackDelete);
 		jlBg.add(getJbtClose());
 
-		// 배경 라벨 추가
 		add(jlBg);
 
-		// 이벤트 처리
 		SCASnackMenuRemoveController scasmrc = new SCASnackMenuRemoveController(scasmv, this);
 		addWindowListener(scasmrc);
 		jbtSnackDelete.addActionListener(scasmrc);

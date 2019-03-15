@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import kr.co.sist.sc.admin.controller.SCAMemberInformController;
 import kr.co.sist.sc.admin.vo.SCAMemberInformVO;
 
+@SuppressWarnings("serial")
 public class SCAMemberInformView extends JDialog{
 
 	private JTextField jtfMemberId, jtfName, jtfBirthdate, jtfPhone, jtfMembership, jtfHoldPoint, jtfAccPoint, jtfInputDate;
@@ -22,9 +23,6 @@ public class SCAMemberInformView extends JDialog{
 	public SCAMemberInformView(SCAMemberManageView scammv, SCAMemberInformVO scamivo) {
 		super(scammv,"["+scamivo.getMember_id()+"]님의 회원정보", true);
 		
-		// 멤버 아이디를 받아야 하는가? 재 검토 필요함
-		
-		// 배경, 타이틀 라벨
 		JLabel jlBg = new JLabel();
 		jlBg.setBounds(0, 0, 390, 550);
 		jlBg.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/member_management_4-2_info_bg(390x520).png"));
@@ -44,8 +42,6 @@ public class SCAMemberInformView extends JDialog{
 		JLabel jlAccPoint = new JLabel("누적 포인트");
 		JLabel jlInputDate = new JLabel("회원 가입일");
 		
-		
-		// 라벨 글꼴 설정
 		jlMemberId.setFont(new Font("나눔바른고딕", Font.BOLD, 15));
 		jlPassword.setFont(new Font("나눔바른고딕", Font.BOLD, 15));
 		jlName.setFont(new Font("나눔바른고딕", Font.BOLD, 15));
@@ -56,7 +52,6 @@ public class SCAMemberInformView extends JDialog{
 		jlAccPoint.setFont(new Font("나눔바른고딕", Font.BOLD, 15));
 		jlInputDate.setFont(new Font("나눔바른고딕", Font.BOLD, 15));
 		
-		// 라벨 텍스트 색상 설정
 		jlMemberId.setForeground(Color.WHITE);
 		jlPassword.setForeground(Color.WHITE);
 		jlName.setForeground(Color.WHITE);
@@ -67,7 +62,6 @@ public class SCAMemberInformView extends JDialog{
 		jlAccPoint.setForeground(Color.WHITE);
 		jlInputDate.setForeground(Color.WHITE);
 		
-		// 라벨 위치, 크기 설정
 		jlMemberId.setBounds(25, 84, 80, 22);
 		jlPassword.setBounds(25, 121, 80, 22);
 		jlName.setBounds(25, 158, 80, 22);
@@ -78,7 +72,6 @@ public class SCAMemberInformView extends JDialog{
 		jlAccPoint.setBounds(25, 343, 80, 22);
 		jlInputDate.setBounds(25, 380, 80, 22);
 		
-		// JTF, JPF 생성
 		jtfMemberId = new JTextField(scamivo.getMember_id());
 		jtfName = new JTextField(scamivo.getName());
 		jtfBirthdate = new JTextField(scamivo.getBirthdate());
@@ -89,7 +82,6 @@ public class SCAMemberInformView extends JDialog{
 		jtfInputDate = new JTextField(scamivo.getInput_date());
 		jpfPassword = new JPasswordField(scamivo.getPassword());
 		
-		// JTF, JPF 편집 금지
 		jtfMemberId.setEditable(false);
 		jtfBirthdate.setEditable(false);
 		jtfMembership.setEditable(false);
@@ -98,7 +90,6 @@ public class SCAMemberInformView extends JDialog{
 		jtfInputDate.setEditable(false);
 		jpfPassword.setEditable(false);
 		
-		// JTF, JPF 글꼴 설정
 		jtfMemberId.setFont(new Font("나눔바른고딕", Font.PLAIN, 15));
 		jtfName.setFont(new Font("나눔바른고딕", Font.BOLD, 15));
 		jtfBirthdate.setFont(new Font("나눔바른고딕", Font.PLAIN, 15));
@@ -109,7 +100,6 @@ public class SCAMemberInformView extends JDialog{
 		jtfInputDate.setFont(new Font("나눔바른고딕", Font.PLAIN, 15));
 		jpfPassword.setFont(new Font("나눔바른고딕", Font.PLAIN, 15));
 		
-		// JTF 위치 설정
 		jtfMemberId.setBounds(105, 84, 250, 22);
 		jpfPassword.setBounds(105, 121, 250, 22);
 		jtfName.setBounds(105, 158, 250, 22);
@@ -128,22 +118,18 @@ public class SCAMemberInformView extends JDialog{
 		jtfAccPoint.setBackground(Color.LIGHT_GRAY);
 		jtfInputDate.setBackground(Color.LIGHT_GRAY);
 		
-		// JButton 생성
 		jbtMemberUpdate = new JButton();
 		jbtMemberDelete = new JButton();
 		jbtClose = new JButton();
 		
-		// JButton 아이콘 설정
 		jbtMemberUpdate.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_member_update(100x30).png"));
 		jbtMemberDelete.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_member_delete(100x30).png"));
 		jbtClose.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_close(100x30).png"));
 		
-		// JButton 위치, 크기
 		jbtMemberUpdate.setBounds(25, 430, 100, 30);
 		jbtMemberDelete.setBounds(140, 430, 100, 30);
 		jbtClose.setBounds(255, 430, 100, 30);
 		
-		// JButton 배경색상 없애기
 		jbtMemberUpdate.setContentAreaFilled(false);
 		jbtMemberUpdate.setBorderPainted(false);
 		jbtMemberDelete.setContentAreaFilled(false);
@@ -179,7 +165,6 @@ public class SCAMemberInformView extends JDialog{
 		
 		add(jlBg);
 		
-		// 이벤트 처리
 		SCAMemberInformController scamic = new SCAMemberInformController(this, scammv);
 		addWindowListener(scamic);
 		jbtMemberUpdate.addActionListener(scamic);

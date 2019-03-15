@@ -42,17 +42,14 @@ public class SCASnackMenuAddController extends WindowAdapter implements ActionLi
 
 	@Override
 	public void actionPerformed(ActionEvent ae) {
-		// 이미지 등록 버튼
 		if(ae.getSource() == scasmav.getJbtSnackImg()) {
 			addSnackImg();
 		} // end if
 		
-		// 메뉴 등록 버튼
 		if(ae.getSource() == scasmav.getJbtSnackInsert()) {
 			addSnackMenu();
 		} // end if
 		
-		// 닫기 버튼
 		if(ae.getSource() == scasmav.getJbtClose()) {
 			scasmav.dispose();
 		} // end if
@@ -89,7 +86,7 @@ public class SCASnackMenuAddController extends WindowAdapter implements ActionLi
 		String snackPrice = scasmav.getJtfPrice().getText();
 		String snackInfo = scasmav.getjtaSnackInfo().getText();
 		
-		if(imageFile.getName().endsWith("admin_snack_default_img(325x325).png")) {
+		if(imageFile.getName().endsWith("jl_no_snack_image(325x325).png")) {
 			JOptionPane.showMessageDialog(scasmav, "이미지를 등록해주세요.");
 			return;
 		} // end if
@@ -146,9 +143,7 @@ public class SCASnackMenuAddController extends WindowAdapter implements ActionLi
 				SCASnackMenuAddVO scasmavo = new SCASnackMenuAddVO(snackName, imageFile.getName(), snackInfo, price);
 			
 				try {
-					// DB에 새로운 스낵메뉴를 추가
 					SCASnackManageDAO.getInstance().insertSnackMenu(scasmavo);
-					// 이미지를 지정 폴더에 업로드
 					uploadSnackImg(imageFile);
 					refreshSnackMenu();
 				} catch (IOException ioe) {
@@ -163,7 +158,6 @@ public class SCASnackMenuAddController extends WindowAdapter implements ActionLi
 			sqle.printStackTrace();
 		} // end catch
 		
-		
 	} // addSnackMenu
 	
 	private void uploadSnackImg(File imageFile) throws IOException{
@@ -171,7 +165,6 @@ public class SCASnackMenuAddController extends WindowAdapter implements ActionLi
 		FileOutputStream fos = null;
 		
 		try {
-			// 큰 스낵 이미지 업로드
 			fis = new FileInputStream(imageFile);
 			byte[] readData = new byte[512];
 			
@@ -187,7 +180,6 @@ public class SCASnackMenuAddController extends WindowAdapter implements ActionLi
 			fis.close();
 			fos.close();
 			
-			// 작은 스낵 이미지 업로드
 			fis = new FileInputStream(imageFile.getParent()+"/s_snack_"+imageFile.getName());
 			
 			length = 0;

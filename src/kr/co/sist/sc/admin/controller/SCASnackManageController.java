@@ -1,24 +1,24 @@
 package kr.co.sist.sc.admin.controller;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.HeadlessException;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JList;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
-import javax.swing.JToggleButton;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import kr.co.sist.sc.admin.model.SCASnackManageDAO;
@@ -40,7 +40,6 @@ public class SCASnackManageController extends WindowAdapter implements ActionLis
 
 	@Override
 	public void actionPerformed(ActionEvent ae) {
-		// 스낵 메뉴(이미지 버튼) 클릭시
 		if (ae.getSource() instanceof JButton) {
 			String btnName = ((JButton) ae.getSource()).getText();
 			if (btnName != "") {
@@ -48,7 +47,6 @@ public class SCASnackManageController extends WindowAdapter implements ActionLis
 			} // end if
 		} // end if
 
-		// 결제 버튼 클릭시
 		if (ae.getSource() == scasmv.getJbtSnackPayment()) {
 			if (scasmv.getJtabOrderList().getRowCount() > 0) {
 				progressPayment();
@@ -58,7 +56,6 @@ public class SCASnackManageController extends WindowAdapter implements ActionLis
 			} // end else
 		} // end if
 
-		// 주문 삭제 버튼 클릭시
 		if (ae.getSource() == scasmv.getJbtSnackOrderDelete()) {
 			int selectedRow = scasmv.getJtabOrderList().getSelectedRow();
 			int[] selectedRows = scasmv.getJtabOrderList().getSelectedRows();
@@ -70,7 +67,6 @@ public class SCASnackManageController extends WindowAdapter implements ActionLis
 				case JOptionPane.OK_OPTION:
 					for(int i = 0; i < selectedRows.length; i++) {
 						scasmv.getDtmOrderList().removeRow(selectedRows[i]);
-//						selectedRows = scasmv.getJtabOrderList().getSelectedRows();
 					} // end for
 					break;
 				} // end switch
@@ -79,36 +75,29 @@ public class SCASnackManageController extends WindowAdapter implements ActionLis
 			} // end else
 		} // end if
 
-		// 메뉴 추가 버튼 클릭시
 		if (ae.getSource() == scasmv.getJbtSnackMenuInsert()) {
 			
-//			if(scasmv.getJbtSnackImg().length < 8) {
 			try {
 				if(SCASnackManageDAO.getInstance().selectSnackMenuTable().size() < 8) {
 					showSnackMenuAdd();
 				} else {
 					JOptionPane.showMessageDialog(scasmv, "더 이상 스낵 메뉴를 추가할 수 없습니다.");
-				}
+				} // end else
 			} catch (SQLException sqle) {
 				JOptionPane.showMessageDialog(scasmv, "DB상의 문제가 발생하였습니다. 잠시후 다시 시도해주세요.");
 			} // end if
 			
 		} // end if
 
-		// 메뉴 삭제 버튼 클릭시
 		if (ae.getSource() == scasmv.getJbtSnackMenuDelete()) {
 			new SCASnackMenuRemoveView(scasmv);
 		} // end if
 
-		// 닫기 버튼 클릭시
 		if (ae.getSource() == scasmv.getJbtClose()) {
 			scasmv.dispose();
 		} // end if
 	} // actionPerformed
 
-	/**
-	 * 스낵 관리 버튼 클릭시 JButton의 배열에 snack 테이블의 메뉴들을 추가하는일
-	 */
 	private void selectSnackMenuTable() {
 		JButton[][] jbtSnack = scasmv.getJbtSnackImg();
 		List<SCASnackMenuTableSelectVO> snackList = new ArrayList<SCASnackMenuTableSelectVO>();
@@ -140,7 +129,6 @@ public class SCASnackManageController extends WindowAdapter implements ActionLis
 					listLength++;
 				} // end for
 			} // end for
-
 			listLength = 0;
 
 		} catch (SQLException sqle) {
@@ -154,34 +142,59 @@ public class SCASnackManageController extends WindowAdapter implements ActionLis
 
 	private void progressPayment() {
 		SCASnackPaymentVO scaspvo = null;
-		List<SCASnackPaymentVO> list = new ArrayList<SCASnackPaymentVO>();
 		DefaultTableModel dtmOrderlist = scasmv.getDtmOrderList();
 		String snackName = "";
 		int price = 0, quan = 0, itemPrice = 0, totalPrice = 0;
 
 		StringBuilder receipt = new StringBuilder();
 		
+		String[] cols = {"스낵명","수　량","가　격"};
+		DefaultTableModel dtmReceipt = new DefaultTableModel(cols, 0);
+		JTable jtabReceipt = new JTable(dtmReceipt){
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			};
+		};
+		jtabReceipt.getTableHeader().setReorderingAllowed(false);
+		jtabReceipt.getTableHeader().setResizingAllowed(false);
+		jtabReceipt.setRowHeight(25);
 		
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+		jtabReceipt.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
+		jtabReceipt.getColumnModel().getColumn(1).setCellRenderer( centerRenderer );
+		jtabReceipt.getColumnModel().getColumn(2).setCellRenderer( centerRenderer );
+		
+		JScrollPane jspReceipt = new JScrollPane(jtabReceipt);
+		
+		JPanel jpReceipt = new JPanel();
+		jpReceipt.setLayout(new BorderLayout());
+		
+		Object[] rowData = new Object[3];
 		for (int i = 0; i < dtmOrderlist.getRowCount(); i++) {
 			snackName = String.valueOf(scasmv.getDtmOrderList().getValueAt(i, 1));
 			price = Integer.parseInt(scasmv.getDtmOrderList().getValueAt(i, 2).toString());
 			quan = Integer.parseInt(scasmv.getDtmOrderList().getValueAt(i, 3).toString());
-			itemPrice = 0;
-			itemPrice += price * quan;
-			totalPrice += price * quan;
-			receipt.append("[스낵명] - ").append(snackName).append("\t")
-			.append("[수　량] - ").append(quan).append("개\t")
-			.append("[가　격] - ").append(itemPrice).append("원\t\n");
+			itemPrice = price * quan;
+			totalPrice += itemPrice;
+			
+			rowData[0] = (Object)snackName;
+			rowData[1] = (Object)quan;
+			rowData[2] = (Object)itemPrice;
+			
+			dtmReceipt.addRow(rowData);
 		} // end for
-		receipt.append("-----------------------------------------------------------------------------------------------------------\n");
+			
 		receipt.append("[총가격] - ").append(totalPrice).append("원\n\n")
-		.append("결제 하시겠습니까?");
+		.append(" 결제 하시겠습니까?");
 		
-		JTextArea jtaReceipt = new JTextArea(30, 40);
-		jtaReceipt.setText(receipt.toString());
-		jtaReceipt.setEditable(false);
-		
-		switch(JOptionPane.showConfirmDialog(scasmv, jtaReceipt, "영수증", JOptionPane.YES_NO_OPTION)){
+		JLabel jlReceipt = new JLabel(receipt.toString());
+		jlReceipt.setFont(new Font("나눔고딕", Font.BOLD, 16));
+
+		jpReceipt.add("Center",jspReceipt);
+		jpReceipt.add("South",jlReceipt);
+			
+		switch(JOptionPane.showConfirmDialog(scasmv, jpReceipt, "영수증", JOptionPane.YES_NO_OPTION)){
 			case JOptionPane.OK_OPTION :
 			try {
 				for(int j=0; j < dtmOrderlist.getRowCount(); j++) {
@@ -196,13 +209,11 @@ public class SCASnackManageController extends WindowAdapter implements ActionLis
 			JOptionPane.showMessageDialog(scasmv, "결제가 완료되었습니다.");
 			dtmOrderlist.setRowCount(0);
 		} // end switch
-
 	} // progressPayment
 
 	@Override
 	public void windowClosing(WindowEvent we) {
 		scasmv.dispose();
 	} // windowClosing
-
-
+	
 } // class
