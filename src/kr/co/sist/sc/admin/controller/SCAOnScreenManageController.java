@@ -176,17 +176,13 @@ public class SCAOnScreenManageController extends WindowAdapter implements Action
 			 vo_date=selectiveVO.get(i).getScreen_num().substring(0, 8);
 			 sc_code=selectiveVO.get(i).getScreen_num().substring(0, 1);
 			 if(temp_code.equals(sc_code)) {
-			 System.out.println("111111111111111111111"+temp_code+"///"+sc_code+"//"+vo_st_time+"//"+vo_en_time);
 			 }
 			 
 			if(true==temp_code.equals(sc_code)) {
-				System.out.println("22222222222222222222"+temp_code+"///"+sc_code+"//"+vo_st_time+"//"+vo_en_time);
 				if(temp_date.equals(vo_date)) {// 날짜가 같은지
-					System.out.println(temp_date+"//"+vo_date+"date");
 						 if( vo_st_time<=temp_st_time) {// 입력받은  temp 가  st 보다 높은가
 									 if(temp_st_time<=vo_en_time) {// 입력받은  tempr 가  en 보다 작은가
 										 flag_st=true;
-										 System.out.println("1 ="+flag_st);
 										 break;
 									 }
 						 }
@@ -194,33 +190,26 @@ public class SCAOnScreenManageController extends WindowAdapter implements Action
 					 	if(vo_st_time<=temp_end_time) {
 							 if(temp_end_time<=vo_en_time) {
 								 flag_en=true;
-								 System.out.println("2"+flag_en);
 								 break;
 							 }
 					 	}
 				 }
-//			}//임시
-			System.out.println(flag_st+"//"+flag_en);
 				
 					 	//전날
 					 	
 					 	if(0<=s_hour && s_hour<=4) {//00시부터 04 시까지
 							 cal.set(year, month-1, day);// 입력 되는 년월일
 					 		cal.add(Calendar.DAY_OF_MONTH, -1);
-					 		System.out.println("전날"+s_hour);
 					 		temp.append(temp_code).append("_").append(year).append(nf.format(cal.get(Calendar.MONTH)+1)).append(cal.get(Calendar.DAY_OF_MONTH))
 					 							.append(nf.format(s_hour+24)).append(nf.format(s_minute));
 					 		temp_tr=temp.toString().substring(0,8);
 					 		temptr_date=temp.toString().substring(2,12);
 					 		temp_st_tr_time=Integer.parseInt(temptr_date.toString());/// 여기서 에러
-					 		System.out.println("전날"+temp_tr+"///"+vo_date+"//"+temptr_date+"//"+temp_st_tr_time+"temp_tr"+temp+"vo"+vo_st_time);
 					 		temp.setLength(0);
 					 		if(temp_tr.equals(vo_date)) {// 날짜가 같은지
-					 			System.out.println("전날 같은날짜"+temp_tr+"//"+vo_date);
  									 if( vo_st_time<=temp_st_tr_time) {// 입력받은  temp 가  st 보다 높은가
  												 if(temp_st_tr_time<=vo_en_time) {// 입력받은  tempr 가  en 보다 작은가
  													 flag_st=true;
- 													System.out.println("3"+flag_st);
  													 break;
  												 }
  									 }
@@ -230,7 +219,6 @@ public class SCAOnScreenManageController extends WindowAdapter implements Action
 			}//N,P if
 			cnt=i;
 		 }
-		 System.out.println(cnt);
 		 if(flag_st || flag_en ) {//true 일때만 
 			 StringBuilder che=new StringBuilder();
 			 che.append("[ ").append(smv.getJcbMovieSelect().getSelectedItem()).append(" ]").append("\n")

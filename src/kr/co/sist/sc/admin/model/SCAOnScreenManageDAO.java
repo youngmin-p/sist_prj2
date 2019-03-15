@@ -172,7 +172,6 @@ public class SCAOnScreenManageDAO {
 			 
 			 pstmt = con.prepareStatement(onScreenFirst);
 			 rs= pstmt.executeQuery();
-			 	System.out.println(rs);
 			 SCAOnscreenSelectiveVO slvo=null;
 			 if(rs != null) {
 			 while(rs.next()) {

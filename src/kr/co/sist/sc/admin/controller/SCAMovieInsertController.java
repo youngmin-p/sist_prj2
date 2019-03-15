@@ -67,7 +67,7 @@ public class SCAMovieInsertController extends WindowAdapter implements ActionLis
 				return;
 			}
 			if (scrv.getJtfmovieGrade().getText().equals("")) {
-				JOptionPane.showMessageDialog(scrv, "등급 입력하세요");
+				JOptionPane.showMessageDialog(scrv, "등급을 입력하세요");
 				scrv.getJtfmovieGrade().setText("");
 				scrv.getJtfmovieGrade().requestFocus();
 				return;
