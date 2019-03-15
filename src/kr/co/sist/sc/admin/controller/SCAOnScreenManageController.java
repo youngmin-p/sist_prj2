@@ -250,6 +250,7 @@ public class SCAOnScreenManageController extends WindowAdapter implements Action
 								 .append("[ ").append(smv.getJcbTheaterSelect().getSelectedItem()).append(" ]").append("\n")
 								 .append(onDate).append("을 등록하였습니다");
 							}
+							nowScreen();
 						} catch (SQLException e) {
 							e.printStackTrace();
 						}
