@@ -48,6 +48,7 @@ public class SCAOnScreenManageView extends JDialog implements Runnable{
 	
 	
 	public SCAOnScreenManageView(SCAMainView scamv) {
+	
 			admin_id="hee"; // 包府磊 iD 
 			setTitle("包府磊 :"+admin_id+"\t"+nowTime);
 		JLabel backColor = new JLabel();
@@ -504,7 +505,7 @@ public class SCAOnScreenManageView extends JDialog implements Runnable{
 	public int getMonth() {
 		return month;
 	}
-	
+
 	
 	
 }

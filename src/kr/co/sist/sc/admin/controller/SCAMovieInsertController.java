@@ -46,12 +46,14 @@ public class SCAMovieInsertController extends WindowAdapter implements ActionLis
 				JOptionPane.showMessageDialog(scrv, " 이미지를 선택해주세요.");
 				return;
 			} // end if
-			if (scrv.getJtfGenre().getText().equals("")) {
-				JOptionPane.showMessageDialog(scrv, "장르.입력하세요");
-				scrv.getJtfGenre().setText("");
-				scrv.getJtfGenre().requestFocus();
-				return;
-			}
+					if (scrv.getJtfGenre().getText().equals("")) {
+						JOptionPane.showMessageDialog(scrv, "장르.입력하세요");
+						scrv.getJtfGenre().setText("");
+						scrv.getJtfGenre().requestFocus();
+						return;
+					}
+			
+			
 			if (scrv.getJtfCountry().getText().equals("")) {
 				JOptionPane.showMessageDialog(scrv, "국가.입력하세요");
 				scrv.getJtfCountry().setText("");
@@ -71,9 +73,10 @@ public class SCAMovieInsertController extends WindowAdapter implements ActionLis
 				return;
 			}
 			if(scrv.getJtfmovieGrade().getText().length()>2) {
-				JOptionPane.showMessageDialog(scrv, "등급은 2 자리 입니다");
+				JOptionPane.showMessageDialog(scrv, "등급은 2 자리 이고 PG , NG 형식 입니다");
 				scrv.getJtfmovieGrade().setText("");
 				scrv.getJtfmovieGrade().requestFocus();
+				return;
 			}
 			if (scrv.getJtfPlaydate().getText().equals("")) {//빈공간일때
 				JOptionPane.showMessageDialog(scrv, "날짜 입력");

@@ -127,8 +127,8 @@ public class SCAOnScreenManageDAO {
 		 StringBuilder tempquery=new StringBuilder();
 		 tempquery.append("select ons.screen_num as screen_num,mov.movie_code as movie_code,mov.movie_img as movie_img,mov.movie_title as movie_title,ons.screen_name as screen_name,ons.start_time as start_time,ons.end_time as end_time,ons.screen_date as screen_date")
 		 				.append(" from on_screen ons,(select movie_code,movie_img,movie_title from movie)mov")
-		 				.append(" where ons.movie_code=mov.movie_code and check_remove='N' order by screen_date,start_time");
-		 try{
+		 				.append(" where ons.movie_code=mov.movie_code and check_remove in('N') order by screen_date,start_time");
+		 try{//and not in('Y')
 			 con=getconn();
 			 String onScreenFirst=tempquery.toString();
 			 pstmt = con.prepareStatement(onScreenFirst);
@@ -165,14 +165,14 @@ public class SCAOnScreenManageDAO {
 		 				.append(" from on_screen ons,(select movie_code,movie_img,movie_title from movie where movie_code='")
 		 				.append(code).append("' )mov")
 	 					.append(" where ons.movie_code=mov.movie_code and screen_date='")
-	 					.append(date).append("' ").append("order by screen_date,start_time");
+	 					.append(date).append("' ").append("and check_remove in('N') order by screen_date,start_time");
 		 try{
 			 con=getconn();
 			 String onScreenFirst=tempquery.toString();
 			 
 			 pstmt = con.prepareStatement(onScreenFirst);
 			 rs= pstmt.executeQuery();
-
+			 	System.out.println(rs);
 			 SCAOnscreenSelectiveVO slvo=null;
 			 if(rs != null) {
 			 while(rs.next()) {
