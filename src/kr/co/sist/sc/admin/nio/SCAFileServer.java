@@ -1,5 +1,6 @@
 package kr.co.sist.sc.admin.nio;
 
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -65,6 +66,7 @@ public class SCAFileServer {
 		
 		for (String fileName : file.list()) {
 			if ((fileName.startsWith("l_" + revMsg + "_") && fileName.endsWith(".png")) 
+					|| (fileName.startsWith("m_" + revMsg + "_") && fileName.endsWith(".png"))
 					|| (fileName.startsWith("s_" + revMsg + "_") && fileName.endsWith(".png"))) {
 				list.add(fileName);
 			} // end if	
@@ -84,7 +86,7 @@ public class SCAFileServer {
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
-	protected void sendFile(DataOutputStream dos, String fileName) throws FileNotFoundException, IOException {
+	protected void sendFile(DataOutputStream dos, DataInputStream dis, String fileName) throws FileNotFoundException, IOException {
 		FileInputStream fis = null;
 		
 		String imgPath = "";
@@ -122,6 +124,9 @@ public class SCAFileServer {
 				dos.write(readData, 0, fileLen);
 				dos.flush();
 				fileData--;
+				
+				// send success
+				dis.readUTF();
 			} // end while
 		} finally {
 			if (fis != null) { fis.close(); } // end if

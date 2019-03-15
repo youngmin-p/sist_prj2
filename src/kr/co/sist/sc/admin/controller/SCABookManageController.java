@@ -5,8 +5,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -112,6 +115,20 @@ public class SCABookManageController extends WindowAdapter implements ActionList
 						"[상영일시 : " + screenDate + "]\n" + 
 						"선택하신 정보로 예매를 진행하시겠습니까?\n" + 
 						"금액은 " + sb.toString() + "원입니다.", "영화 예매", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+					SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+					Date startDate = sdf.parse(startTime);
+					Date nowDate = sdf.parse(sdf.format(new Date()));
+					
+					long diff = nowDate.getTime() - startDate.getTime();
+					long min = diff / (1000 * 60);
+					
+					// (영화 시작 시간 + 10분)을 넘어서 예매를 진행한 경우
+					if (min > 10) {
+						JOptionPane.showMessageDialog(scabmv, "이미 영화가 시작되어 예매가 불가능합니다!");
+						resetBookScreen();
+						return;
+					} // end if
+					
 					if (Integer.parseInt(seat_remain) < Integer.parseInt(personnel)) {
 						JOptionPane.showMessageDialog(scabmv, 
 								"[영화명 : " + movieTitle + "]\n" + 
@@ -127,6 +144,9 @@ public class SCABookManageController extends WindowAdapter implements ActionList
 			} catch (ArrayIndexOutOfBoundsException aioobe) {
 				JOptionPane.showMessageDialog(scabmv, "예매하실 영화를 선택해주세요!");
 				aioobe.printStackTrace();
+			} catch (ParseException pe) {
+				JOptionPane.showMessageDialog(scabmv, "시간 정보가 잘못되었습니다. 잠시 후 다시 시도해주세요.");
+				pe.printStackTrace();
 			} // end catch
 		} // end if
 		
@@ -271,7 +291,7 @@ public class SCABookManageController extends WindowAdapter implements ActionList
 		
 		int row = jtabOnScreenList.getSelectedRow();
 		
-		String item = String.valueOf(jtabOnScreenList.getValueAt(row, (2)));
+		String item = String.valueOf(jtabOnScreenList.getValueAt(row, 2));
 		String code = "";
 		
 		for (int i = 0; i < movieList.size(); i++) {

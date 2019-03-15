@@ -9,7 +9,6 @@ import javax.swing.JOptionPane;
 
 import kr.co.sist.sc.admin.model.SCAMovieManageDAO;
 import kr.co.sist.sc.admin.view.SCAMovieDetailsView;
-import kr.co.sist.sc.admin.vo.SCAMovieDatailsVO;
 
 public class SCAMovieDetailsController extends WindowAdapter implements ActionListener {
 

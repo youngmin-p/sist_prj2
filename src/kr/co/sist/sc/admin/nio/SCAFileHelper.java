@@ -31,22 +31,22 @@ public class SCAFileHelper extends Thread {
 	@Override
 	public void run() {
 		try {
-			Socket scClient = null;
-			
-			DataOutputStream dos = null;
-			DataInputStream dis = null;
-			
-			int code = 0;
-			int cnt = 0;
-			
-			String revMsg = "";
-			
-			String[] serverFileNames = null;
-			String[] clientFileNames = null;
-			
-			List<String> checkFileNames = null;
-			
 			while (true) {
+				Socket scClient = null;
+				
+				DataOutputStream dos = null;
+				DataInputStream dis = null;
+				
+				int code = 0;
+				int cnt = 0;
+				
+				String revMsg = "";
+				
+				String[] serverFileNames = null;
+				String[] clientFileNames = null;
+				
+				List<String> checkFileNames = null;
+				
 				// 클라이언트 접속 대기
 				scClient = SCAFileServer.getInstance().scServer.accept();
 				
@@ -64,11 +64,11 @@ public class SCAFileHelper extends Thread {
 						revMsg = SCAFileHelper.getInstance().translateCode(code);
 					} // end if
 					
-					// trouble prevention
-					if (revMsg.equals("")) {
-						// Connection reset
-						return;
-					} // end if
+//					// trouble prevention
+//					if (revMsg.equals("")) {
+//						// Connection reset
+//						return;
+//					} // end if
 					
 					// 2) addEvent가 발생했을 때 (영화/스낵 추가)
 					if (!revMsg.equals("")) {
@@ -113,17 +113,18 @@ public class SCAFileHelper extends Thread {
 						dos.flush();
 						
 						for (String fileName : checkFileNames) {
-							SCAFileServer.getInstance().sendFile(dos, fileName);
-							sleep(100);
+							SCAFileServer.getInstance().sendFile(dos, dis, fileName);
+//							sleep(50);
 						} // end for
 						
 						revMsg = "";
 					} // end if
 				} // end if
 			} // end while
-		} catch (InterruptedException ie) {
-			ie.printStackTrace();
-		} catch (IOException ioe) {
+		} 
+//		catch (InterruptedException ie) {
+//			ie.printStackTrace();
+		/*}*/ catch (IOException ioe) {
 			ioe.printStackTrace();
 		} // end catch
 	} // run
@@ -171,16 +172,5 @@ public class SCAFileHelper extends Thread {
 	public void closeServer() throws IOException {
 		SCAFileServer.getInstance().close();
 	} // closeServer
-	
-//	public static void main(String[] args) {
-//		try {
-//			SCAFileHelper.getInstance().openServer();
-//			System.out.println("3333 Port open");
-//			SCAFileHelper.getInstance().start();
-//			System.out.println("Thread start");
-//		} catch (IOException ioe) {
-//			ioe.printStackTrace();
-//		} // end catch
-//	} // main
 	
 } // class

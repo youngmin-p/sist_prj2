@@ -1,6 +1,7 @@
 package kr.co.sist.sc.admin.view;
 
 import java.awt.Color;
+import java.awt.Graphics;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -9,32 +10,26 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import kr.co.sist.sc.admin.controller.SCAMainController;
+import kr.co.sist.sc.admin.util.SCAClock;
 import kr.co.sist.sc.admin.vo.SCALoginVO;
 
 @SuppressWarnings("serial")
 public class SCAMainView extends JFrame {
 	public static String version = "0.0.1-alpha";
 	
+	private SCAClock sca_c;
+	private Graphics g;
+	
+	private JPanel jpClock;
+	
 	private JButton jbtMovieManagement, jbtOnScreenManagement, jbtBookManagement, 
 	                jbtMemberManagement, jbtCalculationManagement, jbtSnackManagement;
-//	private JLabel jlblAdminId, jlblName;
 	
 	public SCAMainView(SCALoginVO scal_vo) {
 		super("쌍용관 - 메인 화면");
 		
-		// 라벨이 필요한가?
 //		setTitle(getTitle() + "-" + version);
 		setTitle(getTitle() + " [ " + scal_vo.getAdmin_id() + " / " + scal_vo.getName() + " ]");
-		
-//		jlblAdminId = new JLabel("관리자 아이디 - " + scal_vo.getAdmin_id());
-//		jlblAdminId.setFont(new Font("나눔고딕", Font.BOLD, 20));
-//		jlblAdminId.setForeground(Color.WHITE);
-//		jlblAdminId.setBounds(750, 40, 250, 40);
-		
-//		jlblName = new JLabel("관리자 이름    - " + scal_vo.getName());
-//		jlblName.setFont(new Font("나눔고딕", Font.BOLD, 20));
-//		jlblName.setForeground(Color.WHITE);
-//		jlblName.setBounds(750, 80, 250, 40);
 		
 		// 버튼 배치
 		jbtMovieManagement = new JButton(new ImageIcon(
@@ -84,8 +79,6 @@ public class SCAMainView extends JFrame {
 		jlblBackground.setLayout(null);
 		jlblBackground.setBounds(0, 0, 1000, 800);
 		
-//		jlblBackground.add(jlblAdminId);
-//		jlblBackground.add(jlblName);
 		jlblBackground.add(jbtMovieManagement);
 		jlblBackground.add(jbtOnScreenManagement);
 		jlblBackground.add(jbtBookManagement);
@@ -93,10 +86,23 @@ public class SCAMainView extends JFrame {
 		jlblBackground.add(jbtCalculationManagement);
 		jlblBackground.add(jbtSnackManagement);
 		
+		JLabel jlblClock = new JLabel(new ImageIcon(
+				"C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/ten_million_dollars_watch(160x160).png"));
+		jlblClock.setLayout(null);
+		jlblClock.setBounds(0, 0, 160, 160);
+		
+		jpClock = new JPanel();
+		jpClock.setLayout(null);
+		jpClock.setBackground(Color.DARK_GRAY);
+		jpClock.setBounds(795, 35, 160, 160);
+		
+		jpClock.add(jlblClock);
+		
 		JPanel jp = new JPanel();
 		jp.setLayout(null);
 		jp.setBackground(Color.WHITE);
 		
+		jp.add(jpClock);
 		jp.add(jlblBackground);
 		
 		add(jp);
@@ -119,8 +125,20 @@ public class SCAMainView extends JFrame {
 		setResizable(false);
 		setVisible(true);
 		
+		g = getGraphics();
+		g.setColor(Color.WHITE);
+		
+		sca_c = new SCAClock(this, g);
+		
 	} // SCAMainView
-
+	
+	@Override
+	public void paint(Graphics g) {
+		super.paint(g);
+		
+		sca_c.paintClock();
+	} // paint
+	
 	public JButton getJbtMovieManagement() {
 		return jbtMovieManagement;
 	}
@@ -145,12 +163,12 @@ public class SCAMainView extends JFrame {
 		return jbtSnackManagement;
 	}
 
-//	public JLabel getJlblAdminId() {
-//		return jlblAdminId;
-//	}
+	public Graphics getG() {
+		return g;
+	}
 
-//	public JLabel getJlblName() {
-//		return jlblName;
-//	}
+	public JPanel getJpClock() {
+		return jpClock;
+	}
 	
 } // class

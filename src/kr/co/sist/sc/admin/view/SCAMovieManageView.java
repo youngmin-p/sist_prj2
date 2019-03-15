@@ -23,7 +23,6 @@ import kr.co.sist.sc.admin.controller.SCAMovieManageController;
 
 @SuppressWarnings("serial")
 public class SCAMovieManageView extends JDialog implements Runnable {
-
 	private JButton regesterMovie, exit;
 	private DefaultTableModel dtmModel;
 	private JTable tableMovieList;
@@ -33,58 +32,66 @@ public class SCAMovieManageView extends JDialog implements Runnable {
 	private String nowTime;
 
 	public SCAMovieManageView(SCAMainView scamv, String admin_id) {
-		admin_id="hee"; // 관리자 iD 
-		setTitle("관리자 :"+admin_id);
-		  // 테이블 내용 가운데 정렬하기
-	      DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer(); // 디폴트테이블셀렌더러를 생성
-	      dtcr.setHorizontalAlignment(SwingConstants.CENTER);
+		super(scamv, "쌍용관 - 영화 관리", true);
 
-	    Font setFont=new Font("나눔고딕", Font.BOLD, 20);
-		JLabel movieManagement = new JLabel("영화관리");
+		this.admin_id = admin_id;
+		
+		// 테이블 내용 가운데 정렬하기
+		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer(); // 디폴트테이블셀렌더러를 생성
+		dtcr.setHorizontalAlignment(SwingConstants.CENTER);
+
+		Font setFont = new Font("나눔고딕", Font.BOLD, 20);
+
+		JLabel movieManagement = new JLabel("영화 관리");
 		movieManagement.setBounds(20, 20, 125, 60);
 		movieManagement.setOpaque(false); // 라벨의 글자 이외의 부분을 투명하게
 		movieManagement.setFont(new Font("나눔고딕", Font.BOLD, 25));
 		movieManagement.setForeground(Color.WHITE);
-		String colum[] = { "순번", "코드","포스터", "제목" };
+
+		String colum[] = { "순번", "코드", "포스터", "제목" };
+
 		dtmModel = new DefaultTableModel(colum, 4) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
+
 			@Override
 			public Class<?> getColumnClass(int column) {
 				return getValueAt(0, column).getClass();
 			}
-			
-
 		};
+
 		tableMovieList = new JTable(dtmModel);
 		tableMovieList.getTableHeader().setFont(new Font("나눔고딕", Font.BOLD, 22));
 		tableMovieList.getTableHeader().setBorder(new LineBorder(Color.WHITE));
 		tableMovieList.getTableHeader().setForeground(Color.white);
-		tableMovieList.getTableHeader().setBackground(new Color(20,30,65));
+		tableMovieList.getTableHeader().setBackground(new Color(20, 30, 65));
 		tableMovieList.getTableHeader().setResizingAllowed(false);
 		tableMovieList.getTableHeader().setPreferredSize(new Dimension(100, 30));
+
 		// 테이블의 위치 이동 불가설정
 		tableMovieList.getTableHeader().setReorderingAllowed(false);
 		tableMovieList.getTableHeader().setOpaque(false);
 		tableMovieList.setBorder(new LineBorder(Color.WHITE));
 		tableMovieList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tableMovieList.setSelectionForeground(Color.white);
-		tableMovieList.setSelectionBackground(new Color(20,35,65));
+		tableMovieList.setSelectionBackground(new Color(20, 35, 65));
 		tableMovieList.setFocusable(false);
 		tableMovieList.setOpaque(false);
+
 //		각 속성명의 사이즈 설정
 		tableMovieList.getColumnModel().getColumn(0).setPreferredWidth(60); // 순번
 		tableMovieList.getColumnModel().getColumn(0).setCellRenderer(dtcr);
 		tableMovieList.setFont(setFont);
-		
+
 		tableMovieList.getColumnModel().getColumn(1).setPreferredWidth(120); // 영화 코드
 		tableMovieList.getColumnModel().getColumn(1).setCellRenderer(dtcr);
 		tableMovieList.getColumnModel().getColumn(2).setPreferredWidth(80); // 포스터 이미지
 		tableMovieList.getColumnModel().getColumn(3).setPreferredWidth(150); // 영화 제목
 		tableMovieList.getColumnModel().getColumn(3).setCellRenderer(dtcr);
 		tableMovieList.setRowHeight(160);
+		
 		jspList = new JScrollPane(tableMovieList);
 		jspList.setBounds(15, 100, 565, 480);
 		jspList.setOpaque(false);
@@ -100,8 +107,9 @@ public class SCAMovieManageView extends JDialog implements Runnable {
 
 		// 닫기
 		exit = new JButton();
-		exit.setIcon(new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_close(125x40).png"));
-		exit.setBounds(305,620, 125, 40);
+		exit.setIcon(
+				new ImageIcon("C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_close(125x40).png"));
+		exit.setBounds(305, 620, 125, 40);
 		exit.setContentAreaFilled(false);
 		exit.setBorderPainted(false);
 
@@ -112,79 +120,77 @@ public class SCAMovieManageView extends JDialog implements Runnable {
 		backColor.setBounds(0, 0, 600, 700);
 
 		setLayout(null);
-		TitledBorder tb=new TitledBorder("영화목록");
+		
+		TitledBorder tb = new TitledBorder("영화 목록");
 		tb.setTitleFont(setFont);
 		tb.setTitleColor(Color.white);
-		jspList.setBorder(tb);
-		jspList.getVerticalScrollBar().setUI(new BasicScrollBarUI() { 
-			 			@Override 
-						protected void configureScrollBarColors() { 
-			 				this.thumbColor = new Color(163, 184, 204); 
-			 			} // configureScrollBarColors 
-					}); 
-
 		
+		jspList.setBorder(tb);
+		jspList.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+			@Override
+			protected void configureScrollBarColors() {
+				this.thumbColor = new Color(163, 184, 204);
+			} // configureScrollBarColors
+		});
+
 		jspList.setForeground(Color.BLUE);
 		jspList.setBackground(Color.BLUE);
 		jspList.setOpaque(false);
-		
-		
 
 		backColor.add(movieManagement);
 		backColor.add(jspList);
 		backColor.add(regesterMovie);
 		backColor.add(exit);
 
-
 		add(backColor);
 
 		SCAMovieManageController scammc = new SCAMovieManageController(this);
+		
 		addWindowListener(scammc);
 
-		////////// 더블클릭
+		// 더블 클릭
 		tableMovieList.addMouseListener(scammc);
-
+		
 		regesterMovie.addActionListener(scammc);
 		exit.addActionListener(scammc);
 
 		setSize(600, 720);
-		setLocationRelativeTo(scamv);
 		setResizable(false);
+		setLocationRelativeTo(scamv);
+		
 		new Thread(this).start();
+		
 		setVisible(true);
 
-	}
+	} // SCAMovieManageView
 
-	public void run(){
-        while(true)  {
-               display();
+	public void run() {
+		try {
+			while (true) {
+				display();
+				
+				Thread.sleep(1000);
+			}
+		} catch (InterruptedException ie) {
+			ie.printStackTrace();
+		} // end catch
+	} // run
 
-               try{
-                      Thread.sleep(1000);
+	public void display() {
+		Calendar cal = Calendar.getInstance();
 
-               }catch(Exception ex){}
-        }
-  }
-	public void display(){
+		int y = cal.get(Calendar.YEAR);
+		int m = cal.get(Calendar.MONTH) + 1;
+		int d = cal.get(Calendar.DATE);
 
-        Calendar cal=Calendar.getInstance();
+		int h = cal.get(Calendar.HOUR);
+		int min = cal.get(Calendar.MINUTE);
+		int sec = cal.get(Calendar.SECOND);
 
-        int y=cal.get(Calendar.YEAR);
-
-        int m=cal.get(Calendar.MONTH)+1;
-
-        int d=cal.get(Calendar.DATE);
-
-        int h=cal.get(Calendar.HOUR);
-
-        int min=cal.get(Calendar.MINUTE);
-
-        int sec=cal.get(Calendar.SECOND);
-
-        nowTime=y+"년 "+m+"월 "+d+"일 "+h+"시 "+min+"분 "+sec+"초";
-        setTitle("관리자 :"+admin_id+"                                     "+nowTime);
-
-  }
+		nowTime = y + "년 " + m + "월 " + d + "일 " + h + "시 " + min + "분 " + sec + "초";
+		
+		setTitle("쌍용관 - 영화 관리 [ " + admin_id + " ]" + "                  " + nowTime);
+	} // display
 
 	public JButton getRegesterMovie() {
 		return regesterMovie;
@@ -213,5 +219,5 @@ public class SCAMovieManageView extends JDialog implements Runnable {
 	public String getAdmin_id() {
 		return admin_id;
 	}
-	
-}
+
+} // class

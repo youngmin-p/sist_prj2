@@ -44,13 +44,12 @@ public class SCABookManageDAO {
 			con = SCAConnect.getInstance().getConn();
 			
 			// 당일 상영 중인 영화 조회
-			// "and screen_date = to_char(sysdate, 'YYYY-MM-DD') " + 
 			String selectQuery = 
 					"SELECT DISTINCT M.MOVIE_CODE, M.MOVIE_TITLE " + 
 					"FROM MOVIE M, ON_SCREEN OS " + 
 					"WHERE (M.MOVIE_CODE = OS.MOVIE_CODE) " + 
-					"AND SCREEN_DATE = '2019-01-29' " + 
-//					"AND SCREEN_DATE = TO_CHAR(SYSDATE, 'YYYY-MM-DD') " + 
+//					"AND SCREEN_DATE = '2019-04-01' " + 
+					"AND SCREEN_DATE = TO_CHAR(SYSDATE, 'YYYY-MM-DD') " + 
 					"ORDER BY M.MOVIE_CODE";
 			
 			pstmt = con.prepareStatement(selectQuery);
@@ -91,7 +90,6 @@ public class SCABookManageDAO {
 			con = SCAConnect.getInstance().getConn();
 			
 			// 당일 상영 중인 영화 조회
-			// "and screen_date = to_char(sysdate, 'YYYY-MM-DD') " + 
 			StringBuilder selectQuery = new StringBuilder();
 			
 			selectQuery
@@ -101,8 +99,8 @@ public class SCABookManageDAO {
 			.append(" FROM MOVIE M, ON_SCREEN OS, THEATER T ")
 			.append(" WHERE (OS.MOVIE_CODE = M.MOVIE_CODE) ")
 			.append("   AND (OS.SCREEN_NAME = T.SCREEN_NAME) ")
-//			.append("   AND OS.SCREEN_DATE = TO_CHAR(SYSDATE, 'YYYY-MM-DD') ")
-			.append("   AND OS.SCREEN_DATE = '2019-01-29' ");
+			.append("   AND OS.SCREEN_DATE = TO_CHAR(SYSDATE, 'YYYY-MM-DD') ");
+//			.append("   AND OS.SCREEN_DATE = '2019-04-01' ");
 			
 			if (!movie_code.equals("")) {
 				// movie_code가 empty가 아니라면, movie_code로 해당 영화를 조회
@@ -229,8 +227,8 @@ public class SCABookManageDAO {
 			.append(" 		WHERE (B.MEMBER_ID = M.MEMBER_ID) ")
 			.append(" 		  AND (SS.BOOK_NUMBER = B.BOOK_NUMBER) ")
 			.append(" 		  AND (OS.SCREEN_NUM = B.SCREEN_NUM) ")
-//			.append(" 		  AND OS.SCREEN_DATE = TO_CHAR(SYSDATE, 'YYYY-MM-DD') ")
-			.append(" 		  AND OS.SCREEN_DATE = '2019-01-29' ");
+			.append(" 		  AND OS.SCREEN_DATE = TO_CHAR(SYSDATE, 'YYYY-MM-DD') ");
+//			.append(" 		  AND OS.SCREEN_DATE = '2019-04-01' ");
 			
 			if (!movie_code.equals("")) {
 				selectQuery.append(" 		  AND OS.MOVIE_CODE = ? ");
@@ -249,16 +247,16 @@ public class SCABookManageDAO {
 			} // end if
 			
 			selectQuery
-//			.append(" 		  AND OS.SCREEN_DATE = TO_CHAR(SYSDATE, 'YYYY-MM-DD')) ")
-			.append(" 		  AND OS.SCREEN_DATE = '2019-01-29') ")
+			.append(" 		  AND OS.SCREEN_DATE = TO_CHAR(SYSDATE, 'YYYY-MM-DD')) ")
+//			.append(" 		  AND OS.SCREEN_DATE = '2019-04-01') ")
 			.append(" 		UNION ")
 			.append(" 		SELECT * FROM ( ")
 			.append(" 		SELECT B.MEMBER_ID, B.BOOK_NUMBER, B.PERSONNEL, SS.SEAT_NUM, B.PAYMENT_DATE ")
 			.append(" 		FROM BOOK B, STANDARD_SEAT SS, ON_SCREEN OS ")
 			.append(" 		WHERE (SS.BOOK_NUMBER = B.BOOK_NUMBER) ")
 			.append(" 		  AND (OS.SCREEN_NUM = B.SCREEN_NUM) ")
-//			.append(" 		  AND OS.SCREEN_DATE = TO_CHAR(SYSDATE, 'YYYY-MM-DD') ")
-			.append(" 		  AND OS.SCREEN_DATE = '2019-01-29' ");
+			.append(" 		  AND OS.SCREEN_DATE = TO_CHAR(SYSDATE, 'YYYY-MM-DD') ");
+//			.append(" 		  AND OS.SCREEN_DATE = '2019-04-01' ");
 			
 			if (!movie_code.equals("")) {
 				selectQuery.append(" 		  AND OS.MOVIE_CODE = ? ");
@@ -277,8 +275,8 @@ public class SCABookManageDAO {
 			} // end if
 			
 			selectQuery
-//			.append(" 		  AND OS.SCREEN_DATE = TO_CHAR(SYSDATE, 'YYYY-MM-DD') ")
-			.append(" 		  AND OS.SCREEN_DATE = '2019-01-29' ")
+			.append(" 		  AND OS.SCREEN_DATE = TO_CHAR(SYSDATE, 'YYYY-MM-DD') ")
+//			.append(" 		  AND OS.SCREEN_DATE = '2019-04-01' ")
 			.append(" 		  AND MEMBER_ID IS NULL)) ")
 			.append(" ORDER BY PAYMENT_DATE, SEAT_NUM ");
 			

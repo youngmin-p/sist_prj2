@@ -90,7 +90,6 @@ public class SCAMovieManageController extends WindowAdapter implements ActionLis
 				SCAMovieDatailsVO scamd_vo=scamm_dao.selectMovie(selectedMovieCode);
 				new SCAMovieDetailsView(scv,scamd_vo,this);
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 

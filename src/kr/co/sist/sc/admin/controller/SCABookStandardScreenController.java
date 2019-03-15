@@ -147,8 +147,6 @@ public class SCABookStandardScreenController extends WindowAdapter implements Ac
 							jbtSeat[i][j].setEnabled(false);
 							jbtSeat[i][j].setDisabledIcon(new ImageIcon(
 									"C:/Users/owner/git/sist_prj2/src/kr/co/sist/sc/admin/images/jbt_s_seat_unselectable(67x61).png"));
-							// 색 적용이 되지 않음
-//							jbtSeat[i][j].setForeground(new Color(0, 134, 255));
 							jbtSeat[i][j].setText("<html><font color=rgb(0, 134, 255)>" + jbtSeat[i][j].getText() + "</font></html>");
 						} // end if
 					} // end for
