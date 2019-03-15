@@ -136,7 +136,7 @@ public class SCASnackMenuAddController extends WindowAdapter implements ActionLi
 		if(snackInfo.equals("")) {
 			JOptionPane.showMessageDialog(scasmav, "스낵의 특장점은 필수로 입력해주세요.");
 			scasmav.getJtfPrice().requestFocus();
-			return;
+			return; 
 		} // end if
 		
 		try {

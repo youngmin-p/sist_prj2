@@ -17,7 +17,7 @@ public class SCASnackManageDAO {
 	private static SCASnackManageDAO scasm_dao;
 
 	private SCASnackManageDAO() {
-	} // SCASnackMangeDAO
+	} // SCASnackMangeDAO 
 
 	public static SCASnackManageDAO getInstance() {
 		if (scasm_dao == null) {
